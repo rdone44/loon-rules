@@ -1,6 +1,6 @@
 # NAME: MissAV
 # AUTHOR: rdone4425
-# REPO: https://github.com/rdone4425/loon-rules
+# REPO: https://github.com/rdone44/loon-rules
 # DESC: MissAV 家族主站/镜像/姊妹站 + 图片、视频 CDN
 # USAGE: [Remote Rule] <url>, policy=<你的策略组>, tag=MissAV, enabled=true
 # NOTE: 仅域名规则，不含策略；镜像站点新增时优先看是否含关键字 missav
