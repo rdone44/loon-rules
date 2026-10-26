@@ -1,4 +1,4 @@
-# MissAV 规则集（Loon / Surge / Clash 通用 .list）
+# Loon 规则集与插件（MissAV / 去广告合并表 / 插件镜像）
 
 MissAV 家族（含全部镜像域名、姊妹站 NJAV / ThisAV）以及它的图片、视频 CDN 的分流规则。
 
@@ -34,6 +34,48 @@ https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/MissAV.list, policy=节
 
 - `rule/MissAV.list` — Loon / Surge 语法（`DOMAIN-SUFFIX,xxx` 这种纯规则行），Clash 也能用（需包成 payload）
 - 规则本身**不带策略**，策略在引用时通过 `policy=` 指定
+
+## rule/AdBlock.list — 合并去重的去广告规则集
+
+自动生成，**请勿手工编辑**。每周一 04:00 UTC 由 GitHub Actions 重建并提交。
+
+合并来源（6 个）：
+
+| 源 | 说明 |
+|---|---|
+| blackmatrix7 `Advertising` | 去广告主表 |
+| blackmatrix7 `AdvertisingLite` | 去广告精简版 |
+| blackmatrix7 `AdvertisingTest` | 去广告测试版 |
+| blackmatrix7 `Hijacking` | 运营商劫持 |
+| blackmatrix7 `Privacy` | 隐私上报 |
+| yfamilys `AntiAD` | 第三方大表（约 32 万条） |
+
+用法（`[Remote Rule]`，建议放最前）：
+
+```ini
+https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/AdBlock.list, policy=全球拦截, tag=去广告, enabled=true
+```
+
+### 人工维护点
+
+`script/build_adblock.py` 里的 `EXCLUDE` 是审计过的白名单，用于剔除上游把正常服务端点误当广告的条目。当前剔除 2 条：
+
+- `DOMAIN-SUFFIX,graph.instagram.com` — Instagram GraphQL 接口，删了私信/主页会失败
+- `DOMAIN-SUFFIX,dns.wechat.com` — 微信 DNS 探测，删了影响弱网解析
+
+发现误杀时改 `EXCLUDE` 再触发一次 workflow，不要改上游源、也不要手改 `AdBlock.list`（下次构建会被覆盖）。
+
+### 设计取舍
+
+- 规则行**原样保留**（`DOMAIN-KEYWORD` / `IP-CIDR` / `URL-REGEX` 语义不同，不能互相折算），只按整行文本去重。
+- 输出按规则类型分组、组内字母序，保证同样输入永远得到同样输出 —— 否则每周提交都会变成整文件重写，diff 无法阅读。
+- 单个上游下载失败不会中断任务：该源被跳过并在日志里标注，其余照常合入。
+- 本地验证：`python3 script/build_adblock.py --offline-dir <目录>`，目录内放 `<源名>.list`。
+
+### ⚠ 规模提示
+
+AntiAD 单表约 32 万条，合并后约 **32.4 万条 / 10.8MB**。首次加载和内存占用会明显变高。
+如果觉得慢，删掉 `SOURCES` 里的 `AntiAD` 那行再重建，输出会降到约 1000 条。
 
 ## 注意
 
