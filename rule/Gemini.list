@@ -1,0 +1,50 @@
+# NAME: Gemini
+# REPO: https://github.com/rdone44/loon-rules
+# UPDATED: 2026-10-26
+# 用途: Gemini / AI Studio / Vertex AI / DeepMind 全端点的分流规则
+#
+# 为什么需要这份补充规则:
+#   上游 blackmatrix7/Gemini.list 只有 13 条, 覆盖不到 AI Studio、Vertex AI
+#   和各家 *-pa.clients6 / *-pa.googleapis 后端。这些请求会被兜底规则
+#   DOMAIN-SUFFIX,googleapis.com 和 DOMAIN-SUFFIX,google.com 接走 -> Google 组,
+#   而 gemini.google.com 前端在 AI 组。
+#   两个组各自独立测速、可能选中不同国家; Google 的地区校验看的是请求出口 IP,
+#   于是表现为 "Gemini 在当前地区不可用"。
+#   本文件把这些端点统一钉在同一个策略组, 保证前端与后端同出口。
+#
+# 用法 ([Remote Rule], 放在 Google.list 之前):
+#   https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/Gemini.list, policy=AI, tag=Gemini, enabled=true
+#
+# 注意:
+#   * 本文件只含规则, 不含策略; 策略在引用时用 policy= 指定。
+#   * 通用 Google 服务 (gmail / 搜索 / gstatic / reCAPTCHA / googleusercontent)
+#     刻意不收, 它们仍由 Google.list 走 Google 组 —— 否则 Gmail 会被拖进 AI 组。
+#   * 所有域名已用 DoH 逐个验证存在 (2026-10-26)。
+
+# ===== 前端 / 对话入口 =====
+DOMAIN-SUFFIX,gemini.google.com
+DOMAIN-SUFFIX,bard.google.com
+DOMAIN-SUFFIX,aistudio.google.com
+DOMAIN-SUFFIX,makersuite.google.com
+DOMAIN-SUFFIX,ai.google.dev
+DOMAIN-SUFFIX,deepmind.com
+DOMAIN-SUFFIX,deepmind.google
+DOMAIN-SUFFIX,generativeai.google
+
+# ===== 后端 API =====
+DOMAIN-SUFFIX,generativelanguage.googleapis.com
+DOMAIN-SUFFIX,aiplatform.googleapis.com
+DOMAIN-SUFFIX,aida.googleapis.com
+DOMAIN-SUFFIX,geller-pa.googleapis.com
+DOMAIN-SUFFIX,proactivebackend-pa.googleapis.com
+DOMAIN-SUFFIX,aisandbox-pa.googleapis.com
+DOMAIN-SUFFIX,cloudcode-pa.googleapis.com
+
+# ===== 前端专用后端 =====
+DOMAIN-SUFFIX,alkalicore-pa.clients6.google.com
+DOMAIN-SUFFIX,alkalimakersuite-pa.clients6.google.com
+DOMAIN-SUFFIX,geminiweb-pa.clients6.google.com
+
+# ===== 相关产品 =====
+DOMAIN-SUFFIX,labs.google
+DOMAIN-SUFFIX,notebooklm.google.com
