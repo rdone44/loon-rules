@@ -1,0 +1,195 @@
+# mihomo (Clash.Meta) 配置 — 与 Loon.conf 同构（策略组 / 规则顺序一一对应）
+# 使用：proxy-providers 里填订阅。Loon 插件 / MITM 脚本不迁移，本文件只覆盖分流与规则级去广告。
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: true
+unified-delay: true
+tcp-concurrent: true
+
+profile:
+  store-selected: true
+
+dns:
+  enable: true
+  ipv6: true
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    - '*.lan'
+    - '*.direct'
+    - cable.auth.com
+    - '*.msftconnecttest.com'
+    - '*.msftncsi.com'
+    - network-test.debian.org
+    - detectportal.firefox.com
+    - resolver1.opendns.com
+    - '*.srv.nintendo.net'
+    - '*.stun.playstation.net'
+    - 'xbox.*.microsoft.com'
+    - '*.xboxlive.com'
+    - 'stun.*'
+    - '*.stun.*'
+    - localhost.ptlogin2.qq.com
+    - '*.logon.battlenet.com.cn'
+    - '*.logon.battle.net'
+    - '*.blzstatic.cn'
+    - '*.crashlytics.com'
+    - '*.icloud.com'
+    - '*.apple.com'
+  default-nameserver: [223.5.5.5, 223.6.6.6]
+  nameserver: ['https://doh.pub/dns-query', 'https://223.5.5.5/dns-query']
+  proxy-server-nameserver: [223.5.5.5]
+
+proxies: []
+
+proxy-providers:
+  订阅:
+    type: http
+    url: 'https://你的订阅地址'
+    interval: 86400
+    health-check: { enable: true, url: 'http://www.gstatic.com/generate_204', interval: 600 }
+
+rule-providers:
+  MyDomains: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/MyDomains.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/MyDomains.list' }
+  Alibaba: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Alibaba.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Alibaba/Alibaba.list' }
+  AliPay: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/AliPay.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/AliPay/AliPay.list' }
+  Pinduoduo: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Pinduoduo.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Pinduoduo/Pinduoduo.list' }
+  JingDong: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/JingDong.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/JingDong/JingDong.list' }
+  TomatoNovel: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/TomatoNovel.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/TomatoNovel.list' }
+  Advertising: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Advertising.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Advertising/Advertising.list' }
+  Hijacking: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Hijacking.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Hijacking/Hijacking.list' }
+  Privacy: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Privacy.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Privacy/Privacy.list' }
+  Gemini: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Gemini.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/Gemini.list' }
+  OpenAI: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/OpenAI.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/OpenAI/OpenAI.list' }
+  Claude: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Claude.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Claude/Claude.list' }
+  Copilot: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Copilot.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Copilot/Copilot.list' }
+  YouTube: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/YouTube.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/YouTube/YouTube.list' }
+  Spotify: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Spotify.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Spotify/Spotify.list' }
+  BiliBili: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/BiliBili.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/BiliBili/BiliBili.list' }
+  GlobalMedia: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/GlobalMedia.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/GlobalMedia/GlobalMedia.list' }
+  MissAV: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/MissAV.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/MissAV.list' }
+  Google: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Google.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Google/Google.list' }
+  Apple: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Apple.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Apple/Apple.list' }
+  Microsoft: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Microsoft.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Microsoft/Microsoft.list' }
+  GitHub: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/GitHub.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/GitHub/GitHub.list' }
+  Telegram: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Telegram.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Telegram/Telegram.list' }
+  Twitter: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Twitter.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Twitter/Twitter.list' }
+  Facebook: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Facebook.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Facebook/Facebook.list' }
+  Instagram: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Instagram.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Instagram/Instagram.list' }
+  Threads: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Threads.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Threads/Threads.list' }
+  Whatsapp: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Whatsapp.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Whatsapp/Whatsapp.list' }
+  MetaExtra: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/MetaExtra.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/MetaExtra.list' }
+  Cloudflare: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Cloudflare.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Cloudflare/Cloudflare.list' }
+  Game: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Game.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Game/Game.list' }
+  OKX: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/OKX.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/OKX/OKX.list' }
+  Binance: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Binance.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Binance/Binance.list' }
+  Crypto: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Crypto.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Crypto/Crypto.list' }
+  DouYin: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/DouYin.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/DouYin/DouYin.list' }
+  China: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/China.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/China/China.list' }
+  ChinaIPs: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/ChinaIPs.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/ChinaIPs/ChinaIPs.list' }
+  Global: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Global.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Global/Global.list' }
+
+proxy-groups:
+  # ---- 应用策略组 ----
+  - { name: Meta, type: select, proxies: [美国自动, 美国节点, 自动选择] }
+  - { name: YouTube, type: select, proxies: [香港自动, 台湾自动, 日本自动, 新加坡自动, 美国自动, 韩国自动, 德国自动] }
+  - { name: Google, type: select, proxies: [自动选择] }
+  - { name: Spotify, type: select, proxies: [香港自动, 台湾自动, 日本自动, 新加坡自动, 美国自动] }
+  - { name: AI, type: select, proxies: [美国节点, 日本节点, 新加坡节点, 其他节点] }
+  - { name: 苹果服务, type: select, proxies: [DIRECT, 香港自动, 美国自动] }
+  - { name: 微软服务, type: select, proxies: [DIRECT, 德国自动, 美国自动] }
+  - { name: GitHub, type: select, proxies: [香港自动, 台湾自动, 日本自动, 新加坡自动, 美国自动, 韩国自动, 德国自动] }
+  - { name: Telegram, type: select, proxies: [香港节点, 日本节点, 新加坡节点, 美国节点, 其他节点] }
+  - { name: Twitter, type: select, proxies: [美国自动] }
+  - { name: 游戏平台, type: select, proxies: [DIRECT, 香港自动, 日本自动, 美国自动] }
+  - { name: 加密货币, type: select, proxies: [日本自动] }
+  - { name: 金融应用, type: select, proxies: [DIRECT] }
+  - { name: 国外媒体, type: select, proxies: [香港自动, 台湾自动, 日本自动, 新加坡自动, 美国自动] }
+  - { name: MissAV, type: select, proxies: [日本自动, 香港自动, 台湾自动, 美国自动, 其他节点] }
+  - { name: 哔哩哔哩, type: select, proxies: [DIRECT, 香港自动, 台湾自动] }
+  # ---- 主策略组 ----
+  - { name: 节点选择, type: select, proxies: [自动选择, DIRECT] }
+  - { name: 自动选择, type: url-test, include-all: true, filter: '(?i)🇭🇰|香港|🇯🇵|日本|🇸🇬|新加坡|🇺🇸|美国|Hong ?Kong|Tokyo|Osaka|Singapore|\b(HK|HKG|JP|JPN|SG|SGP|US|USA)\b', exclude-filter: '(?i)回国|校园|游戏|到期|流量|剩余|官网|客服|订阅|邀请|频道', url: 'http://www.gstatic.com/generate_204', interval: 600, tolerance: 150 }
+  # ---- 功能策略组 ----
+  - { name: 全球拦截, type: select, proxies: [REJECT, DIRECT] }
+  - { name: 漏网之鱼, type: fallback, proxies: [香港自动, 日本自动, 美国自动, 新加坡自动, 其他节点], url: 'http://www.gstatic.com/generate_204', interval: 300 }
+  # ---- 地区节点（筛选器）----
+  - { name: 香港节点, type: select, include-all: true, filter: '(?i)🇭🇰|香港|港|Hong ?Kong|\b(HK|HKG|HKT|HKBN|PCCW|HKIX|WTT|CMI|HGC)\d*\b', exclude-filter: '(?i)回国|校园|游戏|到期|流量|剩余|官网|客服|订阅|邀请|频道' }
+  - { name: 台湾节点, type: select, include-all: true, filter: '(?i)🇹🇼|台湾|臺灣|台北|新北|台中|台南|高雄|新竹|Taiwan|Taipei|\b(TW|TWN|TPE)\d*\b|HiNet', exclude-filter: '(?i)回国|校园|游戏|到期|流量|剩余|官网|客服|订阅|邀请|频道' }
+  - { name: 日本节点, type: select, include-all: true, filter: '(?i)🇯🇵|日本|东京|東京|大阪|京都|名古屋|札幌|横滨|埼玉|Japan|Tokyo|Osaka|NTT|\b(JP|JPN|NRT|HND|KIX|TYO)\d*\b', exclude-filter: '(?i)回国|校园|游戏|到期|流量|剩余|官网|客服|订阅|邀请|频道' }
+  - { name: 韩国节点, type: select, include-all: true, filter: '(?i)🇰🇷|韩国|韓國|首尔|首爾|釜山|Korea|Seoul|\b(KR|KOR|ICN)\d*\b', exclude-filter: '(?i)回国|校园|游戏|到期|流量|剩余|官网|客服|订阅|邀请|频道' }
+  - { name: 新加坡节点, type: select, include-all: true, filter: '(?i)🇸🇬|新加坡|狮城|獅城|Singapore|\b(SG|SGP|SIN)\d*\b', exclude-filter: '(?i)回国|校园|游戏|到期|流量|剩余|官网|客服|订阅|邀请|频道' }
+  - { name: 美国节点, type: select, include-all: true, filter: '(?i)🇺🇸|美国|美國|洛杉矶|纽约|圣何塞|西雅图|芝加哥|达拉斯|凤凰城|硅谷|United ?States|America|\b(US|USA|LAX|SJC|SFO|SEA|IAD|ORD|DFW|JFK|NYC|EWR)\d*\b', exclude-filter: '(?i)回国|校园|游戏|到期|流量|剩余|官网|客服|订阅|邀请|频道' }
+  - { name: 德国节点, type: select, include-all: true, filter: '(?i)🇩🇪|德国|德國|法兰克福|柏林|慕尼黑|汉堡|Germany|Frankfurt|\b(DE|DEU|FRA)\d*\b', exclude-filter: '(?i)回国|校园|游戏|到期|流量|剩余|官网|客服|订阅|邀请|频道' }
+  - { name: 其他节点, type: select, include-all: true, exclude-filter: '(?i)回国|校园|游戏|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|香港|台湾|日本|韩国|新加坡|美国|德国|Hong ?Kong|Taiwan|Japan|Korea|Singapore|United ?States|Germany|\b(HK|HKG|TW|TWN|JP|JPN|KR|KOR|SG|SGP|US|USA|DE|DEU)\b' }
+  # ---- 地区自动组 ----
+  - { name: 香港自动, type: url-test, include-all: true, filter: '(?i)🇭🇰|香港|港|Hong ?Kong|\b(HK|HKG|HKT|HKBN|PCCW|HKIX|WTT|CMI|HGC)\d*\b', exclude-filter: '(?i)回国|校园|游戏|到期|流量|剩余|官网|客服|订阅|邀请|频道', url: 'http://www.gstatic.com/generate_204', interval: 600, tolerance: 300 }
+  - { name: 台湾自动, type: url-test, include-all: true, filter: '(?i)🇹🇼|台湾|臺灣|台北|新北|台中|台南|高雄|新竹|Taiwan|Taipei|\b(TW|TWN|TPE)\d*\b|HiNet', exclude-filter: '(?i)回国|校园|游戏|到期|流量|剩余|官网|客服|订阅|邀请|频道', url: 'http://www.gstatic.com/generate_204', interval: 600, tolerance: 300 }
+  - { name: 日本自动, type: url-test, include-all: true, filter: '(?i)🇯🇵|日本|东京|東京|大阪|京都|名古屋|札幌|横滨|埼玉|Japan|Tokyo|Osaka|NTT|\b(JP|JPN|NRT|HND|KIX|TYO)\d*\b', exclude-filter: '(?i)回国|校园|游戏|到期|流量|剩余|官网|客服|订阅|邀请|频道', url: 'http://www.gstatic.com/generate_204', interval: 600, tolerance: 300 }
+  - { name: 新加坡自动, type: url-test, include-all: true, filter: '(?i)🇸🇬|新加坡|狮城|獅城|Singapore|\b(SG|SGP|SIN)\d*\b', exclude-filter: '(?i)回国|校园|游戏|到期|流量|剩余|官网|客服|订阅|邀请|频道', url: 'http://www.gstatic.com/generate_204', interval: 600, tolerance: 300 }
+  - { name: 美国自动, type: url-test, include-all: true, filter: '(?i)🇺🇸|美国|美國|洛杉矶|纽约|圣何塞|西雅图|芝加哥|达拉斯|凤凰城|硅谷|United ?States|America|\b(US|USA|LAX|SJC|SFO|SEA|IAD|ORD|DFW|JFK|NYC|EWR)\d*\b', exclude-filter: '(?i)回国|校园|游戏|到期|流量|剩余|官网|客服|订阅|邀请|频道', url: 'http://www.gstatic.com/generate_204', interval: 600, tolerance: 300 }
+  - { name: 韩国自动, type: url-test, include-all: true, filter: '(?i)🇰🇷|韩国|韓國|首尔|首爾|釜山|Korea|Seoul|\b(KR|KOR|ICN)\d*\b', exclude-filter: '(?i)回国|校园|游戏|到期|流量|剩余|官网|客服|订阅|邀请|频道', url: 'http://www.gstatic.com/generate_204', interval: 600, tolerance: 300 }
+  - { name: 德国自动, type: url-test, include-all: true, filter: '(?i)🇩🇪|德国|德國|法兰克福|柏林|慕尼黑|汉堡|Germany|Frankfurt|\b(DE|DEU|FRA)\d*\b', exclude-filter: '(?i)回国|校园|游戏|到期|流量|剩余|官网|客服|订阅|邀请|频道', url: 'http://www.gstatic.com/generate_204', interval: 600, tolerance: 300 }
+
+rules:
+  # 本地例外（对应 Loon [Rule]，优先于所有规则集）
+  - DOMAIN-SUFFIX,lody.ai,AI
+  - DOMAIN,ai.hyper.nyc.mn,YouTube
+  - DOMAIN-SUFFIX,linux.do,自动选择
+  - DOMAIN-SUFFIX,javdb.com,台湾自动
+  - DOMAIN-SUFFIX,whatshub.top,自动选择
+  - DOMAIN-SUFFIX,1688.com,DIRECT
+  - DOMAIN-SUFFIX,goofish.com,DIRECT
+  - DOMAIN-SUFFIX,gstatic.com,Google
+  - DOMAIN-SUFFIX,googleapis.cn,DIRECT
+  - IP-CIDR,192.168.0.0/16,DIRECT,no-resolve
+  - IP-CIDR,10.0.0.0/8,DIRECT,no-resolve
+  - IP-CIDR,172.16.0.0/12,DIRECT,no-resolve
+  - IP-CIDR,127.0.0.0/8,DIRECT,no-resolve
+  - DOMAIN-SUFFIX,msftconnecttest.com,DIRECT
+  - DOMAIN-SUFFIX,msftncsi.com,DIRECT
+  - DOMAIN-SUFFIX,captive.apple.com,DIRECT
+  - DOMAIN-SUFFIX,network-test.debian.org,DIRECT
+  - IP-CIDR,17.0.0.0/8,DIRECT,no-resolve
+  # 远程规则集（顺序同 Loon [Remote Rule]）
+  - RULE-SET,MyDomains,DIRECT
+  - RULE-SET,Alibaba,DIRECT
+  - RULE-SET,AliPay,DIRECT
+  - RULE-SET,Pinduoduo,DIRECT
+  - RULE-SET,JingDong,DIRECT
+  - RULE-SET,TomatoNovel,DIRECT
+  - RULE-SET,Advertising,全球拦截
+  - RULE-SET,Hijacking,全球拦截
+  - RULE-SET,Privacy,全球拦截
+  - RULE-SET,Gemini,AI
+  - RULE-SET,OpenAI,AI
+  - RULE-SET,Claude,AI
+  - RULE-SET,Copilot,AI
+  - RULE-SET,YouTube,YouTube
+  - RULE-SET,Spotify,Spotify
+  - RULE-SET,BiliBili,哔哩哔哩
+  - RULE-SET,GlobalMedia,国外媒体
+  - RULE-SET,MissAV,MissAV
+  - RULE-SET,Google,Google
+  - RULE-SET,Apple,苹果服务
+  - RULE-SET,Microsoft,微软服务
+  - RULE-SET,GitHub,GitHub
+  - RULE-SET,Telegram,Telegram
+  - RULE-SET,Twitter,Twitter
+  - RULE-SET,Facebook,Meta
+  - RULE-SET,Instagram,Meta
+  - RULE-SET,Threads,Meta
+  - RULE-SET,Whatsapp,Meta
+  - RULE-SET,MetaExtra,Meta
+  - RULE-SET,Cloudflare,节点选择
+  - RULE-SET,Game,游戏平台
+  - RULE-SET,OKX,加密货币
+  - RULE-SET,Binance,加密货币
+  - RULE-SET,Crypto,加密货币
+  - RULE-SET,DouYin,DIRECT
+  - RULE-SET,China,DIRECT
+  - RULE-SET,ChinaIPs,DIRECT
+  - RULE-SET,Global,节点选择
+  - MATCH,漏网之鱼

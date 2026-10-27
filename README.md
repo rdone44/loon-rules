@@ -6,7 +6,9 @@
 
 | 路径 | 说明 |
 |---|---|
-| `Loon.conf` | 完整 Loon 配置模板（DNS / 策略组 / 分流 / 插件），注释里写了每个取舍的原因 |
+| `Loon.conf` | 完整 Loon 配置模板（DNS / 策略组 / 分流 / 插件） |
+| `Shadowrocket.conf` | 小火箭配置，与 Loon.conf 同构分流（插件 / MITM 脚本不迁移） |
+| `mihomo.yaml` | mihomo (Clash.Meta) 配置，与 Loon.conf 同构分流（插件 / MITM 脚本不迁移） |
 | `rule/MissAV.list` | MissAV 家族 + 图片 / 视频 CDN 分流规则 |
 | `rule/Gemini.list` | Gemini / AI Studio / Vertex 全端点分流规则 |
 | `rule/category-ads-all.list` | v2fly `category-ads-all` 的 Loon 格式转换（静态，约 900 条） |
