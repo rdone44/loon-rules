@@ -171,73 +171,10 @@ proxy-groups:
     proxies: [REJECT, DIRECT]
   - name: 漏网之鱼
     type: fallback
-    proxies: [香港自动, 日本自动, 美国自动, 新加坡自动, 其他节点]
+    include-all: true
+    exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
     url: http://www.gstatic.com/generate_204
     interval: 300
-  # ================= 地区自动组 =================
-  - name: 香港自动
-    type: url-test
-    include-all: true
-    filter: '(?i)🇭🇰|香港|港|Hong ?Kong|\b(HK|HKG|HKT|HKBN|PCCW|HKIX|WTT|CMI|HGC)\d*\b'
-    exclude-filter: '(?i)回国|校园|游戏|到期|流量|剩余|官网|客服|订阅|邀请|频道'
-    url: http://www.gstatic.com/generate_204
-    interval: 600
-    tolerance: 300
-  - name: 台湾自动
-    type: url-test
-    include-all: true
-    filter: '(?i)🇹🇼|台湾|臺灣|台北|新北|台中|台南|高雄|新竹|Taiwan|Taipei|\b(TW|TWN|TPE)\d*\b|HiNet'
-    exclude-filter: '(?i)回国|校园|游戏|到期|流量|剩余|官网|客服|订阅|邀请|频道'
-    url: http://www.gstatic.com/generate_204
-    interval: 600
-    tolerance: 300
-  - name: 日本自动
-    type: url-test
-    include-all: true
-    filter: '(?i)🇯🇵|日本|东京|東京|大阪|京都|名古屋|札幌|横滨|埼玉|Japan|Tokyo|Osaka|NTT|\b(JP|JPN|NRT|HND|KIX|TYO)\d*\b'
-    exclude-filter: '(?i)回国|校园|游戏|到期|流量|剩余|官网|客服|订阅|邀请|频道'
-    url: http://www.gstatic.com/generate_204
-    interval: 600
-    tolerance: 300
-  - name: 新加坡自动
-    type: url-test
-    include-all: true
-    filter: '(?i)🇸🇬|新加坡|狮城|獅城|Singapore|\b(SG|SGP|SIN)\d*\b'
-    exclude-filter: '(?i)回国|校园|游戏|到期|流量|剩余|官网|客服|订阅|邀请|频道'
-    url: http://www.gstatic.com/generate_204
-    interval: 600
-    tolerance: 300
-  - name: 美国自动
-    type: url-test
-    include-all: true
-    filter: '(?i)🇺🇸|美国|美國|洛杉矶|纽约|圣何塞|西雅图|芝加哥|达拉斯|凤凰城|硅谷|United ?States|America|\b(US|USA|LAX|SJC|SFO|SEA|IAD|ORD|DFW|JFK|NYC|EWR)\d*\b'
-    exclude-filter: '(?i)回国|校园|游戏|到期|流量|剩余|官网|客服|订阅|邀请|频道'
-    url: http://www.gstatic.com/generate_204
-    interval: 600
-    tolerance: 300
-  - name: 韩国自动
-    type: url-test
-    include-all: true
-    filter: '(?i)🇰🇷|韩国|韓國|首尔|首爾|釜山|Korea|Seoul|\b(KR|KOR|ICN)\d*\b'
-    exclude-filter: '(?i)回国|校园|游戏|到期|流量|剩余|官网|客服|订阅|邀请|频道'
-    url: http://www.gstatic.com/generate_204
-    interval: 600
-    tolerance: 300
-  - name: 德国自动
-    type: url-test
-    include-all: true
-    filter: '(?i)🇩🇪|德国|德國|法兰克福|柏林|慕尼黑|汉堡|Germany|Frankfurt|\b(DE|DEU|FRA)\d*\b'
-    exclude-filter: '(?i)回国|校园|游戏|到期|流量|剩余|官网|客服|订阅|邀请|频道'
-    url: http://www.gstatic.com/generate_204
-    interval: 600
-    tolerance: 300
-  - name: 其他节点
-    type: url-test
-    include-all: true
-    exclude-filter: '(?i)回国|校园|游戏|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|香港|台湾|日本|韩国|新加坡|美国|德国|Hong ?Kong|Taiwan|Japan|Korea|Singapore|United ?States|Germany|\b(HK|HKG|TW|TWN|JP|JPN|KR|KOR|SG|SGP|US|USA|DE|DEU)\b'
-    url: http://www.gstatic.com/generate_204
-    interval: 600
-    tolerance: 150
   # ---- 网关锚点（hidden）：仅接收网关插到 rules 顶部的 personal-ai / personal-direct ----
   - name: 🤖 AI 服务
     type: select
@@ -253,7 +190,7 @@ rules:
   - DOMAIN-SUFFIX,lody.ai,AI
   - DOMAIN,ai.hyper.nyc.mn,YouTube
   - DOMAIN-SUFFIX,linux.do,自动选择
-  - DOMAIN-SUFFIX,javdb.com,台湾自动
+  - DOMAIN-SUFFIX,javdb.com,节点选择
   - DOMAIN-SUFFIX,whatshub.top,自动选择
   - DOMAIN-SUFFIX,1688.com,DIRECT
   - DOMAIN-SUFFIX,goofish.com,DIRECT
