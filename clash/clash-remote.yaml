@@ -125,13 +125,10 @@ proxy-groups:
     include-all: true
     exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
   - name: 加密货币
-    type: url-test
+    type: select
+    proxies: [自动选择]
     include-all: true
     exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
-    url: https://api.binance.com/api/v3/ping
-    expected-status: "200"
-    interval: 600
-    tolerance: 150
   - name: 金融应用
     type: select
     proxies: [DIRECT, 自动选择]
