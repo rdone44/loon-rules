@@ -174,10 +174,10 @@ https://raw.githubusercontent.com/rdone44/loon-rules/main/plugin/RuleLookup.lpx,
 Loon 的脚本日志和通知都是临时的，翻不了历史。想让每次查询留痕，可以把结果写进 Cloudflare：
 
 1. 按 `worker/README.md` 部署 `worker/`（Workers + D1 + 一个 `LOOKUP_TOKEN`）
-2. 插件设置里填 `记录服务器`（Worker 地址）和 `记录密钥`（＝`LOOKUP_TOKEN`）
+2. 插件设置里确认「记录到 Cloudflare」开关打开，填入 `记录密钥`（＝`LOOKUP_TOKEN`）；`记录服务器` 已预填
 3. 之后每次运行都会在 `https://<worker>/` 留一条记录：时间、目标、生效策略、规则表、完整命中链路
 
-记录只存在你自己的 Cloudflare 账号里，密钥不要写进 `.lpx`（仓库是公开的）。两个参数留空则完全不联网写入，行为和之前一致。
+三个条件的开关关系：**记录开关打开 + 服务器地址 + 密钥** 全满足才上报，任一不满足就只弹通知。记录只存在你自己的 Cloudflare 账号里，密钥不要写进 `.lpx`（仓库是公开的）。
 
 ---
 

@@ -13,11 +13,18 @@ const MODE = String(ARG.mode || '结构概览');
 const QUERY = String(ARG.domain || '').trim();
 const RECORD_SERVER = String(ARG.server || '').trim().replace(/\/+$/, '');
 const RECORD_TOKEN = String(ARG.token || '').trim();
+// 开关：插件传 boolean；兼容写成字符串的情况，默认开
+const RECORD_ON = (function () {
+  const v = ARG.record;
+  if (typeof v === 'boolean') return v;
+  if (typeof v === 'string') return !/^(false|0|no|off|关|否)$/i.test(v.trim());
+  return true;
+})();
 const BUILTIN = ['DIRECT', 'REJECT', 'REJECT-DROP', 'PROXY', 'PASS'];
 
-// 是否需要把结果上报到 Cloudflare（服务地址和密钥都填了才启用）
+// 上报需要同时满足：开关打开 + 服务器地址 + 密钥
 function recordingEnabled() {
-  return Boolean(RECORD_SERVER && RECORD_TOKEN);
+  return RECORD_ON && Boolean(RECORD_SERVER && RECORD_TOKEN);
 }
 
 // 上报不阻塞主流程：先算完展示，再在后台发；失败只写日志
