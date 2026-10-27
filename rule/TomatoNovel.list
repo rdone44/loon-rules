@@ -1,9 +1,9 @@
 # NAME: TomatoNovel
-# DESC: 番茄小说 / 字节系阅读（含 fanqie*、fqnovel*、qznovel*、novelfm*）
-# SOURCE: blackmatrix7/ios_rule_script ByteDance.list 番茄段 + 手工补 fanqienovel.com
+# DESC: 番茄小说 / 字节系阅读（fanqie*、fqnovel*、qznovel*、novelfm*）+ 它们依赖的字节共享 CDN
+# SOURCE: blackmatrix7/ios_rule_script ByteDance.list 番茄段 + 手工补
 # 用途：policy=DIRECT（走代理必卡）
 # UPDATED: 2026-10-27
-# TOTAL: 25
+# TOTAL: 35
 DOMAIN-SUFFIX,changdunovel.com
 DOMAIN-SUFFIX,fanqiecopyright.com
 DOMAIN-SUFFIX,fanqienovel.com
@@ -29,3 +29,18 @@ DOMAIN-SUFFIX,novelfmvod.com
 DOMAIN-SUFFIX,qznovelpic.com
 DOMAIN-SUFFIX,qznovelstatic.com
 DOMAIN-SUFFIX,qznovelvod.com
+
+# ── 第 2 段：字节系共享 CDN / 静态资源 ──
+# 番茄的封面图、正文静态资源、TOS 对象存储都走这些域名，它们不含 fanqie/fqnovel 关键词，
+# 也不在 DouYin.list（那里只有 pstatp/snssdk/toutiao/amemv/ixigua），所以之前整段落到了 FINAL。
+# 已核对：这些域名都不在 Advertising.list 里，前置直连不会解除广告拦截。
+DOMAIN-SUFFIX,qznovel.com
+DOMAIN-SUFFIX,byteimg.com
+DOMAIN-SUFFIX,toutiaostatic.com
+DOMAIN-SUFFIX,toutiaoimg.com
+DOMAIN-SUFFIX,volccdn.com
+DOMAIN-SUFFIX,ibytedtos.com
+DOMAIN-SUFFIX,bytetos.com
+DOMAIN-SUFFIX,bytescm.com
+DOMAIN-SUFFIX,bytedance.com
+DOMAIN-SUFFIX,zijieapi.com
