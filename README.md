@@ -14,6 +14,7 @@
 | `rule/Gemini.list` | Gemini / AI Studio / Vertex 全端点分流规则 |
 | `rule/category-ads-all.list` | v2fly `category-ads-all` 的 Loon 格式转换（静态，约 900 条） |
 | `plugin/*.lpx` | kelee.one 插件镜像（源站被 Cloudflare 阻断） |
+| `plugin/RuleLookup.lpx` | 路由规则查看插件（自写，非镜像），配套脚本 `script/RuleLookup.js` |
 | `plugin/blockAds-finance-safe.plugin` | fmz200 blockAds 的金融风控安全派生版 |
 | `script/*.js` | 插件引用的脚本（镜像插件的 `script-path` 已重定向到本仓库） |
 
@@ -113,7 +114,70 @@ https://raw.githubusercontent.com/rdone44/loon-rules/main/plugin/blockAds-financ
 
 ---
 
+## plugin/RuleLookup.lpx — 路由规则查看
+
+在 Loon 里直接查「这个域名到底走哪个策略」。插件是 `generic` 脚本，**不拦截任何流量、不改配置**，只在插件列表里手动点一下触发。
+
+脚本拉取本仓库的 `Loon.conf`，解析 `[Rule]` / `[Remote Rule]` / `[Proxy Group]`，再按 Loon 的真实顺序复现匹配：
+
+```
+本地 [Rule] → 远程表按 [Remote Rule] 顺序自上而下，首条命中生效 → FINAL
+```
+
+规则表本身也是从仓库远程拉的（github raw 失败自动切 jsdelivr），所以**改了 `Loon.conf` 不用等 Loon 重新载入配置，插件看到的就是仓库里的最新版本**。
+
+### 用法
+
+`[Plugin]` 加一行：
+
+```ini
+https://raw.githubusercontent.com/rdone44/loon-rules/main/plugin/RuleLookup.lpx, enabled=true
+```
+
+然后在 Loon → 插件 → 路由规则查看 → 填参数 → 点脚本运行。三个模式：
+
+| 模式 | 作用 |
+|---|---|
+| `结构概览` | 不联网拉规则表。列出本地规则、38 张远程表的顺序与策略组、每张表当前选中的节点；检查策略组是否存在、有没有重复引用的表、有没有 GEOIP 兜底 |
+| `查域名` | 填 `查询域名`（域名或 IPv4）。拉全部规则表（跳过 ChinaIPs），输出**命中链路**：第一条=实际生效的策略，后面的=被抢先的规则 |
+| `全量体检` | 拉全部规则表（含 ChinaIPs 约 700KB），估算域名类规则的独占命中率，列出 IP / 其他类型规则数量，以及「完全重复的规则行」和「跨策略抢先」明细 |
+
+### 为什么需要它
+
+`查域名` 输出的是这种，一眼看出为什么 Gemini 没被拖进 Google 组：
+
+```
+▶1. Gemini    → AI      （生效，当前 美国自动）  DOMAIN-SUFFIX,gemini.google.com
+ 2. 谷歌服务   → Google  （被前面的规则抢先，不生效）  DOMAIN-SUFFIX,google.com
+ 3. 谷歌服务   → Google  （被前面的规则抢先，不生效）  DOMAIN-KEYWORD,google
+ 4. 全球代理   → 节点选择 （被前面的规则抢先，不生效）  DOMAIN-KEYWORD,google
+```
+
+`全量体检` 用生成的候选域名样本估算「哪些域名规则先命中」，不等于整张规则表的总生效率：IP / UA 等规则按数量单独列出，脚本不会把它们误报成无效。例如：
+
+- `隐私上报` 的 20 条规则都被前面的 `去广告` 覆盖：19 条完全重复，`0.0.0.1/32` 落在广告规则 `0.0.0.0/24` 内。可选地停用 Privacy 以少拉一张小表，但会失去独立的隐私规则标签，收益主要是配置简化
+- `Copilot` 有 31 条域名规则与前面的 `OpenAI` 重复，策略同为 `AI`，所以结果不变，只增加维护量
+- `游戏平台` 有部分域名与 `微软服务` 重叠（包括 `bethesda.net`、`login.live.com` 等）；这些请求实际先走微软组，只有你希望它们改走游戏组时才需要加例外
+
+### 限制
+
+- 匹配模型按官方文档实现：**目标是域名时先按配置顺序跑完所有域名类规则，全不命中才解析 DNS 去跑 IP 规则**；所以 `IP-CIDR` 写在前面也不会抢走后面的域名规则
+- 全量体检的域名命中率用合成域名样本估算，只适合发现重复和明显的顺序遮蔽；不能代表真实流量比例，也不评估 IP / GEOIP / UA 规则是否命中
+- `IP-CIDR6`、`GEOIP`、`IP-ASN` 不在脚本内计算；域名查不到时脚本会提醒「接下来会转去跑 IP 表，最终可能不是 FINAL」
+- `USER-AGENT` / `URL-REGEX` / `PROTOCOL` / `PORT` 这类需要真实请求上下文的规则无法离线判定，不参与匹配
+- 域名查询时 `ChinaIPs.list` 被跳过（700KB，且对域名无意义）
+- 需要 Loon 3.5.1(983)+（新版 Script 语法 + `[Argument]` 对象参数）；脚本超时设了 120s，网络慢时建议在 Wi-Fi 下跑「全量体检」
+
+---
+
 ## Loon.conf — 配置模板
+
+### 建议的规则整理
+
+- `AliPay.list` 曾在 `[Remote Rule]` 中重复引用；已删除后面那条冗余引用（Shadowrocket / mihomo 原本各只有一份），对应配置已同步
+- 购物 / 阅读规则继续放在广告表之前：Advertising 的 `DOMAIN-KEYWORD` 会命中 `ynuf.alipay.com` 和 `kepler.jd.com` 等业务子域；前置商店规则可让这些请求按支付宝 / 京东策略处理。移到广告表后会改变这些子域的路由
+- 不要仅因为规则在两张表中重复就调整顺序。先看策略是否不同：`Copilot` / `OpenAI` 都走 AI，重复只增加维护；Xbox / Bethesda 与微软规则重叠则实际走微软组，只有预期是游戏组时才需要写更靠前的例外
+- 可选地停用重复的 `Privacy` 表，能少一次小表下载；保留它也有独立标签和上游来源，偏好清晰分类时可以不动。若修改，Loon、Shadowrocket、mihomo 三份配置保持一致
 
 使用前必做两件事：
 

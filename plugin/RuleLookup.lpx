@@ -1,0 +1,16 @@
+#!name=路由规则查看
+#!desc=在 Loon 里直接查「某个域名会走哪个策略」以及「规则表排序有没有互相抢」。拉取本仓库的 Loon.conf 复现匹配顺序，只读不改配置。
+#!author=rdone44
+#!homepage=https://github.com/rdone44/loon-rules
+#!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Global.png
+#!tag=工具,规则
+#!system=iOS,iPadOS,macOS
+#!loon_version=3.5.1(983)
+#!date=2026-10-27
+
+[Argument]
+mode = select,"结构概览","查域名","全量体检",type=string,tag=模式,desc=结构概览：看本地规则/远程表顺序/策略组是否都存在；查域名：按 Loon 匹配顺序算出实际策略；全量体检：拉全部规则表算每张表的生效率
+domain = input,"",type=string,tag=查询域名,desc=仅在「查域名」模式下生效，例：www.youtube.com 或 1.1.1.1
+
+[Script]
+generic then script("https://raw.githubusercontent.com/rdone44/loon-rules/main/script/RuleLookup.js", {${mode}, ${domain}}) with tag="路由规则查看", img_url="magnifyingglass.circle", timeout=120
