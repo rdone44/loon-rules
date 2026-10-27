@@ -15,6 +15,7 @@
 | `rule/category-ads-all.list` | v2fly `category-ads-all` 的 Loon 格式转换（静态，约 900 条） |
 | `plugin/*.lpx` | kelee.one 插件镜像（源站被 Cloudflare 阻断） |
 | `plugin/RuleLookup.lpx` | 路由规则查看插件（自写，非镜像），配套脚本 `script/RuleLookup.js` |
+| `worker/` | 插件查询记录的 Cloudflare Worker + D1 后端与网页，详见 `worker/README.md` |
 | `plugin/blockAds-finance-safe.plugin` | fmz200 blockAds 的金融风控安全派生版 |
 | `script/*.js` | 插件引用的脚本（镜像插件的 `script-path` 已重定向到本仓库） |
 
@@ -167,6 +168,16 @@ https://raw.githubusercontent.com/rdone44/loon-rules/main/plugin/RuleLookup.lpx,
 - `USER-AGENT` / `URL-REGEX` / `PROTOCOL` / `PORT` 这类需要真实请求上下文的规则无法离线判定，不参与匹配
 - 域名查询时 `ChinaIPs.list` 被跳过（700KB，且对域名无意义）
 - 需要 Loon 3.5.1(983)+（新版 Script 语法 + `[Argument]` 对象参数）；脚本超时设了 120s，网络慢时建议在 Wi-Fi 下跑「全量体检」
+
+### 查询记录（可选）
+
+Loon 的脚本日志和通知都是临时的，翻不了历史。想让每次查询留痕，可以把结果写进 Cloudflare：
+
+1. 按 `worker/README.md` 部署 `worker/`（Workers + D1 + 一个 `LOOKUP_TOKEN`）
+2. 插件设置里填 `记录服务器`（Worker 地址）和 `记录密钥`（＝`LOOKUP_TOKEN`）
+3. 之后每次运行都会在 `https://<worker>/` 留一条记录：时间、目标、生效策略、规则表、完整命中链路
+
+记录只存在你自己的 Cloudflare 账号里，密钥不要写进 `.lpx`（仓库是公开的）。两个参数留空则完全不联网写入，行为和之前一致。
 
 ---
 

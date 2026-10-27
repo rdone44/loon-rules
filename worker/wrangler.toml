@@ -1,0 +1,11 @@
+name = "loon-rule-records"
+main = "src/index.js"
+compatibility_date = "2025-06-01"
+
+# 记录存储
+[[d1_databases]]
+binding = "DB"
+database_name = "loon-rule-records"
+database_id = "4296863f-0689-44d6-9f48-e36c2641bed2"
+
+# 写入密钥用 `wrangler secret put LOOKUP_TOKEN` 设置，不写在这里

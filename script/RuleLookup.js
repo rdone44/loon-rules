@@ -11,7 +11,44 @@ const CONF_URLS = [REPO_RAW + 'Loon.conf', REPO_CDN + 'Loon.conf'];
 const ARG = (typeof $argument === 'object' && $argument) ? $argument : {};
 const MODE = String(ARG.mode || '结构概览');
 const QUERY = String(ARG.domain || '').trim();
+const RECORD_SERVER = String(ARG.server || '').trim().replace(/\/+$/, '');
+const RECORD_TOKEN = String(ARG.token || '').trim();
 const BUILTIN = ['DIRECT', 'REJECT', 'REJECT-DROP', 'PROXY', 'PASS'];
+
+// 是否需要把结果上报到 Cloudflare（服务地址和密钥都填了才启用）
+function recordingEnabled() {
+  return Boolean(RECORD_SERVER && RECORD_TOKEN);
+}
+
+// 上报不阻塞主流程：先算完展示，再在后台发；失败只写日志
+function sendRecord(payload, done) {
+  if (!recordingEnabled()) return done ? done() : null;
+  const body = JSON.stringify(payload);
+  let settled = false;
+  const settle = function (note) {
+    if (settled) return;
+    settled = true;
+    if (note) console.log('RuleLookup: 记录上报 - ' + note);
+    if (done) done();
+  };
+  // 网络卡住时不让脚本挂死，2.5s 后放行
+  setTimeout(function () { settle('超时未回包，已跳过'); }, 2500);
+  try {
+    $httpClient.post({
+      url: RECORD_SERVER + '/api/record',
+      headers: { 'content-type': 'application/json', 'x-loon-token': RECORD_TOKEN },
+      body: body,
+      timeout: 5000
+    }, function (err, resp, data) {
+      if (err) return settle('失败 ' + err);
+      if (!resp || resp.status >= 400) return settle('HTTP ' + (resp ? resp.status : '?') + ' ' + String(data || '').slice(0, 120));
+      settle('');
+    });
+  } catch (e) {
+    settle('异常 ' + e.message);
+  }
+  return null;
+}
 
 // ---------------------------------------------------------------- 工具
 
@@ -255,17 +292,19 @@ function notify(title, subtitle, content) {
   try { $notification.post(title, subtitle, content); } catch (e) {}
 }
 
-function finish(subtitle, content) {
+function finish(subtitle, content, record) {
   const tail = OUT.length > 10 ? ('\n…共 ' + OUT.length + ' 行，完整清单看 Loon 脚本日志') : '';
   const body = OUT.slice(0, 10).join('\n') + tail;
   console.log('\n===== RuleLookup =====\n' + OUT.join('\n') + '\n======================');
   notify('规则查询 · ' + MODE, subtitle || '', body);
-  $done();
+  // 先上报（可用时），再收尾；上报失败不影响通知和日志。record 显式传 false 表示不入库
+  if (record === false) return $done();
+  sendRecord(record || { mode: MODE, target: QUERY }, function () { $done(); });
 }
 
 function fail(msg) {
   say('❌ ' + msg);
-  finish('失败', msg);
+  finish('失败', msg, false);
 }
 
 // ---------------------------------------------------------------- 模式 1：结构概览
@@ -325,7 +364,18 @@ function runOverview(conf, rt) {
   finish(enabled.length + ' 张远程表 / ' + conf.local.length + ' 条本地规则',
     'FINAL：' + (rt.raw.final || '?') + '\n模式：' + runningModelText(rm) +
     '\n远程表：' + enabled.length + ' 张\n本地规则：' + conf.local.length + ' 条' +
-    (bad.length ? '\n⚠ ' + bad.length + ' 张表的策略组不存在' : ''));
+    (bad.length ? '\n⚠ ' + bad.length + ' 张表的策略组不存在' : ''),
+    {
+      mode: MODE, target: '', policy: rt.raw.final || '', list: '', rule: '', hits: [],
+      extra: {
+        runningModel: runningModelText(rm),
+        final: rt.raw.final || '',
+        remoteLists: enabled.length,
+        localRules: conf.local.length,
+        missingGroups: bad,
+        duplicateLists: dup,
+      }
+    });
 }
 
 function pad(s, n) {
@@ -395,7 +445,19 @@ function runQuery(conf, rt, query) {
     const content = hits.length
       ? (first.raw + '\n→ ' + first.policy + (hits.length > 1 ? '\n另有 ' + (hits.length - 1) + ' 条规则被抢先（详见日志）' : ''))
       : (effective ? ('未命中任何规则，走 ' + effective.raw) : '未命中任何规则');
-    finish(sub, target + ' → ' + sub + '\n' + content);
+    finish(sub, target + ' → ' + sub + '\n' + content, {
+      mode: MODE,
+      target: target,
+      policy: effective ? effective.policy : '',
+      list: effective ? effective.list : '',
+      rule: effective ? effective.raw : '',
+      hits: hits.map(h => ({ list: h.list, policy: h.policy, rule: h.raw })),
+      extra: {
+        isIP: isIP,
+        failedLists: failed.map(f => f.item.tag),
+        fellBackToFinal: !hits.length,
+      }
+    });
   });
 }
 
@@ -515,7 +577,17 @@ function runAudit(conf, rt) {
       (noDomainWinner.length ? '\n域名规则无独占命中：' + noDomainWinner.map(e => e.list).join('、') : '') +
       '\n脚本未模拟的 IP 规则：' + ipRules.length + ' 条；其他类型：' + otherRules.length + ' 条' +
       (failed.length ? '\n拉取失败：' + failed.map(f => f.item.tag).join('、') : '') +
-      '\n详细清单见脚本日志');
+      '\n详细清单见脚本日志',
+      {
+        mode: MODE, target: '', policy: '', list: '', rule: '', hits: [],
+        extra: {
+          domainSample: universe.size,
+          rules: rules.length,
+          noDomainWinner: noDomainWinner.map(e => e.list),
+          failedLists: failed.map(f => f.item.tag),
+          tables: rows.slice(0, 60).map(e => ({ list: e.list, policy: e.policy, domainFired: e.domainFired, domainTotal: e.domainTotal, ipTotal: e.ipTotal, otherTotal: e.otherTotal })),
+        }
+      });
   });
 }
 

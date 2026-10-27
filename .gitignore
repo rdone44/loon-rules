@@ -7,3 +7,13 @@ __pycache__/
 # 本地私密文件：订阅地址 / 带真实订阅的配置，严禁提交
 sub.url
 *.local.yaml
+
+# Worker 本地状态与密钥（LOOKUP_TOKEN）
+.wrangler/
+worker/.wrangler/
+worker/.token.local
+.worker-secret
+
+# 联调缓存
+.tmp-rc/
+.tmp-*
