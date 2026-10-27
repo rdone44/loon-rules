@@ -12,6 +12,7 @@ Loon / Surge 通用格式（`DOMAIN-SUFFIX,xxx` 纯规则行），规则本身�
 | [FinanceCN.list](FinanceCN.list) | 国内银行 / 券商 / 支付 / 保险 | `金融应用`（默认 DIRECT） | 这些 `.com` 域名只能靠 IP 兜底，解析到境外边缘就会被当代理流量 |
 | [AdsExtra.list](AdsExtra.list) | 上游广告表和去广告插件都没盖到的字节系广告域名 + 番茄广告 SDK | `全球拦截` | 必须排在 `TomatoNovel.list` 之前，否则会被它的 DIRECT 抢走 |
 | [WeChat.list](WeChat.list) | 微信 / 视频号 / 小程序 / 微信下载与视频 CDN | `DIRECT` | 必须排在 `Advertising.list` 之前：广告表有 `DOMAIN-KEYWORD,wxsnsdy` 会拦掉视频号 CDN |
+| [Carrier.list](Carrier.list) | 三大运营商 / 广电的 `.com` 域名 | `DIRECT` | `.cn` 已被 `China.list` 的 `.cn` 后缀覆盖，这里只补 `.com` |
 | [priority/](priority/) | 优先级例外（原 `Loon.conf [Rule]` 的 18 条本地规则） | 各表不同，按策略拆开 | 必须排在 `[Remote Rule]` 最前，否则会被后面的表抢走 |
 | [MyDomains.list](MyDomains.list) | 自有服务器域名 | `DIRECT` | 纯 `DOMAIN-SUFFIX` / `DOMAIN-KEYWORD` |
 | [category-ads-all.list](category-ads-all.list) | 去广告（轻量，约 900 条） | 拦截组（如 `全球拦截`） | v2fly 官方 `category-ads-all` 的 Loon 格式转换，静态更新 |

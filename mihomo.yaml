@@ -68,6 +68,7 @@ rule-providers:
   TomatoNovel: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/TomatoNovel.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/TomatoNovel.list' }
   AdsExtra: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/AdsExtra.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/AdsExtra.list' }
   WeChat: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/WeChat.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/WeChat.list' }
+  Carrier: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Carrier.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/Carrier.list' }
   Advertising: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Advertising.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Advertising/Advertising.list' }
   Hijacking: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Hijacking.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Hijacking/Hijacking.list' }
   Privacy: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Privacy.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Privacy/Privacy.list' }
@@ -162,6 +163,7 @@ rules:
   - RULE-SET,AdsExtra,全球拦截
   - RULE-SET,TomatoNovel,DIRECT
   - RULE-SET,WeChat,DIRECT
+  - RULE-SET,Carrier,DIRECT
   - RULE-SET,Advertising,全球拦截
   - RULE-SET,Hijacking,全球拦截
   - RULE-SET,Privacy,全球拦截

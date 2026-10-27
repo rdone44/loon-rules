@@ -16,6 +16,7 @@
 | `rule/priority/` | 优先级例外（原 `[Rule]` 本地规则），按策略拆成 6 张表 |
 | `rule/AdsExtra.list` | 上游广告表没盖到的字节系广告域名（巨量引擎等），拦截 |
 | `rule/WeChat.list` | 微信 / 视频号 / 小程序直连，挡在广告表前面 |
+| `rule/Carrier.list` | 三大运营商 / 广电的 `.com` 域名直连 |
 | `rule/Gemini.list` | Gemini / AI Studio / Vertex 全端点分流规则 |
 | `rule/category-ads-all.list` | v2fly `category-ads-all` 的 Loon 格式转换（静态，约 900 条） |
 | `plugin/*.lpx` | kelee.one 插件镜像（源站被 Cloudflare 阻断） |

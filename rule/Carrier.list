@@ -1,0 +1,25 @@
+# NAME: Carrier
+# DESC: 三大运营商 + 广电的 .com 域名
+# 用途：policy=DIRECT
+#
+# 为什么需要：
+# 1) `.cn` 域名（10086.cn / 189.cn / 10099.com.cn / migu.cn / wo.cn）已被
+#    China.list 的 DOMAIN-SUFFIX,cn 覆盖成 DIRECT，不用管
+# 2) 但运营商的 `.com` 域名一个都没被收录，实测落到 FINAL 兜底组走代理：
+#      10010.com（联通官网/App）、chinaunicom.com、139.com（移动邮箱）、
+#      cmccb2b.com、chinamobile.com、ip.3322.net
+# 3) 运营商 App 对登录地很敏感，走代理容易触发二次验证甚至限制业务
+#
+# 位置：跟金融/微信一样放在广告表之前，避免被关键词规则误伤。
+
+# ── 中国移动 ──
+DOMAIN-SUFFIX,chinamobile.com
+DOMAIN-SUFFIX,139.com
+DOMAIN-SUFFIX,cmccb2b.com
+
+# ── 中国联通 ──
+DOMAIN-SUFFIX,10010.com
+DOMAIN-SUFFIX,chinaunicom.com
+
+# ── 中国广电 / 其他 ──
+DOMAIN-SUFFIX,10099.com.cn
