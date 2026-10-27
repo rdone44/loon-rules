@@ -11,7 +11,7 @@
 [Argument]
 mode = select,"结构概览","查域名","全量体检",type=string,tag=模式,desc=结构概览：看本地规则/远程表顺序/策略组是否都存在；查域名：按 Loon 匹配顺序算出实际策略；全量体检：拉全部规则表算每张表的生效率
 domain = input,"",type=string,tag=查询域名,desc=仅在「查域名」模式下生效，例：www.youtube.com 或 1.1.1.1
-server = input,"",type=string,tag=记录服务器,desc=Cloudflare Worker 地址，例：https://loon-rule-records.xxx.workers.dev。留空则不记录
+server = input,"https://loon-rule-records.rdone.workers.dev",type=string,tag=记录服务器,desc=查询结果上报的 Cloudflare Worker 地址（已预填）；留空则不上报
 token = input,"",type=string,tag=记录密钥,desc=与 Worker 的 LOOKUP_TOKEN 一致。留空则不记录
 
 [Script]
