@@ -66,6 +66,7 @@ rule-providers:
   Pinduoduo: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Pinduoduo.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Pinduoduo/Pinduoduo.list' }
   JingDong: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/JingDong.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/JingDong/JingDong.list' }
   TomatoNovel: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/TomatoNovel.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/TomatoNovel.list' }
+  AdsExtra: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/AdsExtra.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/AdsExtra.list' }
   Advertising: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Advertising.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Advertising/Advertising.list' }
   Hijacking: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Hijacking.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Hijacking/Hijacking.list' }
   Privacy: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Privacy.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Privacy/Privacy.list' }
@@ -157,6 +158,7 @@ rules:
   - RULE-SET,AliPay,DIRECT
   - RULE-SET,Pinduoduo,DIRECT
   - RULE-SET,JingDong,DIRECT
+  - RULE-SET,AdsExtra,全球拦截
   - RULE-SET,TomatoNovel,DIRECT
   - RULE-SET,Advertising,全球拦截
   - RULE-SET,Hijacking,全球拦截

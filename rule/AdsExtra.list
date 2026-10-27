@@ -1,0 +1,18 @@
+# NAME: AdsExtra
+# DESC: 上游 Advertising.list 和去广告插件都没覆盖的字节系广告域名
+# 用途：policy=全球拦截（走 REJECT）
+#
+# 为什么单独建表：
+# 1) blackmatrix7 的 Advertising.list 里没有 oceanengine（巨量引擎）相关域名
+# 2) fmz200 的 blockAds 插件里也没有
+# 3) 结果这些广告域名落到 FINAL 兜底组——既没被拦，还白耗代理流量
+#
+# 必须排在 TomatoNovel.list 之前：番茄表的段是 DIRECT，如果排在后面，这些域名会被直连放行。
+# 只放「确定是广告投放/统计」的域名；番茄的正文、图片 CDN 不在这里。
+
+# 巨量引擎：字节的广告投放平台（番茄网页页脚「广告投放」链接指向它）
+DOMAIN-SUFFIX,oceanengine.com
+DOMAIN-SUFFIX,oceanengine.cn
+
+# 头条系广告统计上报
+DOMAIN-SUFFIX,pglstatp-toutiao.com
