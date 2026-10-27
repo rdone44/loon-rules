@@ -1,6 +1,6 @@
 # Loon 规则集、插件镜像与配置（rdone44/loon-rules）
 
-自用的 Loon 配置仓库：MissAV 家族分流规则、Gemini 全端点分流规则、每周自动重建的去广告合并表、kelee 插件镜像，以及一份带详细注释的完整 `Loon.conf`。
+自用的 Loon 配置仓库：MissAV 家族分流规则、Gemini 全端点分流规则、kelee 插件镜像，以及一份带详细注释的完整 `Loon.conf`。
 
 ## 仓库结构
 
@@ -9,13 +9,10 @@
 | `Loon.conf` | 完整 Loon 配置模板（DNS / 策略组 / 分流 / 插件），注释里写了每个取舍的原因 |
 | `rule/MissAV.list` | MissAV 家族 + 图片 / 视频 CDN 分流规则 |
 | `rule/Gemini.list` | Gemini / AI Studio / Vertex 全端点分流规则 |
-| `rule/AdBlock.list` | 每周自动合并去重的去广告大表（勿手改） |
 | `rule/category-ads-all.list` | v2fly `category-ads-all` 的 Loon 格式转换（静态，约 900 条） |
 | `plugin/*.lpx` | kelee.one 插件镜像（源站被 Cloudflare 阻断） |
 | `plugin/blockAds-finance-safe.plugin` | fmz200 blockAds 的金融风控安全派生版 |
 | `script/*.js` | 插件引用的脚本（镜像插件的 `script-path` 已重定向到本仓库） |
-| `script/build_adblock.py` | 去广告合并表构建脚本 |
-| `.github/workflows/build-adblock.yml` | 每周一 04:00 UTC 自动重建 `AdBlock.list` |
 
 ## 在 Loon 里引用
 
@@ -73,50 +70,17 @@ https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/Gemini.list, poli
 
 ---
 
-## rule/AdBlock.list — 合并去重的去广告规则集
+## rule/category-ads-all.list — 轻量去广告规则集
 
-自动生成，**请勿手工编辑**。每周一 04:00 UTC 由 GitHub Actions 重建并提交。
+v2fly 官方 [category-ads-all](https://github.com/v2fly/domain-list-community/blob/release/category-ads-all.txt) 的 Loon 格式转换（`domain:` → `DOMAIN-SUFFIX`、`full:` → `DOMAIN`、`keyword:` → `DOMAIN-KEYWORD`，忽略 regexp 条目），静态约 900 条。
 
-合并来源（6 个）：
+> yuumimi 的同名转换文件混入了大量合法域名（youtube / github / openai 等），不可用，故自行转换。
 
-| 源 | 说明 |
-|---|---|
-| blackmatrix7 `Advertising` | 去广告主表 |
-| blackmatrix7 `AdvertisingLite` | 去广告精简版 |
-| blackmatrix7 `AdvertisingTest` | 去广告测试版 |
-| blackmatrix7 `Hijacking` | 运营商劫持 |
-| blackmatrix7 `Privacy` | 隐私上报 |
-| yfamilys `AntiAD` | 第三方大表（约 32 万条） |
-
-用法（`[Remote Rule]`，建议放最前）：
+用法（`[Remote Rule]`）：
 
 ```ini
-https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/AdBlock.list, policy=全球拦截, tag=去广告, enabled=true
+https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/category-ads-all.list, policy=全球拦截, tag=去广告, enabled=true
 ```
-
-### 人工维护点
-
-`script/build_adblock.py` 里的 `EXCLUDE` 是审计过的白名单，用于剔除上游把正常服务端点误当广告的条目。当前剔除 2 条：
-
-- `DOMAIN-SUFFIX,graph.instagram.com` — Instagram GraphQL 接口，删了私信/主页会失败
-- `DOMAIN-SUFFIX,dns.wechat.com` — 微信 DNS 探测，删了影响弱网解析
-
-发现误杀时改 `EXCLUDE` 再触发一次 workflow，不要改上游源、也不要手改 `AdBlock.list`（下次构建会被覆盖）。
-
-### 设计取舍
-
-- 规则行**原样保留**（`DOMAIN-KEYWORD` / `IP-CIDR` / `URL-REGEX` 语义不同，不能互相折算），只按整行文本去重。
-- 输出按规则类型分组、组内字母序，保证同样输入永远得到同样输出 —— 否则每周提交都会变成整文件重写，diff 无法阅读。
-- 单个上游下载失败不会中断任务：该源被跳过并在日志里标注，其余照常合入。
-- 本地验证：`python3 script/build_adblock.py --offline-dir <目录>`，目录内放 `<源名>.list`。
-
-### ⚠ 规模提示
-
-AntiAD 单表约 32 万条，合并后约 **32.4 万条 / 10.8MB**。首次加载和内存占用会明显变高。
-如果觉得慢，有两个轻量替代：
-
-- 删掉 `SOURCES` 里的 `AntiAD` 那行再重建，输出降到约 1000 条；
-- 或直接用 `rule/category-ads-all.list`（v2fly 官方 `category-ads-all` 的 Loon 格式转换，约 900 条，静态更新）。yuumimi 的同名转换文件混入了大量合法域名（youtube / github / openai 等），不可用，故自转。
 
 ---
 
