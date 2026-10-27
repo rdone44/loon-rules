@@ -301,6 +301,14 @@ proxy-groups:
     proxies:
       - DIRECT
       - 🚀 节点选择
+  - name: 🎬 MissAV
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - DIRECT
+    use:
+      - remote
   - name: 🛑 广告拦截
     type: select
     proxies:
@@ -326,10 +334,13 @@ rules:
   - IP-CIDR6,fe80::/10,🎯 全球直连,no-resolve
   - RULE-SET,private,🎯 全球直连
   - RULE-SET,ads,🛑 广告拦截
+  - RULE-SET,hijacking,🛑 广告拦截
+  - RULE-SET,privacy,🛑 广告拦截
   - RULE-SET,speedtest,⏱️ 测速
   - DOMAIN-SUFFIX,fast.com,⏱️ 测速
   - DOMAIN-SUFFIX,librespeed.org,⏱️ 测速
   - DOMAIN,speed.cloudflare.com,⏱️ 测速
+  - RULE-SET,gemini,🤖 AI 服务
   - RULE-SET,ai-chat,🤖 AI 服务
   - RULE-SET,openai,🤖 AI 服务
   - RULE-SET,anthropic,🤖 AI 服务
@@ -345,6 +356,7 @@ rules:
   - RULE-SET,disney,🏰 Disney+
   - RULE-SET,spotify,🎵 Spotify
   - RULE-SET,twitch,🌍 国外媒体
+  - RULE-SET,missav,🎬 MissAV
   - RULE-SET,games,🎮 游戏平台
   - RULE-SET,github,🧑‍💻 开发服务
   - RULE-SET,dev,🧑‍💻 开发服务
@@ -537,6 +549,39 @@ rule-providers:
     path: ./ruleset/speedtest.mrs
     interval: 86400
     proxy: DIRECT
+  # ---- 以下四项为 Loon 文本规则（mihomo 直接支持 classical + text，无需转换）----
+  gemini:
+    type: http
+    behavior: classical
+    format: text
+    url: https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/Gemini.list
+    path: ./ruleset/gemini.list
+    interval: 86400
+    proxy: 🚀 节点选择
+  missav:
+    type: http
+    behavior: classical
+    format: text
+    url: https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/MissAV.list
+    path: ./ruleset/missav.list
+    interval: 86400
+    proxy: 🚀 节点选择
+  hijacking:
+    type: http
+    behavior: classical
+    format: text
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Hijacking/Hijacking.list
+    path: ./ruleset/hijacking.list
+    interval: 86400
+    proxy: 🚀 节点选择
+  privacy:
+    type: http
+    behavior: classical
+    format: text
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Privacy/Privacy.list
+    path: ./ruleset/privacy.list
+    interval: 86400
+    proxy: 🚀 节点选择
 proxy-providers:
   remote:
     type: http
