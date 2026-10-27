@@ -44,55 +44,116 @@ dns:
 proxies: []
 proxy-groups:
   # ================= Loon [Proxy Group] 同序 =================
-  # ---- 应用策略组 ----
+  # type: url-test = 自动测速选最快节点；include-all = 节点平铺到组内（不嵌策略组）
+  # ---- 应用策略组（全自动，节点平铺）----
   - name: Meta
-    type: select
-    proxies: [美国自动, 美国节点, 自动选择]
+    type: url-test
+    include-all: true
+    exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
+    url: http://www.gstatic.com/generate_204
+    interval: 600
+    tolerance: 150
   - name: YouTube
-    type: select
-    proxies: [香港自动, 台湾自动, 日本自动, 新加坡自动, 美国自动, 韩国自动, 德国自动]
+    type: url-test
+    include-all: true
+    exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
+    url: https://www.youtube.com/generate_204
+    expected-status: "204"
+    interval: 600
+    tolerance: 150
   - name: Google
-    type: select
-    proxies: [自动选择]
+    type: url-test
+    include-all: true
+    exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
+    url: https://www.gstatic.com/generate_204
+    interval: 600
+    tolerance: 150
   - name: Spotify
-    type: select
-    proxies: [香港自动, 台湾自动, 日本自动, 新加坡自动, 美国自动]
+    type: url-test
+    include-all: true
+    exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
+    url: https://open.spotify.com/
+    expected-status: "200"
+    interval: 600
+    tolerance: 150
   - name: AI
-    type: select
-    proxies: [美国节点, 日本节点, 新加坡节点, 其他地区节点]
+    type: url-test
+    include-all: true
+    exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
+    url: https://chatgpt.com/cdn-cgi/trace
+    expected-status: "200"
+    interval: 600
+    tolerance: 150
   - name: 苹果服务
     type: select
-    proxies: [DIRECT, 香港自动, 美国自动]
+    proxies: [DIRECT, 自动选择]
+    include-all: true
+    exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
   - name: 微软服务
     type: select
-    proxies: [DIRECT, 德国自动, 美国自动]
+    proxies: [DIRECT, 自动选择]
+    include-all: true
+    exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
   - name: GitHub
-    type: select
-    proxies: [香港自动, 台湾自动, 日本自动, 新加坡自动, 美国自动, 韩国自动, 德国自动]
+    type: url-test
+    include-all: true
+    exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
+    url: https://github.com
+    expected-status: "200"
+    interval: 600
+    tolerance: 150
   - name: Telegram
-    type: select
-    proxies: [香港节点, 日本节点, 新加坡节点, 美国节点, 其他地区节点]
+    type: url-test
+    include-all: true
+    exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
+    url: https://web.telegram.org/a/
+    expected-status: "200"
+    interval: 600
+    tolerance: 150
   - name: Twitter
-    type: select
-    proxies: [美国自动]
+    type: url-test
+    include-all: true
+    exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
+    url: http://www.gstatic.com/generate_204
+    interval: 600
+    tolerance: 150
   - name: 游戏平台
     type: select
-    proxies: [DIRECT, 香港自动, 日本自动, 美国自动]
+    proxies: [DIRECT, 自动选择]
+    include-all: true
+    exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
   - name: 加密货币
-    type: select
-    proxies: [日本自动]
+    type: url-test
+    include-all: true
+    exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
+    url: https://api.binance.com/api/v3/ping
+    expected-status: "200"
+    interval: 600
+    tolerance: 150
   - name: 金融应用
     type: select
-    proxies: [DIRECT]
+    proxies: [DIRECT, 自动选择]
+    include-all: true
+    exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
   - name: 国外媒体
-    type: select
-    proxies: [香港自动, 台湾自动, 日本自动, 新加坡自动, 美国自动]
+    type: url-test
+    include-all: true
+    exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
+    url: http://www.gstatic.com/generate_204
+    interval: 600
+    tolerance: 150
   - name: MissAV
-    type: select
-    proxies: [日本自动, 香港自动, 台湾自动, 美国自动, 其他地区节点]
+    type: url-test
+    include-all: true
+    exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
+    url: http://www.gstatic.com/generate_204
+    interval: 600
+    tolerance: 150
   - name: 哔哩哔哩
     type: select
-    proxies: [DIRECT, 香港自动, 台湾自动]
+    proxies: [DIRECT, 自动选择]
+    include-all: true
+    exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
   # ---- 主策略组 ----
   - name: 节点选择
     type: select
