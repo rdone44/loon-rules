@@ -12,6 +12,7 @@
 | `clash/` | 订阅网关的配置模板与个人规则库，详见 `clash/README.md` |
 | `rule/MissAV.list` | MissAV 家族 + 图片 / 视频 CDN 分流规则 |
 | `rule/GlobalExtra.list` | 补 Global.list 关键词规则盖不到的 CDN（前后端同出口） |
+| `rule/FinanceCN.list` | 国内银行 / 券商 / 支付 / 保险，固定在「金融应用」组且排在广告表之前 |
 | `rule/Gemini.list` | Gemini / AI Studio / Vertex 全端点分流规则 |
 | `rule/category-ads-all.list` | v2fly `category-ads-all` 的 Loon 格式转换（静态，约 900 条） |
 | `plugin/*.lpx` | kelee.one 插件镜像（源站被 Cloudflare 阻断） |
@@ -190,6 +191,7 @@ Loon 的脚本日志和通知都是临时的，翻不了历史。想让每次查
 - 购物 / 阅读规则继续放在广告表之前：Advertising 的 `DOMAIN-KEYWORD` 会命中 `ynuf.alipay.com` 和 `kepler.jd.com` 等业务子域；前置商店规则可让这些请求按支付宝 / 京东策略处理。移到广告表后会改变这些子域的路由
 - 不要仅因为规则在两张表中重复就调整顺序。先看策略是否不同：`Copilot` / `OpenAI` 都走 AI，重复只增加维护；Xbox / Bethesda 与微软规则重叠则实际走微软组，只有预期是游戏组时才需要写更靠前的例外
 - 可选地停用重复的 `Privacy` 表，能少一次小表下载；保留它也有独立标签和上游来源，偏好清晰分类时可以不动。若修改，Loon、Shadowrocket、mihomo 三份配置保持一致
+- 国内金融（银行 / 券商 / 支付 / 保险）单独放在 `rule/FinanceCN.list`，引用 `policy=金融应用`，位置在**去广告表之前**：这些域名大多是 `.com`，原先只能靠 `ChinaIPs` 的 IP 匹配兜底，DNS 一旦解析到境外边缘就会被当成代理流量，银行 App 容易报「网络环境异常」。`金融应用` 组默认就是 `DIRECT`，所以当前行为不变，只是不再依赖 IP 结果
 
 使用前必做两件事：
 

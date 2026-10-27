@@ -1,0 +1,45 @@
+# 国内金融：银行 / 券商 / 支付 / 保险 / 清算机构
+#
+# 为什么单独建表：
+# 1) 上游 blackmatrix7 没有国内银行 / 券商 / 保险的规则集（只有 AliPay / UnionPay / PayPal）
+# 2) 这些域名大多是 .com，只能靠 ChinaIPs 的 IP 匹配兜底。一旦 DNS 解析到境外 CDN 边缘，
+#    就会被判成代理流量 —— 银行 App 会直接报「网络环境异常」甚至风控
+# 3) 引用时给 policy=金融应用（默认 DIRECT），需要时可在 App 里整组切走
+#
+# 定位：配合 MITM 白名单一起用。blockAds-finance-safe.plugin 已把这些域名的 MITM 解密关掉，
+# 本表负责「规则层面也绝不被广告表误杀、也绝不进代理」。
+#
+# 变体说明：.cn / .com.cn 的银行域名已由 China.list 的 DOMAIN-SUFFIX,cn 覆盖，
+# 这里仍然列出，保证切换「金融应用」组时它们跟着一起走。
+
+# ── 银行 ──
+DOMAIN-SUFFIX,ccb.com
+DOMAIN-SUFFIX,abchina.com
+DOMAIN-SUFFIX,bankcomm.com
+DOMAIN-SUFFIX,cmbchina.com
+DOMAIN-SUFFIX,cebbank.com
+DOMAIN-SUFFIX,psbc.com
+DOMAIN-SUFFIX,citicbank.com
+DOMAIN-SUFFIX,pingan.com
+DOMAIN-SUFFIX,spdb.com.cn
+DOMAIN-SUFFIX,cmbc.com.cn
+DOMAIN-SUFFIX,bankofbeijing.com.cn
+DOMAIN-SUFFIX,bosc.cn
+
+# ── 券商 / 行情 ──
+DOMAIN-SUFFIX,gtja.com
+DOMAIN-SUFFIX,citics.com
+DOMAIN-SUFFIX,eastmoney.com
+DOMAIN-SUFFIX,futunn.com
+DOMAIN-SUFFIX,xueqiu.com
+
+# ── 支付 / 清算 ──
+DOMAIN-SUFFIX,unionpay.com
+DOMAIN-SUFFIX,lakala.com
+DOMAIN-SUFFIX,yqb.com
+DOMAIN-SUFFIX,nucc.com
+
+# ── 保险 ──
+DOMAIN-SUFFIX,chinalife.com.cn
+DOMAIN-SUFFIX,picc.com.cn
+DOMAIN-SUFFIX,cpic.com.cn
