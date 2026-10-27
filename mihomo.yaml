@@ -47,6 +47,7 @@ proxies: []
 proxy-providers:
   订阅:
     type: http
+    # 直接填机场订阅；更安全：填订阅网关的 /provider?token=… 地址，真订阅只存服务端
     url: 'https://你的订阅地址'
     interval: 86400
     health-check: { enable: true, url: 'http://www.gstatic.com/generate_204', interval: 600 }

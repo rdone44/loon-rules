@@ -3,3 +3,7 @@
 Thumbs.db
 __pycache__/
 *.pyc
+
+# 本地私密文件：订阅地址 / 带真实订阅的配置，严禁提交
+sub.url
+*.local.yaml
