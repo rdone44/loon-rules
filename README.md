@@ -1,22 +1,23 @@
-# Loon 规则集与插件（MissAV / 去广告合并表 / 插件镜像）
+# Loon 规则集、插件镜像与配置（rdone44/loon-rules）
 
-MissAV 家族（含全部镜像域名、姊妹站 NJAV / ThisAV）以及它的图片、视频 CDN 的分流规则。
+自用的 Loon 配置仓库：MissAV 家族分流规则、Gemini 全端点分流规则、每周自动重建的去广告合并表、kelee 插件镜像，以及一份带详细注释的完整 `Loon.conf`。
 
-## 为什么需要这个规则集
+## 仓库结构
 
-`DOMAIN-KEYWORD,missav` 只能覆盖含 "missav" 的域名，而这个家族的**图片和视频 CDN 域名里一个 missav 都没有**：
+| 路径 | 说明 |
+|---|---|
+| `Loon.conf` | 完整 Loon 配置模板（DNS / 策略组 / 分流 / 插件），注释里写了每个取舍的原因 |
+| `rule/MissAV.list` | MissAV 家族 + 图片 / 视频 CDN 分流规则 |
+| `rule/Gemini.list` | Gemini / AI Studio / Vertex 全端点分流规则 |
+| `rule/AdBlock.list` | 每周自动合并去重的去广告大表（勿手改） |
+| `rule/category-ads-all.list` | v2fly `category-ads-all` 的 Loon 格式转换（静态，约 900 条） |
+| `plugin/*.lpx` | kelee.one 插件镜像（源站被 Cloudflare 阻断） |
+| `plugin/blockAds-finance-safe.plugin` | fmz200 blockAds 的金融风控安全派生版 |
+| `script/*.js` | 插件引用的脚本（镜像插件的 `script-path` 已重定向到本仓库） |
+| `script/build_adblock.py` | 去广告合并表构建脚本 |
+| `.github/workflows/build-adblock.yml` | 每周一 04:00 UTC 自动重建 `AdBlock.list` |
 
-| 域名 | 用途 | 含 missav |
-|---|---|---|
-| `avdaisukicp.com` | 封面/缩略图 CDN | ❌ |
-| `fourhoi.com` | 封面图 CDN | ❌ |
-| `surrit.com` | 视频 m3u8 流 | ❌ |
-| `njav.tv` | 姊妹站 NJAV | ❌ |
-| `thisav.com` | 姊妹站 ThisAV | ❌ |
-
-不补这些，典型症状是：**页面能打开，缩略图一片空白，点进去视频一直转圈**。
-
-## 在 Loon 里使用
+## 在 Loon 里引用
 
 `[Remote Rule]` 加一行（策略自己定，建议和主站同一个组）：
 
@@ -30,10 +31,47 @@ GitHub 直连不通时用镜像：
 https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/MissAV.list, policy=节点选择, tag=MissAV, enabled=true
 ```
 
-## 文件说明
+规则本身**不带策略**，策略在引用时通过 `policy=` 指定。
 
-- `rule/MissAV.list` — Loon / Surge 语法（`DOMAIN-SUFFIX,xxx` 这种纯规则行），Clash 也能用（需包成 payload）
-- 规则本身**不带策略**，策略在引用时通过 `policy=` 指定
+---
+
+## rule/MissAV.list — MissAV 家族分流
+
+MissAV 家族（含全部镜像域名、姊妹站 NJAV / ThisAV）以及它的图片、视频 CDN 的分流规则。
+
+### 为什么需要这个规则集
+
+`DOMAIN-KEYWORD,missav` 只能覆盖含 "missav" 的域名，而这个家族的**图片和视频 CDN 域名里一个 missav 都没有**：
+
+| 域名 | 用途 | 含 missav |
+|---|---|---|
+| `avdaisukicp.com` | 封面/缩略图 CDN | ❌ |
+| `fourhoi.com` | 封面图 CDN | ❌ |
+| `surrit.com` | 视频 m3u8 流 | ❌ |
+| `njav.tv` | 姊妹站 NJAV | ❌ |
+| `thisav.com` | 姊妹站 ThisAV | ❌ |
+
+不补这些，典型症状是：**页面能打开，缩略图一片空白，点进去视频一直转圈**。
+
+镜像域名更新很快。发现新镜像打不开时，先看它是否含 `missav` —— 含的话本规则已覆盖；不含就提 issue / PR 补一行。
+
+---
+
+## rule/Gemini.list — Gemini 全端点分流
+
+上游 blackmatrix7 的 Gemini 规则只有 13 条，覆盖不到 AI Studio、Vertex AI 和各家 `*-pa.clients6.google.com` / `*-pa.googleapis.com` 后端。这些请求会被 Google.list 的 `googleapis.com` / `google.com` 接走 → Google 组，而 `gemini.google.com` 前端在 AI 组——两个组出口不同国家，Google 的地区校验看请求出口 IP，于是表现为 **"Gemini 在当前地区不可用"**。
+
+本文件把前端、后端、AI Studio / Vertex / DeepMind 端点统一收进一份，配合 `policy=AI` 引用即可保证前后端同出口。
+
+用法（`[Remote Rule]`，**必须放在 Google.list 之前**）：
+
+```ini
+https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/Gemini.list, policy=AI, tag=Gemini, enabled=true
+```
+
+通用 Google 服务（Gmail / 搜索 / gstatic / reCAPTCHA）刻意不收，仍由 Google.list 走 Google 组，否则 Gmail 会被拖进 AI 组。
+
+---
 
 ## rule/AdBlock.list — 合并去重的去广告规则集
 
@@ -75,14 +113,20 @@ https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/AdBlock.list, pol
 ### ⚠ 规模提示
 
 AntiAD 单表约 32 万条，合并后约 **32.4 万条 / 10.8MB**。首次加载和内存占用会明显变高。
-如果觉得慢，删掉 `SOURCES` 里的 `AntiAD` 那行再重建，输出会降到约 1000 条。
+如果觉得慢，有两个轻量替代：
 
-## 注意
+- 删掉 `SOURCES` 里的 `AntiAD` 那行再重建，输出降到约 1000 条；
+- 或直接用 `rule/category-ads-all.list`（v2fly 官方 `category-ads-all` 的 Loon 格式转换，约 900 条，静态更新）。yuumimi 的同名转换文件混入了大量合法域名（youtube / github / openai 等），不可用，故自转。
 
-- missav.ai 等站点走 Cloudflare，如果浏览器卡在 `Just a moment...`，那是 CF 风控判定出口 IP 可疑，**换节点**（住宅型节点过率更高），不是规则问题。
-- 这类站点镜像域名更新很快。发现新镜像打不开时，先看它是否含 `missav` —— 含的话本规则已覆盖；不含就提 issue / PR 补一行。
+---
 
-## plugin/blockAds-finance-safe.plugin — 去广告插件（金融风控安全版）
+## plugin/ — 插件镜像
+
+kelee.one 被 Cloudflare 风控时常 403/5xx，仓库镜像了在用的 kelee 插件（`.lpx`），并把插件内部 `script-path` 重定向到本仓库 `script/`。`Loon.conf` 的 `[Plugin]` 段已配置为从镜像加载；未镜像的插件仍走 kelee.one 原地址，源站被挡时会加载失败。
+
+更新镜像：重新下载原版，头部加上「引用链接 + 镜像自 kelee.one」两行注释后覆盖 `plugin/` 同名文件。
+
+### plugin/blockAds-finance-safe.plugin — 去广告插件（金融风控安全版）
 
 fmz200 [blockAds.plugin](https://github.com/fmz200/wool_scripts/blob/main/Loon/plugin/blockAds.plugin)（约 730 款 App/小程序去广告合集）的安全派生版，**唯一改动是收窄 MITM 解密范围**：
 
@@ -99,3 +143,23 @@ https://raw.githubusercontent.com/rdone44/loon-rules/main/plugin/blockAds-financ
 ```
 
 > 原版更新后想跟进：重新下载原版，重跑同样的剔除（见 git 历史里各 fix(plugin) 提交的清单），别直接覆盖本文件。
+
+---
+
+## Loon.conf — 配置模板
+
+使用前必做两件事：
+
+1. `[Remote Proxy]` 填入自己的订阅链接，并删除行首的 `#`
+2. Loon → 设置 → 证书 → 生成 → 安装 → 系统信任（否则去广告插件不生效）
+
+配置要点（详见文件内注释）：
+
+- DNS 不含 `system`，统一走 223.5.5.5 / doh.pub + Fake-IP，由代理在远端解析，防止查询泄露
+- `sni-sniffing` 必开，否则 App 自带 DoH / 硬编码 IP 的连接拿不到域名，域名规则全部落空
+- Gemini 规则必须排在 Google 规则之前；本地 `[Rule]` 只放例外，不放 GEOIP 兜底，否则广告表永远轮不到
+- 原配置的 CA（ca-p12 / ca-passphrase）已随文件外泄，**不要再用**，用 Loon 自带证书
+
+## 注意
+
+- missav.ai 等站点走 Cloudflare，如果浏览器卡在 `Just a moment...`，那是 CF 风控判定出口 IP 可疑，**换节点**（住宅型节点过率更高），不是规则问题。
