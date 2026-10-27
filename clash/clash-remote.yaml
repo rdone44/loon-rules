@@ -79,6 +79,7 @@ proxy-groups:
   - name: AI
     type: url-test
     include-all: true
+    filter: '(?i)🇯🇵|日本|东京|東京|大阪|京都|名古屋|札幌|横滨|橫濱|埼玉|Japan|Tokyo|Osaka|NTT|\b(JP|JPN|NRT|HND|KIX|TYO)\d*\b|🇺🇸|美国|美國|洛杉矶|洛杉磯|纽约|紐約|圣何塞|聖何塞|西雅图|芝加哥|达拉斯|凤凰城|凤凰城|硅谷|矽谷|United ?States|America|\b(US|USA|LAX|SJC|SFO|SEA|IAD|ORD|DFW|JFK|NYC|EWR)\d*\b'
     exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
     url: https://chatgpt.com/cdn-cgi/trace
     expected-status: "200"
