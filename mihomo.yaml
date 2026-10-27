@@ -1,9 +1,7 @@
-# mihomo (Clash.Meta) 配置 — 与 Loon.conf 同构（策略组 / 规则顺序一一对应）
-# 使用：proxy-providers 里填订阅。Loon 插件 / MITM 脚本不迁移，本文件只覆盖分流与规则级去广告。
 # mihomo (Clash.Meta) 配置 —— 已弃用，不要再改这份
 # Clash / mihomo 侧请用 clash/clash-remote.yaml：那份才跟 Loon.conf 逐表同序，
-# 并且会跟仓库同步 FinanceCN / AdsExtra / WeChat / Carrier / priority 等新增规则集。
-# 本文件仅作历史对照保留。
+# 并且会随仓库同步 FinanceCN / AdsExtra / WeChat / Carrier / priority 等新增规则集。
+# 本文件仅作历史对照保留（原本是 Loon.conf 的同构克隆，已不再更新）。
 mixed-port: 7890
 allow-lan: false
 mode: rule
