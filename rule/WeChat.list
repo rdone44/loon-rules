@@ -1,0 +1,31 @@
+# NAME: WeChat
+# DESC: 微信 / 视频号 / 小程序 / 微信下载与视频 CDN
+# 用途：policy=DIRECT
+#
+# 为什么需要：
+# 1) China.list 只有 63 条域名规则（baidu/taobao/aliyun 等关键词 + .cn 后缀），
+#    weixin.qq.com、tc.qq.com 这类全都不在里面，实测会落到 FINAL 兜底组走代理
+# 2) 微信走代理的后果比一般站点严重：登录/收发消息握手变慢，视频号直接卡或黑屏
+# 3) Advertising.list 里有 DOMAIN-KEYWORD,wxsnsdy，会把视频号视频 CDN 当广告拦掉
+#
+# 必须排在 Advertising.list 之前，否则 wxsnsdy.tc.qq.com 会被广告表抢走。
+# 代价：tc.qq.com 是腾讯 CDN 父域，前置直连意味着少数挂在它上面的广告也能过；
+# 但拦掉整段视频 CDN 的代价（视频号看不了）远大于这点广告。
+
+# ── 微信客户端 / 公众号 / 视频号接口 ──
+DOMAIN-SUFFIX,weixin.qq.com
+DOMAIN-SUFFIX,weixin.com
+DOMAIN-SUFFIX,wx.qq.com
+DOMAIN-SUFFIX,wechat.com
+DOMAIN-SUFFIX,weixinbridge.com
+
+# ── 小程序 ──
+DOMAIN-SUFFIX,servicewechat.com
+
+# ── 视频号 / 朋友圈视频 CDN（wxsnsdy / vweixinf / wxvideos 都在 tc.qq.com 下）──
+DOMAIN-SUFFIX,tc.qq.com
+DOMAIN-SUFFIX,video.qq.com
+
+# ── 微信安装包 / 资源下载 ──
+DOMAIN-SUFFIX,dldir1.qq.com
+DOMAIN-SUFFIX,dldir1v6.qq.com
