@@ -1,0 +1,549 @@
+# Clash / Mihomo 远程配置：节点由 proxy-providers 拉取
+# 示例节点使用 203.0.113.x（文档专用地址），不能直接连通，请替换成自己的订阅或节点。
+# 规则集来自 MetaCubeX/meta-rules-dat，首次加载会下载 mrs 文件。
+# 把 YOUR-PROFILE-ID 换成自己的远程订阅 id，或用 scripts/New-ClashRemoteProfile.ps1 生成
+# 生成时间：2026-10-18T12:07:58.429Z
+
+mixed-port: 7890
+allow-lan: false
+bind-address: "*"
+mode: rule
+log-level: info
+ipv6: false
+external-controller: 127.0.0.1:9090
+unified-delay: true
+tcp-concurrent: true
+global-client-fingerprint: chrome
+profile:
+  store-selected: true
+  store-fake-ip: true
+dns:
+  enable: true
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    - "*.lan"
+    - "*.local"
+    - "*.localhost"
+    - +.msftconnecttest.com
+    - +.msftncsi.com
+    - time.*.com
+    - ntp.*.com
+    - +.pool.ntp.org
+    - +.rdone.eu.cc
+    - +.workers.dev
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  direct-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+proxies: []
+proxy-groups:
+  - name: 🚀 节点选择
+    type: select
+    proxies:
+      - ♻️ 自动选择
+      - 🔯 故障转移
+      - 🔮 负载均衡
+      - DIRECT
+    use:
+      - remote
+  - name: ♻️ 自动选择
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    lazy: true
+    use:
+      - remote
+  - name: 🔯 故障转移
+    type: fallback
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    lazy: true
+    use:
+      - remote
+  - name: 🔮 负载均衡
+    type: load-balance
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    strategy: round-robin
+    lazy: true
+    use:
+      - remote
+  - name: AI自动
+    type: url-test
+    url: https://chatgpt.com/cdn-cgi/trace
+    expected-status: "200"
+    interval: 300
+    tolerance: 50
+    lazy: true
+    include-all: true
+    hidden: true
+  - name: 🤖 AI 服务
+    type: select
+    proxies:
+      - AI自动
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - 🔯 故障转移
+      - 🔮 负载均衡
+      - DIRECT
+    use:
+      - remote
+  - name: YouTube自动
+    type: url-test
+    url: https://www.youtube.com/generate_204
+    expected-status: "204"
+    interval: 300
+    tolerance: 50
+    lazy: true
+    include-all: true
+    hidden: true
+  - name: ▶️ YouTube
+    type: select
+    proxies:
+      - YouTube自动
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - 🔯 故障转移
+      - 🔮 负载均衡
+      - DIRECT
+    use:
+      - remote
+  - name: 🔍 谷歌服务
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - 🔯 故障转移
+      - 🔮 负载均衡
+      - DIRECT
+    use:
+      - remote
+  - name: 🐦 X
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - 🔯 故障转移
+      - 🔮 负载均衡
+      - DIRECT
+    use:
+      - remote
+  - name: 📘 Meta
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - 🔯 故障转移
+      - 🔮 负载均衡
+      - DIRECT
+    use:
+      - remote
+  - name: 🎬 Netflix
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - 🔯 故障转移
+      - 🔮 负载均衡
+      - DIRECT
+    use:
+      - remote
+  - name: 🏰 Disney+
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - 🔯 故障转移
+      - 🔮 负载均衡
+      - DIRECT
+    use:
+      - remote
+  - name: Spotify自动
+    type: url-test
+    url: https://open.spotify.com/
+    expected-status: "200"
+    interval: 300
+    tolerance: 50
+    lazy: true
+    include-all: true
+    hidden: true
+  - name: 🎵 Spotify
+    type: select
+    proxies:
+      - Spotify自动
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - 🔯 故障转移
+      - 🔮 负载均衡
+      - DIRECT
+    use:
+      - remote
+  - name: 🌍 国外媒体
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - 🔯 故障转移
+      - 🔮 负载均衡
+      - DIRECT
+    use:
+      - remote
+  - name: Telegram自动
+    type: url-test
+    url: https://web.telegram.org/a/
+    expected-status: "200"
+    interval: 300
+    tolerance: 50
+    lazy: true
+    include-all: true
+    hidden: true
+  - name: 📲 电报
+    type: select
+    proxies:
+      - Telegram自动
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - 🔯 故障转移
+      - 🔮 负载均衡
+      - DIRECT
+    use:
+      - remote
+  - name: 🍎 苹果服务
+    type: select
+    proxies:
+      - DIRECT
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - 🔯 故障转移
+      - 🔮 负载均衡
+    use:
+      - remote
+  - name: Ⓜ️ 微软服务
+    type: select
+    proxies:
+      - DIRECT
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - 🔯 故障转移
+      - 🔮 负载均衡
+    use:
+      - remote
+  - name: 🎮 游戏平台
+    type: select
+    proxies:
+      - DIRECT
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - 🔯 故障转移
+      - 🔮 负载均衡
+    use:
+      - remote
+  - name: Dev自动
+    type: url-test
+    url: https://github.com
+    expected-status: "200"
+    interval: 300
+    tolerance: 50
+    lazy: true
+    include-all: true
+    hidden: true
+  - name: 🧑‍💻 开发服务
+    type: select
+    proxies:
+      - Dev自动
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - 🔯 故障转移
+      - 🔮 负载均衡
+      - DIRECT
+    use:
+      - remote
+  - name: Crypto自动
+    type: url-test
+    url: https://api.binance.com/api/v3/ping
+    expected-status: "200"
+    interval: 300
+    tolerance: 50
+    lazy: true
+    include-all: true
+    hidden: true
+  - name: 💰 加密货币
+    type: select
+    proxies:
+      - Crypto自动
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - 🔯 故障转移
+      - 🔮 负载均衡
+      - DIRECT
+    use:
+      - remote
+  - name: ⏱️ 测速
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - 🔯 故障转移
+      - 🔮 负载均衡
+      - DIRECT
+    use:
+      - remote
+  - name: 🎯 全球直连
+    type: select
+    proxies:
+      - DIRECT
+      - 🚀 节点选择
+  - name: 🛑 广告拦截
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+  - name: 🐟 漏网之鱼
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - DIRECT
+rules:
+  - DOMAIN-SUFFIX,local,🎯 全球直连
+  - DOMAIN,localhost,🎯 全球直连
+  - DOMAIN-SUFFIX,lan,🎯 全球直连
+  - DOMAIN-SUFFIX,home.arpa,🎯 全球直连
+  - IP-CIDR,127.0.0.0/8,🎯 全球直连,no-resolve
+  - IP-CIDR,10.0.0.0/8,🎯 全球直连,no-resolve
+  - IP-CIDR,172.16.0.0/12,🎯 全球直连,no-resolve
+  - IP-CIDR,192.168.0.0/16,🎯 全球直连,no-resolve
+  - IP-CIDR,100.64.0.0/10,🎯 全球直连,no-resolve
+  - IP-CIDR6,::1/128,🎯 全球直连,no-resolve
+  - IP-CIDR6,fc00::/7,🎯 全球直连,no-resolve
+  - IP-CIDR6,fe80::/10,🎯 全球直连,no-resolve
+  - RULE-SET,private,🎯 全球直连
+  - RULE-SET,ads,🛑 广告拦截
+  - RULE-SET,speedtest,⏱️ 测速
+  - DOMAIN-SUFFIX,fast.com,⏱️ 测速
+  - DOMAIN-SUFFIX,librespeed.org,⏱️ 测速
+  - DOMAIN,speed.cloudflare.com,⏱️ 测速
+  - RULE-SET,ai-chat,🤖 AI 服务
+  - RULE-SET,openai,🤖 AI 服务
+  - RULE-SET,anthropic,🤖 AI 服务
+  - RULE-SET,apple,🍎 苹果服务
+  - RULE-SET,microsoft,Ⓜ️ 微软服务
+  - RULE-SET,telegram,📲 电报
+  - RULE-SET,youtube,▶️ YouTube
+  - RULE-SET,google,🔍 谷歌服务
+  - RULE-SET,twitter,🐦 X
+  - RULE-SET,facebook,📘 Meta
+  - RULE-SET,instagram,📘 Meta
+  - RULE-SET,netflix,🎬 Netflix
+  - RULE-SET,disney,🏰 Disney+
+  - RULE-SET,spotify,🎵 Spotify
+  - RULE-SET,twitch,🌍 国外媒体
+  - RULE-SET,games,🎮 游戏平台
+  - RULE-SET,github,🧑‍💻 开发服务
+  - RULE-SET,dev,🧑‍💻 开发服务
+  - RULE-SET,crypto,💰 加密货币
+  - RULE-SET,cn,🎯 全球直连
+  - GEOIP,CN,🎯 全球直连
+  - MATCH,🐟 漏网之鱼
+rule-providers:
+  private:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/private.mrs
+    path: ./ruleset/private.mrs
+    interval: 86400
+    proxy: DIRECT
+  ads:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/category-ads-all.mrs
+    path: ./ruleset/ads.mrs
+    interval: 86400
+    proxy: DIRECT
+  cn:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/cn.mrs
+    path: ./ruleset/cn.mrs
+    interval: 86400
+    proxy: DIRECT
+  ai-chat:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/category-ai-chat-!cn.mrs
+    path: ./ruleset/ai-chat.mrs
+    interval: 86400
+    proxy: DIRECT
+  openai:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/openai.mrs
+    path: ./ruleset/openai.mrs
+    interval: 86400
+    proxy: DIRECT
+  anthropic:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/anthropic.mrs
+    path: ./ruleset/anthropic.mrs
+    interval: 86400
+    proxy: DIRECT
+  youtube:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/youtube.mrs
+    path: ./ruleset/youtube.mrs
+    interval: 86400
+    proxy: DIRECT
+  google:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/google.mrs
+    path: ./ruleset/google.mrs
+    interval: 86400
+    proxy: DIRECT
+  twitter:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/twitter.mrs
+    path: ./ruleset/twitter.mrs
+    interval: 86400
+    proxy: DIRECT
+  facebook:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/facebook.mrs
+    path: ./ruleset/facebook.mrs
+    interval: 86400
+    proxy: DIRECT
+  instagram:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/instagram.mrs
+    path: ./ruleset/instagram.mrs
+    interval: 86400
+    proxy: DIRECT
+  netflix:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/netflix.mrs
+    path: ./ruleset/netflix.mrs
+    interval: 86400
+    proxy: DIRECT
+  disney:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/disney.mrs
+    path: ./ruleset/disney.mrs
+    interval: 86400
+    proxy: DIRECT
+  spotify:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/spotify.mrs
+    path: ./ruleset/spotify.mrs
+    interval: 86400
+    proxy: DIRECT
+  twitch:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/twitch.mrs
+    path: ./ruleset/twitch.mrs
+    interval: 86400
+    proxy: DIRECT
+  telegram:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/telegram.mrs
+    path: ./ruleset/telegram.mrs
+    interval: 86400
+    proxy: DIRECT
+  apple:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/apple.mrs
+    path: ./ruleset/apple.mrs
+    interval: 86400
+    proxy: DIRECT
+  microsoft:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/microsoft.mrs
+    path: ./ruleset/microsoft.mrs
+    interval: 86400
+    proxy: DIRECT
+  games:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/category-games.mrs
+    path: ./ruleset/games.mrs
+    interval: 86400
+    proxy: DIRECT
+  github:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/github.mrs
+    path: ./ruleset/github.mrs
+    interval: 86400
+    proxy: DIRECT
+  dev:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/category-dev.mrs
+    path: ./ruleset/dev.mrs
+    interval: 86400
+    proxy: DIRECT
+  crypto:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/category-cryptocurrency.mrs
+    path: ./ruleset/crypto.mrs
+    interval: 86400
+    proxy: DIRECT
+  speedtest:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/speedtest.mrs
+    path: ./ruleset/speedtest.mrs
+    interval: 86400
+    proxy: DIRECT
+proxy-providers:
+  remote:
+    type: http
+    url: https://clash-sub.rdone.workers.dev/provider/YOUR-PROFILE-ID
+    interval: 3600
+    path: ./providers/remote.yaml
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: 300

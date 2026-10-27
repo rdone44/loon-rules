@@ -1,0 +1,8 @@
+# 个人规则库：AI 相关域名 → 🤖 AI 服务
+# 每行一条，不带策略目标（策略由配置里的 RULE-SET 指定）
+# 可用语法：
+#   DOMAIN,example.com          完全匹配
+#   DOMAIN-SUFFIX,example.com   匹配自身和所有子域名
+#   DOMAIN-KEYWORD,xxx          域名包含关键字即命中
+DOMAIN-SUFFIX,agentrouter.org
+DOMAIN-SUFFIX,anyrouter.top

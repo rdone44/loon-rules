@@ -1,0 +1,17 @@
+# 个人规则库：命中即走 🎯 全球直连
+# 每行一条，不带策略目标（策略由配置里的 RULE-SET 指定）
+# 可用语法：
+#   DOMAIN,example.com          完全匹配
+#   DOMAIN-SUFFIX,example.com   匹配自身和所有子域名
+#   DOMAIN-KEYWORD,xxx          域名包含关键字即命中
+# 加域名后 push，约几分钟生效（Worker 缓存 5 分钟 + Clash 每 30 分钟刷新规则）
+DOMAIN,new.sharedchat.cc
+DOMAIN,gw2.oops.asia
+DOMAIN-SUFFIX,linuxdo.org
+DOMAIN-SUFFIX,chybenzun.top
+DOMAIN-SUFFIX,xiaomimimo.com
+DOMAIN-SUFFIX,muyuan.do
+DOMAIN-SUFFIX,bestcf.fxxk.dedyn.io
+DOMAIN-SUFFIX,apivs.si
+DOMAIN-SUFFIX,aws.amazon.com
+DOMAIN-SUFFIX,de.rdone.hidns.co
