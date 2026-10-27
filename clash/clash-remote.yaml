@@ -230,6 +230,7 @@ rules:
   - RULE-SET,missav,MissAV
   - RULE-SET,google,Google
   - RULE-SET,apple,苹果服务
+  - RULE-SET,apple-extra,苹果服务
   - RULE-SET,microsoft,微软服务
   - RULE-SET,github,GitHub
   - RULE-SET,telegram,Telegram
@@ -286,6 +287,7 @@ rule-providers:
   globalmedia: { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/globalmedia.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/GlobalMedia/GlobalMedia.list' }
   google:      { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/google.list,      url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Google/Google.list' }
   apple:       { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/apple.list,       url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Apple/Apple.list' }
+  apple-extra: { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/apple-extra.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/AppleExtra.list' }
   microsoft:   { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/microsoft.list,   url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Microsoft/Microsoft.list' }
   github:      { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/github.list,      url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/GitHub/GitHub.list' }
   telegram:    { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/telegram.list,    url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Telegram/Telegram.list' }

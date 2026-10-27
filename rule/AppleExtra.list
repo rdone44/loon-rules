@@ -1,0 +1,20 @@
+# NAME: AppleExtra
+# DESC: Apple CDN / 资源域名补充（上游 Apple.list 只有 apple.com 与 akadns 关键字，这些全都没覆盖）
+# USAGE: Loon [Remote Rule] <url>, policy=苹果服务 ；Clash / mihomo / Shadowrocket 用 RULE-SET 指向本表
+# NOTE: 不补这些，App Store 图片、Apple Music 封面、App 下载会落到 FINAL → 漏网之鱼 → 走代理
+# UPDATED: 2026-10-27
+#############################################
+
+# App Store / iOS 应用下载与素材分发（downloaddispatch.g.aaplimg.com 属于这一类）
+DOMAIN-SUFFIX,aaplimg.com
+
+# Apple 静态资源 CDN：App Store 截图、Apple Music 封面、iTunes 素材
+DOMAIN-SUFFIX,mzstatic.com
+
+# 系统服务
+DOMAIN-SUFFIX,apple-dns.net
+DOMAIN-SUFFIX,cdn-apple.com
+DOMAIN-SUFFIX,icloud-content.com
+DOMAIN-SUFFIX,apple-cloudkit.com
+DOMAIN-SUFFIX,apple-mapkit.com
+DOMAIN-SUFFIX,appldnld.apple.com

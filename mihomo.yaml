@@ -85,6 +85,7 @@ rule-providers:
   MissAV: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/MissAV.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/MissAV.list' }
   Google: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Google.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Google/Google.list' }
   Apple: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Apple.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Apple/Apple.list' }
+  AppleExtra: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/AppleExtra.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/AppleExtra.list' }
   Microsoft: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Microsoft.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Microsoft/Microsoft.list' }
   GitHub: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/GitHub.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/GitHub/GitHub.list' }
   Telegram: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Telegram.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Telegram/Telegram.list' }
@@ -180,6 +181,7 @@ rules:
   - RULE-SET,MissAV,MissAV
   - RULE-SET,Google,Google
   - RULE-SET,Apple,苹果服务
+  - RULE-SET,AppleExtra,苹果服务
   - RULE-SET,Microsoft,微软服务
   - RULE-SET,GitHub,GitHub
   - RULE-SET,Telegram,Telegram
