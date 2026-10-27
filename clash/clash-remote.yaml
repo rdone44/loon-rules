@@ -53,7 +53,7 @@ proxy-groups:
     exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
     url: http://www.gstatic.com/generate_204
     interval: 600
-    tolerance: 150
+    tolerance: 300
   - name: YouTube
     type: url-test
     include-all: true
@@ -65,6 +65,7 @@ proxy-groups:
   - name: Google
     type: url-test
     include-all: true
+    filter: '(?i)🇭🇰|香港|🇹🇼|台湾|台北|🇯🇵|日本|东京|大阪|🇸🇬|新加坡|🇺🇸|美国|🇰🇷|韩国|首尔|🇩🇪|德国|法兰克福|Hong ?Kong|Taiwan|Taipei|Japan|Tokyo|Osaka|Singapore|Korea|Seoul|Germany|Frankfurt|\b(HK|HKG|TW|TWN|TPE|JP|JPN|NRT|HND|KIX|TYO|SG|SGP|SIN|US|USA|LAX|SJC|SFO|SEA|IAD|ORD|DFW|JFK|NYC|EWR|KR|KOR|ICN|DE|DEU|FRA)\d*\b'
     exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
     url: https://www.gstatic.com/generate_204
     interval: 600
@@ -99,6 +100,7 @@ proxy-groups:
   - name: GitHub
     type: url-test
     include-all: true
+    filter: '(?i)🇭🇰|香港|🇹🇼|台湾|台北|🇯🇵|日本|东京|大阪|🇸🇬|新加坡|🇺🇸|美国|🇰🇷|韩国|首尔|🇩🇪|德国|法兰克福|Hong ?Kong|Taiwan|Taipei|Japan|Tokyo|Osaka|Singapore|Korea|Seoul|Germany|Frankfurt|\b(HK|HKG|TW|TWN|TPE|JP|JPN|NRT|HND|KIX|TYO|SG|SGP|SIN|US|USA|LAX|SJC|SFO|SEA|IAD|ORD|DFW|JFK|NYC|EWR|KR|KOR|ICN|DE|DEU|FRA)\d*\b'
     exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
     url: https://github.com
     expected-status: "200"
@@ -153,6 +155,15 @@ proxy-groups:
     proxies: [DIRECT, 自动选择]
     include-all: true
     exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
+  # ---- 地区自动组（Loon 侧对应 香港自动/台湾自动/…，这里只保留被规则集引用的）----
+  - name: 台湾自动
+    type: url-test
+    include-all: true
+    filter: '(?i)🇹🇼|台湾|臺灣|台灣|台北|臺北|新北|桃园|桃園|台中|台南|高雄|新竹|Taiwan|Taipei|HiNet|\b(TW|TWN|TPE)\d*\b'
+    exclude-filter: '(?i)回国|校园|游戏|到期|流量|剩余|官网|客服|订阅|邀请|频道'
+    url: http://www.gstatic.com/generate_204
+    interval: 600
+    tolerance: 300
   # ---- 主策略组 ----
   - name: 节点选择
     type: select
@@ -186,32 +197,25 @@ proxy-groups:
     hidden: true
 
 rules:
-  # ================= Loon [Rule] 本地例外 =================
-  - DOMAIN-SUFFIX,lody.ai,AI
-  - DOMAIN,ai.hyper.nyc.mn,YouTube
-  - DOMAIN-SUFFIX,linux.do,自动选择
-  - DOMAIN-SUFFIX,javdb.com,节点选择
-  - DOMAIN-SUFFIX,whatshub.top,自动选择
-  - DOMAIN-SUFFIX,1688.com,DIRECT
-  - DOMAIN-SUFFIX,goofish.com,DIRECT
-  - DOMAIN-SUFFIX,gstatic.com,Google
-  - DOMAIN-SUFFIX,googleapis.cn,DIRECT
-  - IP-CIDR,192.168.0.0/16,DIRECT,no-resolve
-  - IP-CIDR,10.0.0.0/8,DIRECT,no-resolve
-  - IP-CIDR,172.16.0.0/12,DIRECT,no-resolve
-  - IP-CIDR,127.0.0.0/8,DIRECT,no-resolve
-  - DOMAIN-SUFFIX,msftconnecttest.com,DIRECT
-  - DOMAIN-SUFFIX,msftncsi.com,DIRECT
-  - DOMAIN-SUFFIX,captive.apple.com,DIRECT
-  - DOMAIN-SUFFIX,network-test.debian.org,DIRECT
-  - IP-CIDR,17.0.0.0/8,DIRECT,no-resolve
+  # ================= 优先级例外（原本地规则，已迁到 rule/priority/） =================
+  # 与 Loon [Remote Rule] 头 6 张表一一对应；必须排最前，否则会被后面的表抢走
+  - RULE-SET,prioritydirect,DIRECT
+  - RULE-SET,priorityai,AI
+  - RULE-SET,priorityyoutube,YouTube
+  - RULE-SET,prioritygoogle,Google
+  - RULE-SET,priorityauto,自动选择
+  - RULE-SET,prioritytw,台湾自动
   # ================= Loon [Remote Rule] 同序 =================
   - RULE-SET,mydomains,DIRECT
+  - RULE-SET,financecn,金融应用
   - RULE-SET,alibaba,DIRECT
   - RULE-SET,alipay,DIRECT
   - RULE-SET,pinduoduo,DIRECT
   - RULE-SET,jingdong,DIRECT
+  - RULE-SET,adsextra,全球拦截
   - RULE-SET,tomatonovel,DIRECT
+  - RULE-SET,wechat,DIRECT
+  - RULE-SET,carrier,DIRECT
   - RULE-SET,advertising,全球拦截
   - RULE-SET,hijacking,全球拦截
   - RULE-SET,privacy,全球拦截
@@ -243,6 +247,7 @@ rules:
   - RULE-SET,douyin,DIRECT
   - RULE-SET,china,DIRECT
   - RULE-SET,chinaips,DIRECT
+  - RULE-SET,globalextra,节点选择
   - RULE-SET,global,节点选择
   - MATCH,漏网之鱼
 
@@ -250,6 +255,17 @@ rule-providers:
   # ---- Loon 文本规则，mihomo 用 classical + text 直接解析 ----
   # ---- interval 统一 3600：下载失败时 1 小时内自动重试，而不是等一天 ----
   mydomains:   { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/mydomains.list,   url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/MyDomains.list' }
+  financecn:   { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/financecn.list,   url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/FinanceCN.list' }
+  adsextra:    { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/adsextra.list,    url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/AdsExtra.list' }
+  wechat:      { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/wechat.list,      url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/WeChat.list' }
+  carrier:     { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/carrier.list,     url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/Carrier.list' }
+  globalextra: { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/globalextra.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/GlobalExtra.list' }
+  prioritydirect:  { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/prioritydirect.list,  url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/direct.list' }
+  priorityai:      { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/priorityai.list,      url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/ai.list' }
+  priorityyoutube: { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/priorityyoutube.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/youtube.list' }
+  prioritygoogle:  { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/prioritygoogle.list,  url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/google.list' }
+  priorityauto:    { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/priorityauto.list,    url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/auto.list' }
+  prioritytw:      { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/prioritytw.list,      url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/tw.list' }
   tomatonovel: { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/tomatonovel.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/TomatoNovel.list' }
   metaextra:   { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/metaextra.list,   url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/MetaExtra.list' }
   gemini:      { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/gemini.list,      url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/Gemini.list' }

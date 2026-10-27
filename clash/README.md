@@ -4,7 +4,7 @@
 
 | 文件 | 用途 |
 | --- | --- |
-| `clash-remote.yaml` | 配置模板。分组用 `use: [remote]` 占位，网关部署时注入节点或重写成自己的 `/provider` 地址 |
+| `clash-remote.yaml` | **Clash / mihomo 侧的主配置**，与 `Loon.conf` 逐表同序；分组用 `use: [remote]` 占位，网关部署时注入节点或重写成自己的 `/provider` 地址 |
 | `personal-ai.list` | 个人 AI 域名表，命中走 `🤖 AI 服务` |
 | `personal-direct.list` | 个人直连域名表，命中走 `🎯 全球直连` |
 
@@ -30,4 +30,6 @@ PERSONAL_RULES_URL → clash/personal-direct.list
 
 ## 本地用法
 
-不用网关，直接把 `clash-remote.yaml` 里的 `proxy-providers.remote.url` 换成自己的订阅地址即可；或者用根目录的 `mihomo.yaml`（与 Loon.conf 同构，但分组结构不同，不要和本文件混用）。
+不用网关，直接把 `clash-remote.yaml` 里的 `proxy-providers.remote.url` 换成自己的订阅地址即可。
+
+> 根目录的 `mihomo.yaml` 已弃用（仅作历史对照）。Clash 侧只维护本目录这份，两人的规则集顺序与策略完全一致。
