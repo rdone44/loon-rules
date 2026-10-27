@@ -1,0 +1,12 @@
+# Global.list 用 DOMAIN-KEYWORD（amazon / pinterest / porn …）覆盖主站，
+# 但很多 CDN 域名里不含该关键词，会漏到 FINAL 兜底组，导致「页面走 A 组、图片/视频走 B 组」。
+# 这里只补这类 CDN，策略应与主站一致（默认 节点选择）。
+#
+# 已核对：下列域名在现有所有规则表里都不存在，且主站由 Global.list 的
+# DOMAIN-KEYWORD,pinterest / DOMAIN-KEYWORD,porn 覆盖。
+
+# Pinterest：主站 pinterest.com 命中 DOMAIN-KEYWORD,pinterest；图片 CDN 是 pinimg.com
+DOMAIN-SUFFIX,pinimg.com
+
+# Pornhub：主站 pornhub.com 命中 DOMAIN-KEYWORD,porn；视频 CDN 是 phncdn.com
+DOMAIN-SUFFIX,phncdn.com

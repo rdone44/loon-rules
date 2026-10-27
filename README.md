@@ -11,6 +11,7 @@
 | `mihomo.yaml` | mihomo (Clash.Meta) 配置，与 Loon.conf 同构分流（插件 / MITM 脚本不迁移） |
 | `clash/` | 订阅网关的配置模板与个人规则库，详见 `clash/README.md` |
 | `rule/MissAV.list` | MissAV 家族 + 图片 / 视频 CDN 分流规则 |
+| `rule/GlobalExtra.list` | 补 Global.list 关键词规则盖不到的 CDN（前后端同出口） |
 | `rule/Gemini.list` | Gemini / AI Studio / Vertex 全端点分流规则 |
 | `rule/category-ads-all.list` | v2fly `category-ads-all` 的 Loon 格式转换（静态，约 900 条） |
 | `plugin/*.lpx` | kelee.one 插件镜像（源站被 Cloudflare 阻断） |

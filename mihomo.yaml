@@ -90,6 +90,7 @@ rule-providers:
   DouYin: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/DouYin.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/DouYin/DouYin.list' }
   China: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/China.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/China/China.list' }
   ChinaIPs: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/ChinaIPs.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/ChinaIPs/ChinaIPs.list' }
+  GlobalExtra: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/GlobalExtra.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/GlobalExtra.list' }
   Global: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Global.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Global/Global.list' }
 
 proxy-groups:
@@ -192,5 +193,6 @@ rules:
   - RULE-SET,DouYin,DIRECT
   - RULE-SET,China,DIRECT
   - RULE-SET,ChinaIPs,DIRECT
+  - RULE-SET,GlobalExtra,节点选择
   - RULE-SET,Global,节点选择
   - MATCH,漏网之鱼
