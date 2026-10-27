@@ -1,0 +1,3 @@
+# 优先级例外 · AI
+# 原 [Rule] 本地规则：lody.ai 强制走 AI 组（会被 Google / Global 的关键词规则抢走）
+DOMAIN-SUFFIX,lody.ai

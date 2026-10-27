@@ -13,6 +13,7 @@
 | `rule/MissAV.list` | MissAV 家族 + 图片 / 视频 CDN 分流规则 |
 | `rule/GlobalExtra.list` | 补 Global.list 关键词规则盖不到的 CDN（前后端同出口） |
 | `rule/FinanceCN.list` | 国内银行 / 券商 / 支付 / 保险，固定在「金融应用」组且排在广告表之前 |
+| `rule/priority/` | 优先级例外（原 `[Rule]` 本地规则），按策略拆成 6 张表 |
 | `rule/Gemini.list` | Gemini / AI Studio / Vertex 全端点分流规则 |
 | `rule/category-ads-all.list` | v2fly `category-ads-all` 的 Loon 格式转换（静态，约 900 条） |
 | `plugin/*.lpx` | kelee.one 插件镜像（源站被 Cloudflare 阻断） |
@@ -141,7 +142,7 @@ https://raw.githubusercontent.com/rdone44/loon-rules/main/plugin/RuleLookup.lpx,
 
 | 模式 | 作用 |
 |---|---|
-| `结构概览` | 不联网拉规则表。列出本地规则、38 张远程表的顺序与策略组、每张表当前选中的节点；检查策略组是否存在、有没有重复引用的表、有没有 GEOIP 兜底 |
+| `结构概览` | 不联网拉规则表。列出本地规则、44 张远程表的顺序与策略组、每张表当前选中的节点；检查策略组是否存在、有没有重复引用的表、有没有 GEOIP 兜底 |
 | `查域名` | 填 `查询域名`（域名或 IPv4）。拉全部规则表（跳过 ChinaIPs），输出**命中链路**：第一条=实际生效的策略，后面的=被抢先的规则 |
 | `全量体检` | 拉全部规则表（含 ChinaIPs 约 700KB），估算域名类规则的独占命中率，列出 IP / 其他类型规则数量，以及「完全重复的规则行」和「跨策略抢先」明细 |
 
@@ -202,7 +203,7 @@ Loon 的脚本日志和通知都是临时的，翻不了历史。想让每次查
 
 - DNS 不含 `system`，统一走 223.5.5.5 / doh.pub + Fake-IP，由代理在远端解析，防止查询泄露
 - `sni-sniffing` 必开，否则 App 自带 DoH / 硬编码 IP 的连接拿不到域名，域名规则全部落空
-- Gemini 规则必须排在 Google 规则之前；本地 `[Rule]` 只放例外，不放 GEOIP 兜底，否则广告表永远轮不到
+- Gemini 规则必须排在 Google 规则之前；本地 `[Rule]` 现在**只剩 `FINAL`**，全部例外（含原 `[Rule]` 里那 18 条）已按策略移到 `rule/priority/` 的远程表，并放在 `[Remote Rule]` 最前面；不放 GEOIP 兜底，否则广告表永远轮不到
 - 原配置的 CA（ca-p12 / ca-passphrase）已随文件外泄，**不要再用**，用 Loon 自带证书
 
 ## 注意

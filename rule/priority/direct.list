@@ -1,0 +1,16 @@
+# 优先级例外 · DIRECT
+# 原 Loon.conf [Rule] 里的本地直连例外，移到远程表以便 Loon / Shadowrocket / mihomo 共用。
+# 必须放在 [Remote Rule] 最前面：googleapis.cn 要抢在 Google 表之前直连，
+# 局域网 / 链路检测域名要抢在广告表之前直连。
+DOMAIN-SUFFIX,1688.com
+DOMAIN-SUFFIX,goofish.com
+DOMAIN-SUFFIX,googleapis.cn
+DOMAIN-SUFFIX,msftconnecttest.com
+DOMAIN-SUFFIX,msftncsi.com
+DOMAIN-SUFFIX,captive.apple.com
+DOMAIN-SUFFIX,network-test.debian.org
+IP-CIDR,192.168.0.0/16,no-resolve
+IP-CIDR,10.0.0.0/8,no-resolve
+IP-CIDR,172.16.0.0/12,no-resolve
+IP-CIDR,127.0.0.0/8,no-resolve
+IP-CIDR,17.0.0.0/8,no-resolve

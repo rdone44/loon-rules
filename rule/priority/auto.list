@@ -1,0 +1,4 @@
+# 优先级例外 · 自动选择
+# 原 [Rule] 本地规则
+DOMAIN-SUFFIX,linux.do
+DOMAIN-SUFFIX,whatshub.top

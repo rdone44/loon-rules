@@ -54,6 +54,12 @@ proxy-providers:
 
 rule-providers:
   MyDomains: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/MyDomains.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/MyDomains.list' }
+  PriorityDirect: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/priority-direct.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/direct.list' }
+  PriorityAI: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/priority-ai.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/ai.list' }
+  PriorityYouTube: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/priority-youtube.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/youtube.list' }
+  PriorityGoogle: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/priority-google.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/google.list' }
+  PriorityAuto: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/priority-auto.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/auto.list' }
+  PriorityTW: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/priority-tw.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/tw.list' }
   FinanceCN: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/FinanceCN.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/FinanceCN.list' }
   Alibaba: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Alibaba.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Alibaba/Alibaba.list' }
   AliPay: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/AliPay.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/AliPay/AliPay.list' }
@@ -138,24 +144,12 @@ proxy-groups:
 
 rules:
   # 本地例外（对应 Loon [Rule]，优先于所有规则集）
-  - DOMAIN-SUFFIX,lody.ai,AI
-  - DOMAIN,ai.hyper.nyc.mn,YouTube
-  - DOMAIN-SUFFIX,linux.do,自动选择
-  - DOMAIN-SUFFIX,javdb.com,台湾自动
-  - DOMAIN-SUFFIX,whatshub.top,自动选择
-  - DOMAIN-SUFFIX,1688.com,DIRECT
-  - DOMAIN-SUFFIX,goofish.com,DIRECT
-  - DOMAIN-SUFFIX,gstatic.com,Google
-  - DOMAIN-SUFFIX,googleapis.cn,DIRECT
-  - IP-CIDR,192.168.0.0/16,DIRECT,no-resolve
-  - IP-CIDR,10.0.0.0/8,DIRECT,no-resolve
-  - IP-CIDR,172.16.0.0/12,DIRECT,no-resolve
-  - IP-CIDR,127.0.0.0/8,DIRECT,no-resolve
-  - DOMAIN-SUFFIX,msftconnecttest.com,DIRECT
-  - DOMAIN-SUFFIX,msftncsi.com,DIRECT
-  - DOMAIN-SUFFIX,captive.apple.com,DIRECT
-  - DOMAIN-SUFFIX,network-test.debian.org,DIRECT
-  - IP-CIDR,17.0.0.0/8,DIRECT,no-resolve
+  - RULE-SET,PriorityDirect,DIRECT
+  - RULE-SET,PriorityAI,AI
+  - RULE-SET,PriorityYouTube,YouTube
+  - RULE-SET,PriorityGoogle,Google
+  - RULE-SET,PriorityAuto,自动选择
+  - RULE-SET,PriorityTW,台湾自动
   # 远程规则集（顺序同 Loon [Remote Rule]）
   - RULE-SET,MyDomains,DIRECT
   - RULE-SET,FinanceCN,金融应用
