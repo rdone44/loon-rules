@@ -2,8 +2,9 @@
 # DESC: 番茄小说 / 字节系阅读（fanqie*、fqnovel*、qznovel*、novelfm*）+ 它们依赖的字节共享 CDN
 # SOURCE: blackmatrix7/ios_rule_script ByteDance.list 番茄段 + 手工补
 # 用途：policy=DIRECT（走代理必卡）
+# 注意：fanqiesdk*（广告 SDK）已移到 AdsExtra.list 拦截，不在这里
 # UPDATED: 2026-10-27
-# TOTAL: 35
+# TOTAL: 31
 DOMAIN-SUFFIX,changdunovel.com
 DOMAIN-SUFFIX,fanqiecopyright.com
 DOMAIN-SUFFIX,fanqienovel.com
@@ -11,10 +12,6 @@ DOMAIN-SUFFIX,fanqieopen.com
 DOMAIN-SUFFIX,fanqieopenpic.com
 DOMAIN-SUFFIX,fanqieopenstatic.com
 DOMAIN-SUFFIX,fanqieopenvod.com
-DOMAIN-SUFFIX,fanqiesdk.com
-DOMAIN-SUFFIX,fanqiesdkpic.com
-DOMAIN-SUFFIX,fanqiesdkstatic.com
-DOMAIN-SUFFIX,fanqiesdkvod.com
 DOMAIN-SUFFIX,fqnovel-op.com
 DOMAIN-SUFFIX,fqnovel.com
 DOMAIN-SUFFIX,fqnovelim.com

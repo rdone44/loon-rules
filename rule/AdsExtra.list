@@ -16,3 +16,12 @@ DOMAIN-SUFFIX,oceanengine.cn
 
 # 头条系广告统计上报
 DOMAIN-SUFFIX,pglstatp-toutiao.com
+
+# 番茄小说自己的广告 SDK（fanqiesdk 系列）
+# 原先写在 TomatoNovel.list 的 DIRECT 段里，导致 App 内广告一直能正常拉取。
+# 现在移到拦截，代价：部分版本广告位加载失败时可能短暂白屏 / 重试。
+# 如果 App 出现异常，把下面 4 行注释掉、并回 TomatoNovel.list 恢复即可。
+DOMAIN-SUFFIX,fanqiesdk.com
+DOMAIN-SUFFIX,fanqiesdkpic.com
+DOMAIN-SUFFIX,fanqiesdkstatic.com
+DOMAIN-SUFFIX,fanqiesdkvod.com
