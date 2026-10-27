@@ -109,7 +109,7 @@ proxy-groups:
   - { name: AI, type: select, proxies: [美国节点, 日本节点, 新加坡节点, 其他节点] }
   - { name: 苹果服务, type: select, proxies: [DIRECT, 香港自动, 美国自动] }
   - { name: 微软服务, type: select, proxies: [DIRECT, 德国自动, 美国自动] }
-  - { name: GitHub, type: select, proxies: [香港自动, 台湾自动, 日本自动, 新加坡自动, 美国自动, 韩国自动, 德国自动] }
+  - { name: GitHub, type: url-test, proxies: [香港自动, 台湾自动, 日本自动, 新加坡自动, 美国自动, 韩国自动, 德国自动], url: 'http://www.gstatic.com/generate_204', interval: 600, tolerance: 300 }
   - { name: Telegram, type: select, proxies: [香港节点, 日本节点, 新加坡节点, 美国节点, 其他节点] }
   - { name: Twitter, type: select, proxies: [美国自动] }
   - { name: 游戏平台, type: select, proxies: [DIRECT, 香港自动, 日本自动, 美国自动] }
