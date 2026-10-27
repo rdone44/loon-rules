@@ -1,0 +1,24 @@
+# NAME: MyDomains
+# DESC: 自有服务器域名（含全部子域），一律直连
+# USAGE: [Remote Rule] <url>, policy=DIRECT, tag=我的域名, enabled=true
+# NOTE: 纯 DOMAIN-SUFFIX / DOMAIN-KEYWORD，Loon / Surge 通用
+# UPDATED: 2026-10-27
+#############################################
+
+# 442595.xyz（含 sub.）
+DOMAIN-SUFFIX,442595.xyz
+
+# zhangjun.eu.cc（含 sub.，LLM 中继）
+DOMAIN-SUFFIX,zhangjun.eu.cc
+
+# rdone4465.eu.cc
+DOMAIN-SUFFIX,rdone4465.eu.cc
+
+# 德国 VPS
+DOMAIN-SUFFIX,de.rdone.hidns.co
+
+# 订阅转换站
+DOMAIN-SUFFIX,sub.rdone.cc.cd
+
+# 社区（域名里带 nodeloc 的镜像）
+DOMAIN-KEYWORD,nodeloc
