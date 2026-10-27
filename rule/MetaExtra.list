@@ -1,0 +1,16 @@
+# NAME: MetaExtra
+# DESC: Meta 系补充（上游 Facebook/Instagram/Threads/Whatsapp 四张表未覆盖的域名）
+# USAGE: [Remote Rule] <url>, policy=Meta, tag=Meta补充, enabled=true
+# NOTE: 定期对照上游，若上游补了这些域名可从本表删除
+# UPDATED: 2026-10-27
+#############################################
+
+# Meta AI / Muse（个人 AI Agent，安卓包名 com.facebook.aura）
+DOMAIN-SUFFIX,meta.ai
+DOMAIN-SUFFIX,muse.ai
+
+# 短视频 / 帖子短链
+DOMAIN-SUFFIX,fb.watch
+
+# Threads 网页版域名（Threads.list 只有 threads.net）
+DOMAIN-SUFFIX,threads.com
