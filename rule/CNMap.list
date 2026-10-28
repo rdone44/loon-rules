@@ -1,0 +1,27 @@
+# NAME: CNMap
+# DESC: 国内地图 App 直连（高德 / 百度地图 / 腾讯地图）
+# 用途：policy=DIRECT
+#
+# 为什么需要：
+# 1) 上游没有任何地图类规则集，高德的 amap.com / autonavi.com 实测全部落到 FINAL 走代理
+# 2) 百度地图主域 map.baidu.com 被 China.list 的 DOMAIN-KEYWORD,baidu 覆盖成直连，
+#    但地图瓦片 / 静态资源 bdimg.com、bdstatic.com 没有规则，一样漏到兜底
+# 3) 地图走代理的典型症状：定位飘到节点所在国家、路线规划慢、瓦片加载空白
+#
+# ⚠ 位置：必须排在 Advertising.list **之后**（本仓库放在 隐私上报 后面）。
+#   Advertising.list 里有 DOMAIN-KEYWORD,apiinit.amap.com（高德埋点上报），
+#   排前面会把这条埋点一起放行；排后面则埋点仍被拦、其余地图域名走直连。
+#
+# 不含 map.baidu.com 与 baidu.com 系（已被 China.list 的 baidu 关键词覆盖，无需重复）。
+
+# ── 高德 ──
+DOMAIN-SUFFIX,amap.com
+DOMAIN-SUFFIX,autonavi.com
+DOMAIN-SUFFIX,amapauto.com
+
+# ── 百度地图 瓦片 / 静态资源 ──
+DOMAIN-SUFFIX,bdimg.com
+DOMAIN-SUFFIX,bdstatic.com
+
+# ── 腾讯地图 ──
+DOMAIN-SUFFIX,map.qq.com

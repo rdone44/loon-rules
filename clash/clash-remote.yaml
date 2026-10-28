@@ -219,6 +219,7 @@ rules:
   - RULE-SET,advertising,全球拦截
   - RULE-SET,hijacking,全球拦截
   - RULE-SET,privacy,全球拦截
+  - RULE-SET,cnmap,DIRECT
   - RULE-SET,gemini,AI
   - RULE-SET,openai,AI
   - RULE-SET,claude,AI
@@ -278,6 +279,7 @@ rule-providers:
   advertising: { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/advertising.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Advertising/Advertising.list' }
   hijacking:   { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/hijacking.list,   url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Hijacking/Hijacking.list' }
   privacy:     { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/privacy.list,     url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Privacy/Privacy.list' }
+  cnmap:       { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/cnmap.list,       url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/CNMap.list' }
   openai:      { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/openai.list,      url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/OpenAI/OpenAI.list' }
   claude:      { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/claude.list,      url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Claude/Claude.list' }
   copilot:     { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/copilot.list,     url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Copilot/Copilot.list' }
