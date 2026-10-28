@@ -23,6 +23,5 @@ DOMAIN-SUFFIX,sub.rdone.cc.cd
 # 社区（域名里带 nodeloc 的镜像）
 DOMAIN-KEYWORD,nodeloc
 
-# WordBuddy
-DOMAIN-SUFFIX,wordbuddy.com
-DOMAIN-SUFFIX,wordbuddy.app
+# WorkBuddy
+DOMAIN-SUFFIX,workbuddy.com
