@@ -4,9 +4,24 @@
 
 | 文件 | 用途 |
 | --- | --- |
-| `clash-remote.yaml` | **Clash / mihomo 侧的主配置**，与 `Loon.conf` 逐表同序；分组用 `use: [remote]` 占位，网关部署时注入节点或重写成自己的 `/provider` 地址 |
+| `clash-remote.yaml` | **Clash / mihomo 侧的主配置**，与 `Loon.conf` 逐表同序；节点用 `proxy-providers.remote` 提供，网关部署时会把它改写成自己的 `/provider?token=...` |
 | `personal-ai.list` | 个人 AI 域名表，命中走 `🤖 AI 服务` |
 | `personal-direct.list` | 个人直连域名表，命中走 `🎯 全球直连` |
+
+## 网关入口（实测 2026-10）
+
+`https://clash-gateway.rdone.eu.cc`
+
+| 路径 | 是否需要 token | 用途 | 实测 |
+| --- | --- | --- | --- |
+| `/` | 否 | 设置页（填 GitHub 配置链接 / 机场订阅 / 订阅名） | 200 |
+| `/health` | 否 | 健康检查，返回 `{"status":"ok","version":"1.1.0"}` | 200 |
+| `/sub?token=<ACCESS_TOKEN>` | 是 | **Clash 订阅地址**，导入客户端用这个 | 无 token 返回 401 |
+| `/provider?token=<ACCESS_TOKEN>` | 是 | 节点源，`proxy-providers` 用 | 无 token 返回 401 |
+
+- 直接打开 `/sub` 或 `/provider` 不带 token 会回 **401**，不是网关坏了
+- 设置页支持 `/?token=<ACCESS_TOKEN>`，会把当前设置明文显示出来
+- 旧地址 `https://clash-sub.rdone.workers.dev/provider/YOUR-PROFILE-ID` **已失效（404）**，模板里的占位符已改到新网关
 
 ## 网关怎么取这些文件
 
@@ -30,6 +45,6 @@ PERSONAL_RULES_URL → clash/personal-direct.list
 
 ## 本地用法
 
-不用网关，直接把 `clash-remote.yaml` 里的 `proxy-providers.remote.url` 换成自己的订阅地址即可。
+不用网关，把 `clash-remote.yaml` 里的 `proxy-providers.remote.url` 换成自己的机场订阅直链（或者网关的 `/provider?token=...`）即可。
 
-> 根目录的 `mihomo.yaml` 已弃用（仅作历史对照）。Clash 侧只维护本目录这份，两人的规则集顺序与策略完全一致。
+> 根目录的 `mihomo.yaml` 已弃用（仅作历史对照）。Clash 侧只维护本目录这份，两者的规则集顺序与策略完全一致。

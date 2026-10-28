@@ -308,7 +308,9 @@ rule-providers:
 proxy-providers:
   remote:
     type: http
-    url: https://clash-sub.rdone.workers.dev/provider/YOUR-PROFILE-ID
+    # 网关注入节点用的占位地址；用网关订阅（/sub?token=...）时会被自动改写
+    # 直连本地使用就把 token 换成自己的 ACCESS_TOKEN，或换成机场订阅直链
+    url: https://clash-gateway.rdone.eu.cc/provider?token=YOUR-ACCESS-TOKEN
     interval: 3600
     path: ./providers/remote.yaml
     health-check:
