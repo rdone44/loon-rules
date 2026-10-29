@@ -1,0 +1,93 @@
+# NAME: ChinaApp
+# DESC: 国内常用服务域名族（社交/资讯/视频/音乐/出行/生活/办公/云/手机厂商），DIRECT
+# USAGE: [Remote Rule] https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/ChinaApp.list, policy=DIRECT, tag=国内App, enabled=true
+# NOTE: 上游 Loon/China/China.list 头部写着 DOMAIN-SUFFIX: 3674，实际正文只剩 2 条（cn / ms）+ 9 个关键词
+#       + IP + USER-AGENT —— 是被上游裁剪过的版本，qq.com / weibo.com / zhihu.com / iqiyi.com 全不在里面，
+#       于是这些流量全落 FINAL 漏网之鱼走代理：国内视频提示地区限制、App 首屏慢、音乐灰歌。
+#       本表只放「国内直连更正确」的域名族，按厂商/用途分组，一条 DOMAIN-SUFFIX 覆盖全部子域。
+# UPDATED: 2026-10-29
+#############################################
+# 国内常用服务域名族 —— 上游 China.list(Loon 版) 只剩 74 行 / 2 条 DOMAIN-SUFFIX，覆盖不到
+# 社交 / 资讯
+DOMAIN-SUFFIX,qq.com
+DOMAIN-SUFFIX,tencent.com
+DOMAIN-SUFFIX,weixin.com
+DOMAIN-SUFFIX,wechat.com
+DOMAIN-SUFFIX,163.com
+DOMAIN-SUFFIX,126.net
+DOMAIN-SUFFIX,yeah.net
+DOMAIN-SUFFIX,sina.com.cn
+DOMAIN-SUFFIX,sina.cn
+DOMAIN-SUFFIX,weibo.com
+DOMAIN-SUFFIX,weibo.cn
+DOMAIN-SUFFIX,zhihu.com
+DOMAIN-SUFFIX,zhimg.com
+DOMAIN-SUFFIX,douban.com
+DOMAIN-SUFFIX,doubanio.com
+DOMAIN-SUFFIX,xiaohongshu.com
+DOMAIN-SUFFIX,xhscdn.com
+DOMAIN-SUFFIX,sohu.com
+DOMAIN-SUFFIX,ifeng.com
+DOMAIN-SUFFIX,thepaper.cn
+DOMAIN-SUFFIX,36kr.com
+DOMAIN-SUFFIX,ithome.com
+DOMAIN-SUFFIX,sspai.com
+DOMAIN-SUFFIX,huxiu.com
+DOMAIN-SUFFIX,tieba.baidu.com
+# 视频 / 音乐 / 音频
+DOMAIN-SUFFIX,iqiyi.com
+DOMAIN-SUFFIX,iqiyipic.com
+DOMAIN-SUFFIX,youku.com
+DOMAIN-SUFFIX,mgtv.com
+DOMAIN-SUFFIX,kuaishou.com
+DOMAIN-SUFFIX,kwaicdn.com
+DOMAIN-SUFFIX,kugou.com
+DOMAIN-SUFFIX,kuwo.cn
+DOMAIN-SUFFIX,ximalaya.com
+DOMAIN-SUFFIX,qingting.fm
+# 出行 / 地图 / 生活
+DOMAIN-SUFFIX,ctrip.com
+DOMAIN-SUFFIX,qunar.com
+DOMAIN-SUFFIX,ly.com
+DOMAIN-SUFFIX,didiglobal.com
+DOMAIN-SUFFIX,didichuxing.com
+DOMAIN-SUFFIX,58.com
+DOMAIN-SUFFIX,ke.com
+DOMAIN-SUFFIX,lianjia.com
+DOMAIN-SUFFIX,anjuke.com
+# 电商 / 支付（上游已覆盖绝大多数，这里只补缺口）
+DOMAIN-SUFFIX,suning.com
+DOMAIN-SUFFIX,vip.com
+DOMAIN-SUFFIX,yhd.com
+DOMAIN-SUFFIX,mogujie.com
+DOMAIN-SUFFIX,1688.com
+DOMAIN-SUFFIX,goofish.com
+# 办公 / 云 / 工具
+DOMAIN-SUFFIX,dingtalk.com
+DOMAIN-SUFFIX,feishu.cn
+DOMAIN-SUFFIX,wps.cn
+DOMAIN-SUFFIX,kdocs.cn
+DOMAIN-SUFFIX,kingsoft.com
+DOMAIN-SUFFIX,aliyun.com
+DOMAIN-SUFFIX,aliyuncs.com
+DOMAIN-SUFFIX,qcloud.com
+DOMAIN-SUFFIX,myqcloud.com
+DOMAIN-SUFFIX,jianguoyun.com
+# 金融 / 资讯
+DOMAIN-SUFFIX,10jqka.com.cn
+DOMAIN-SUFFIX,hexun.com
+DOMAIN-SUFFIX,jrj.com.cn
+DOMAIN-SUFFIX,cninfo.com.cn
+# 生活服务 / 其他
+DOMAIN-SUFFIX,ganji.com
+DOMAIN-SUFFIX,smzdm.com
+DOMAIN-SUFFIX,mi.com
+DOMAIN-SUFFIX,xiaomi.com
+DOMAIN-SUFFIX,miui.com
+DOMAIN-SUFFIX,huawei.com
+DOMAIN-SUFFIX,hicloud.com
+DOMAIN-SUFFIX,oppo.com
+DOMAIN-SUFFIX,vivo.com
+DOMAIN-SUFFIX,realme.com
+DOMAIN-SUFFIX,meizu.com
+DOMAIN-SUFFIX,lenovo.com.cn

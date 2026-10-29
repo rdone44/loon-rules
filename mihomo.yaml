@@ -63,6 +63,7 @@ rule-providers:
   PriorityAuto: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/priority-auto.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/auto.list' }
   PriorityTW: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/priority-tw.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/tw.list' }
   FinanceCN: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/FinanceCN.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/FinanceCN.list' }
+  ChinaApp: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/ChinaApp.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/ChinaApp.list' }
   Alibaba: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Alibaba.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Alibaba/Alibaba.list' }
   Takeout: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Takeout.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/Takeout.list' }
   AliPay: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/AliPay.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/AliPay/AliPay.list' }
@@ -161,6 +162,7 @@ rules:
   # 远程规则集（顺序同 Loon [Remote Rule]）
   - RULE-SET,MyDomains,DIRECT
   - RULE-SET,FinanceCN,金融应用
+  - RULE-SET,ChinaApp,DIRECT
   - RULE-SET,Alibaba,DIRECT
   - RULE-SET,AliPay,DIRECT
   - RULE-SET,Pinduoduo,DIRECT
