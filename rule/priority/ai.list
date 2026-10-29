@@ -29,3 +29,16 @@ DOMAIN-SUFFIX,runwayml.com
 DOMAIN-SUFFIX,elevenlabs.io
 DOMAIN-SUFFIX,poe.com
 DOMAIN-SUFFIX,you.com
+# AI 编码/数据/推理平台（实测原落 FINAL 香港出口，部分限区）
+DOMAIN-SUFFIX,cohere.com
+DOMAIN-SUFFIX,replit.com
+DOMAIN-SUFFIX,v0.dev
+DOMAIN-SUFFIX,lovable.dev
+DOMAIN-SUFFIX,bolt.new
+DOMAIN-SUFFIX,windsurf.com
+DOMAIN-SUFFIX,codeium.com
+DOMAIN-SUFFIX,langchain.com
+DOMAIN-SUFFIX,wandb.ai
+DOMAIN-SUFFIX,anyscale.com
+DOMAIN-SUFFIX,fireworks.ai
+DOMAIN-SUFFIX,assemblyai.com

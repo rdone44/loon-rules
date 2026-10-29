@@ -91,3 +91,27 @@ DOMAIN-SUFFIX,vivo.com
 DOMAIN-SUFFIX,realme.com
 DOMAIN-SUFFIX,meizu.com
 DOMAIN-SUFFIX,lenovo.com.cn
+# 国内 AI（大模型对话，国内直连更快、少风控）
+DOMAIN-SUFFIX,deepseek.com
+DOMAIN-SUFFIX,kimi.com
+DOMAIN-SUFFIX,doubao.com
+# 招聘
+DOMAIN-SUFFIX,zhipin.com
+DOMAIN-SUFFIX,lagou.com
+DOMAIN-SUFFIX,51job.com
+DOMAIN-SUFFIX,liepin.com
+DOMAIN-SUFFIX,zhaopin.com
+# 网盘 / 文档 / 工具
+DOMAIN-SUFFIX,xunlei.com
+DOMAIN-SUFFIX,alipan.com
+DOMAIN-SUFFIX,aliyundrive.com
+DOMAIN-SUFFIX,weiyun.com
+DOMAIN-SUFFIX,shimo.im
+DOMAIN-SUFFIX,mubu.com
+DOMAIN-SUFFIX,yuque.com
+DOMAIN-SUFFIX,youdao.com
+DOMAIN-SUFFIX,123pan.com
+# 快递
+DOMAIN-SUFFIX,kuaidi100.com
+DOMAIN-SUFFIX,cainiao.com
+DOMAIN-SUFFIX,kuaidi.com
