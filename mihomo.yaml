@@ -64,6 +64,8 @@ rule-providers:
   PriorityTW: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/priority-tw.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/tw.list' }
   FinanceCN: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/FinanceCN.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/FinanceCN.list' }
   Alibaba: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Alibaba.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Alibaba/Alibaba.list' }
+  Eleme: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Eleme.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Eleme/Eleme.list' }
+  MeiTuan: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/MeiTuan.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/MeiTuan/MeiTuan.list' }
   AliPay: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/AliPay.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/AliPay/AliPay.list' }
   Pinduoduo: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Pinduoduo.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Pinduoduo/Pinduoduo.list' }
   JingDong: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/JingDong.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/JingDong/JingDong.list' }
@@ -160,9 +162,11 @@ rules:
   - RULE-SET,MyDomains,DIRECT
   - RULE-SET,FinanceCN,金融应用
   - RULE-SET,Alibaba,DIRECT
+  - RULE-SET,Eleme,DIRECT
   - RULE-SET,AliPay,DIRECT
   - RULE-SET,Pinduoduo,DIRECT
   - RULE-SET,JingDong,DIRECT
+  - RULE-SET,MeiTuan,DIRECT
   - RULE-SET,AdsExtra,全球拦截
   - RULE-SET,TomatoNovel,DIRECT
   - RULE-SET,WeChat,DIRECT
