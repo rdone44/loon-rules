@@ -55,61 +55,61 @@ proxy-providers:
     health-check: { enable: true, url: 'http://www.gstatic.com/generate_204', interval: 600 }
 
 rule-providers:
-  MyDomains: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/MyDomains.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/MyDomains.list' }
-  PriorityDirect: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/priority-direct.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/direct.list' }
-  PriorityAI: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/priority-ai.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/ai.list' }
-  PriorityYouTube: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/priority-youtube.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/youtube.list' }
-  PriorityGoogle: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/priority-google.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/google.list' }
-  PriorityAuto: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/priority-auto.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/auto.list' }
-  PriorityTW: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/priority-tw.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/tw.list' }
-  FinanceCN: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/FinanceCN.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/FinanceCN.list' }
-  ChinaApp: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/ChinaApp.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/ChinaApp.list' }
-  Alibaba: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Alibaba.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Alibaba/Alibaba.list' }
-  Takeout: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Takeout.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/Takeout.list' }
-  AliPay: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/AliPay.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/AliPay/AliPay.list' }
-  Pinduoduo: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Pinduoduo.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Pinduoduo/Pinduoduo.list' }
-  JingDong: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/JingDong.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/JingDong/JingDong.list' }
-  TomatoNovel: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/TomatoNovel.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/TomatoNovel.list' }
-  AdsExtra: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/AdsExtra.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/AdsExtra.list' }
-  WeChat: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/WeChat.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/WeChat.list' }
-  Carrier: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Carrier.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/Carrier.list' }
-  Advertising: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Advertising.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Advertising/Advertising.list' }
-  Hijacking: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Hijacking.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Hijacking/Hijacking.list' }
-  Privacy: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Privacy.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Privacy/Privacy.list' }
-  CNMap: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/CNMap.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/CNMap.list' }
-  Gemini: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Gemini.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/Gemini.list' }
-  OpenAI: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/OpenAI.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/OpenAI/OpenAI.list' }
-  Claude: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Claude.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Claude/Claude.list' }
-  Copilot: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Copilot.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Copilot/Copilot.list' }
-  YouTube: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/YouTube.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/YouTube/YouTube.list' }
-  Spotify: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Spotify.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Spotify/Spotify.list' }
-  BiliBili: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/BiliBili.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/BiliBili/BiliBili.list' }
-  MediaExtra: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/MediaExtra.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/MediaExtra.list' }
-  GlobalMedia: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/GlobalMedia.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/GlobalMedia/GlobalMedia.list' }
-  MissAV: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/MissAV.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/MissAV.list' }
-  Google: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Google.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Google/Google.list' }
-  Apple: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Apple.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Apple/Apple.list' }
-  AppleExtra: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/AppleExtra.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/AppleExtra.list' }
-  Microsoft: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Microsoft.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Microsoft/Microsoft.list' }
-  GitHub: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/GitHub.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/GitHub/GitHub.list' }
-  Telegram: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Telegram.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Telegram/Telegram.list' }
-  Grok: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Grok.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/Grok.list' }
-  Twitter: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Twitter.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Twitter/Twitter.list' }
-  Facebook: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Facebook.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Facebook/Facebook.list' }
-  Instagram: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Instagram.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Instagram/Instagram.list' }
-  Threads: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Threads.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Threads/Threads.list' }
-  Whatsapp: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Whatsapp.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Whatsapp/Whatsapp.list' }
-  MetaExtra: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/MetaExtra.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/MetaExtra.list' }
-  Cloudflare: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Cloudflare.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Cloudflare/Cloudflare.list' }
-  Game: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Game.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Game/Game.list' }
-  OKX: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/OKX.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/OKX/OKX.list' }
-  Binance: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Binance.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Binance/Binance.list' }
-  Crypto: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Crypto.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Crypto/Crypto.list' }
-  DouYin: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/DouYin.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/DouYin/DouYin.list' }
-  China: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/China.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/China/China.list' }
-  ChinaIPs: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/ChinaIPs.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/ChinaIPs/ChinaIPs.list' }
-  GlobalExtra: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/GlobalExtra.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/GlobalExtra.list' }
-  Global: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Global.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Global/Global.list' }
+  MyDomains: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/MyDomains.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/MyDomains.list' }
+  PriorityDirect: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/priority-direct.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/direct.list' }
+  PriorityAI: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/priority-ai.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/ai.list' }
+  PriorityYouTube: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/priority-youtube.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/youtube.list' }
+  PriorityGoogle: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/priority-google.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/google.list' }
+  PriorityAuto: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/priority-auto.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/auto.list' }
+  PriorityTW: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/priority-tw.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/tw.list' }
+  FinanceCN: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/FinanceCN.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/FinanceCN.list' }
+  ChinaApp: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/ChinaApp.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/ChinaApp.list' }
+  Alibaba: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/Alibaba.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Alibaba/Alibaba.list' }
+  Takeout: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/Takeout.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/Takeout.list' }
+  AliPay: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/AliPay.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/AliPay/AliPay.list' }
+  Pinduoduo: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/Pinduoduo.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Pinduoduo/Pinduoduo.list' }
+  JingDong: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/JingDong.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/JingDong/JingDong.list' }
+  TomatoNovel: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/TomatoNovel.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/TomatoNovel.list' }
+  AdsExtra: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/AdsExtra.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/AdsExtra.list' }
+  WeChat: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/WeChat.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/WeChat.list' }
+  Carrier: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/Carrier.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/Carrier.list' }
+  Advertising: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/Advertising.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Advertising/Advertising.list' }
+  Hijacking: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/Hijacking.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Hijacking/Hijacking.list' }
+  Privacy: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/Privacy.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Privacy/Privacy.list' }
+  CNMap: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/CNMap.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/CNMap.list' }
+  Gemini: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/Gemini.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/Gemini.list' }
+  OpenAI: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/OpenAI.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/OpenAI/OpenAI.list' }
+  Claude: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/Claude.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Claude/Claude.list' }
+  Copilot: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/Copilot.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Copilot/Copilot.list' }
+  YouTube: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/YouTube.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/YouTube/YouTube.list' }
+  Spotify: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/Spotify.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Spotify/Spotify.list' }
+  BiliBili: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/BiliBili.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/BiliBili/BiliBili.list' }
+  MediaExtra: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/MediaExtra.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/MediaExtra.list' }
+  GlobalMedia: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/GlobalMedia.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/GlobalMedia/GlobalMedia.list' }
+  MissAV: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/MissAV.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/MissAV.list' }
+  Google: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/Google.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Google/Google.list' }
+  Apple: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/Apple.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Apple/Apple.list' }
+  AppleExtra: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/AppleExtra.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/AppleExtra.list' }
+  Microsoft: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/Microsoft.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Microsoft/Microsoft.list' }
+  GitHub: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/GitHub.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/GitHub/GitHub.list' }
+  Telegram: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/Telegram.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Telegram/Telegram.list' }
+  Grok: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/Grok.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/Grok.list' }
+  Twitter: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/Twitter.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Twitter/Twitter.list' }
+  Facebook: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/Facebook.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Facebook/Facebook.list' }
+  Instagram: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/Instagram.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Instagram/Instagram.list' }
+  Threads: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/Threads.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Threads/Threads.list' }
+  Whatsapp: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/Whatsapp.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Whatsapp/Whatsapp.list' }
+  MetaExtra: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/MetaExtra.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/MetaExtra.list' }
+  Cloudflare: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/Cloudflare.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Cloudflare/Cloudflare.list' }
+  Game: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/Game.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Game/Game.list' }
+  OKX: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/OKX.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/OKX/OKX.list' }
+  Binance: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/Binance.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Binance/Binance.list' }
+  Crypto: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/Crypto.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Crypto/Crypto.list' }
+  DouYin: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/DouYin.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/DouYin/DouYin.list' }
+  China: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/China.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/China/China.list' }
+  ChinaIPs: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/ChinaIPs.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/ChinaIPs/ChinaIPs.list' }
+  GlobalExtra: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/GlobalExtra.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/GlobalExtra.list' }
+  Global: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/Global.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Global/Global.list' }
 
 proxy-groups:
   # ---- 应用策略组 ----
@@ -122,7 +122,7 @@ proxy-groups:
   - { name: 微软服务, type: select, proxies: [DIRECT, 德国自动, 美国自动] }
   - { name: GitHub, type: url-test, proxies: [香港自动, 台湾自动, 日本自动, 新加坡自动, 美国自动, 韩国自动, 德国自动], url: 'http://www.gstatic.com/generate_204', interval: 600, tolerance: 300 }
   - { name: Telegram, type: select, proxies: [香港节点, 日本节点, 新加坡节点, 美国节点, 其他节点] }
-  - { name: Twitter, type: select, proxies: [美国自动] }
+  - { name: Twitter, type: select, proxies: [美国自动, 美国节点, 自动选择] }
   - { name: 游戏平台, type: select, proxies: [DIRECT, 香港自动, 日本自动, 美国自动] }
   - { name: 加密货币, type: select, proxies: [日本自动] }
   - { name: 金融应用, type: select, proxies: [DIRECT] }
@@ -152,7 +152,6 @@ proxy-groups:
   - { name: 美国自动, type: url-test, include-all: true, filter: '(?i)🇺🇸|美国|美國|洛杉矶|纽约|圣何塞|西雅图|芝加哥|达拉斯|凤凰城|硅谷|United ?States|America|\b(US|USA|LAX|SJC|SFO|SEA|IAD|ORD|DFW|JFK|NYC|EWR)\d*\b', exclude-filter: '(?i)回国|校园|游戏|到期|流量|剩余|官网|客服|订阅|邀请|频道', url: 'http://www.gstatic.com/generate_204', interval: 600, tolerance: 300 }
   - { name: 韩国自动, type: url-test, include-all: true, filter: '(?i)🇰🇷|韩国|韓國|首尔|首爾|釜山|Korea|Seoul|\b(KR|KOR|ICN)\d*\b', exclude-filter: '(?i)回国|校园|游戏|到期|流量|剩余|官网|客服|订阅|邀请|频道', url: 'http://www.gstatic.com/generate_204', interval: 600, tolerance: 300 }
   - { name: 德国自动, type: url-test, include-all: true, filter: '(?i)🇩🇪|德国|德國|法兰克福|柏林|慕尼黑|汉堡|Germany|Frankfurt|\b(DE|DEU|FRA)\d*\b', exclude-filter: '(?i)回国|校园|游戏|到期|流量|剩余|官网|客服|订阅|邀请|频道', url: 'http://www.gstatic.com/generate_204', interval: 600, tolerance: 300 }
-
 rules:
   # 本地例外（对应 Loon [Rule]，优先于所有规则集）
   - RULE-SET,PriorityDirect,DIRECT
