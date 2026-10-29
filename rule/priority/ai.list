@@ -1,3 +1,14 @@
 # 优先级例外 · AI
-# 原 [Rule] 本地规则：lody.ai 强制走 AI 组（会被 Google / Global 的关键词规则抢走）
+# 用途一：原本地 [Rule] 的 AI 例外 —— lody.ai 会被 Google / Global 的关键词规则抢走，必须排在前面
+# 用途二：上游 AI 表（OpenAI / Claude / Copilot / Gemini）没覆盖的 AI 域名缺口
+# policy=AI，由四端各自的引用行指定
+#############################################
+
+# 原本地规则
 DOMAIN-SUFFIX,lody.ai
+
+# Cursor（AI IDE）：上游没有 Cursor 表，之前整族落 FINAL 漏网之鱼
+# cursor.sh 覆盖 api2 / api3 / api4.cursor.sh；cursor.com 覆盖站点、登录、downloads
+DOMAIN-SUFFIX,cursor.sh
+DOMAIN-SUFFIX,cursor.com
+DOMAIN-SUFFIX,cursor-cdn.com
