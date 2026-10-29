@@ -83,6 +83,7 @@ rule-providers:
   YouTube: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/YouTube.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/YouTube/YouTube.list' }
   Spotify: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Spotify.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Spotify/Spotify.list' }
   BiliBili: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/BiliBili.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/BiliBili/BiliBili.list' }
+  MediaExtra: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/MediaExtra.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/MediaExtra.list' }
   GlobalMedia: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/GlobalMedia.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/GlobalMedia/GlobalMedia.list' }
   MissAV: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/MissAV.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/MissAV.list' }
   Google: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Google.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Google/Google.list' }
@@ -182,6 +183,7 @@ rules:
   - RULE-SET,YouTube,YouTube
   - RULE-SET,Spotify,Spotify
   - RULE-SET,BiliBili,哔哩哔哩
+  - RULE-SET,MediaExtra,国外媒体
   - RULE-SET,GlobalMedia,国外媒体
   - RULE-SET,MissAV,MissAV
   - RULE-SET,Google,Google

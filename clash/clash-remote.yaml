@@ -229,6 +229,7 @@ rules:
   - RULE-SET,youtube,YouTube
   - RULE-SET,spotify,Spotify
   - RULE-SET,bilibili,哔哩哔哩
+  - RULE-SET,mediaextra,国外媒体
   - RULE-SET,globalmedia,国外媒体
   - RULE-SET,missav,MissAV
   - RULE-SET,google,Google
@@ -291,6 +292,7 @@ rule-providers:
   youtube:     { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/youtube.list,     url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/YouTube/YouTube.list' }
   spotify:     { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/spotify.list,     url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Spotify/Spotify.list' }
   bilibili:    { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/bilibili.list,    url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/BiliBili/BiliBili.list' }
+  mediaextra:  { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/mediaextra.list,  url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/MediaExtra.list' }
   globalmedia: { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/globalmedia.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/GlobalMedia/GlobalMedia.list' }
   google:      { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/google.list,      url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Google/Google.list' }
   apple:       { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/apple.list,       url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Apple/Apple.list' }

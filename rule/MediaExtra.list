@@ -1,0 +1,60 @@
+# NAME: MediaExtra
+# DESC: 国外流媒体/音乐域名族，补 GlobalMedia 表只有 IP 规则的缺口，policy=国外媒体
+# USAGE: [Remote Rule] https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/MediaExtra.list, policy=国外媒体, tag=流媒体, enabled=true
+# NOTE: 上游 GlobalMedia.list 全文没有 DOMAIN-SUFFIX，只有 IP-CIDR + USER-AGENT + DOMAIN-KEYWORD；
+#       而 IP 规则基本都带 no-resolve —— Loon 在 fake-ip 模式下拿不到真实 IP，这些规则对域名连接不生效，
+#       于是 netflix.com / disneyplus.com / hulu.com / primevideo.com / max.com / twitch.tv 全落 FINAL 漏网之鱼。
+#       本表补域名侧，命中的直接进「国外媒体」组；IP 规则保留作为兜底。
+# UPDATED: 2026-10-29
+#############################################
+# Netflix
+DOMAIN-SUFFIX,netflix.com
+DOMAIN-SUFFIX,nflxvideo.net
+DOMAIN-SUFFIX,nflximg.net
+DOMAIN-SUFFIX,nflxext.com
+DOMAIN-SUFFIX,nflxso.net
+DOMAIN-SUFFIX,fast.com
+
+# Disney+
+DOMAIN-SUFFIX,disneyplus.com
+DOMAIN-SUFFIX,disney-plus.net
+DOMAIN-SUFFIX,dssott.com
+DOMAIN-SUFFIX,bamgrid.com
+DOMAIN-SUFFIX,disneystreaming.com
+
+# Hulu
+DOMAIN-SUFFIX,hulu.com
+DOMAIN-SUFFIX,huluim.com
+DOMAIN-SUFFIX,hulustream.com
+
+# Max / HBO
+DOMAIN-SUFFIX,max.com
+DOMAIN-SUFFIX,hbomax.com
+DOMAIN-SUFFIX,hbomaxcdn.com
+DOMAIN-SUFFIX,hbo.com
+
+# Prime Video
+DOMAIN-SUFFIX,primevideo.com
+DOMAIN-SUFFIX,aiv-cdn.net
+DOMAIN-SUFFIX,aiv-delivery.net
+DOMAIN-SUFFIX,pv-cdn.net
+
+# Twitch
+DOMAIN-SUFFIX,twitch.tv
+DOMAIN-SUFFIX,ttvnw.net
+DOMAIN-SUFFIX,jtvnw.net
+DOMAIN-SUFFIX,ext-twitch.tv
+
+# Vimeo / Dailymotion
+DOMAIN-SUFFIX,vimeo.com
+DOMAIN-SUFFIX,vimeocdn.com
+DOMAIN-SUFFIX,dailymotion.com
+DOMAIN-SUFFIX,dmcdn.net
+DOMAIN-SUFFIX,dm-event.net
+
+# SoundCloud / Deezer / Tidal
+DOMAIN-SUFFIX,soundcloud.com
+DOMAIN-SUFFIX,sndcdn.com
+DOMAIN-SUFFIX,deezer.com
+DOMAIN-SUFFIX,dzcdn.net
+DOMAIN-SUFFIX,tidal.com
