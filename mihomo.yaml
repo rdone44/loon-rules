@@ -76,6 +76,7 @@ rule-providers:
   Advertising: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Advertising.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Advertising/Advertising.list' }
   Hijacking: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Hijacking.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Hijacking/Hijacking.list' }
   Privacy: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Privacy.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Privacy/Privacy.list' }
+  CNMap: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/CNMap.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/CNMap.list' }
   Gemini: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Gemini.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/Gemini.list' }
   OpenAI: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/OpenAI.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/OpenAI/OpenAI.list' }
   Claude: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Claude.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Claude/Claude.list' }
@@ -176,6 +177,7 @@ rules:
   - RULE-SET,Advertising,全球拦截
   - RULE-SET,Hijacking,全球拦截
   - RULE-SET,Privacy,全球拦截
+  - RULE-SET,CNMap,DIRECT
   - RULE-SET,Gemini,AI
   - RULE-SET,OpenAI,AI
   - RULE-SET,Claude,AI
