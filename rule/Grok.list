@@ -10,3 +10,5 @@
 DOMAIN-SUFFIX,x.ai
 DOMAIN-SUFFIX,grok.com
 DOMAIN-SUFFIX,grokusercontent.com
+# grok.com 首页直引的 Grok 百科（probe_app.py 抓出来的，上游表和 Twitter.list 都没有）
+DOMAIN-SUFFIX,grokipedia.com

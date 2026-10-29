@@ -12,6 +12,8 @@ DOMAIN-SUFFIX,lody.ai
 DOMAIN-SUFFIX,cursor.sh
 DOMAIN-SUFFIX,cursor.com
 DOMAIN-SUFFIX,cursor-cdn.com
+# Cursor 母公司域名（cursor.com 首页引用，同一套 Vercel）
+DOMAIN-SUFFIX,anysphere.inc
 
 # 上游 AI 表漏掉的 AI 服务（实测都落 FINAL 漏网之鱼 → 首跳香港自动，部分服务直接不可用）
 DOMAIN-SUFFIX,perplexity.ai
