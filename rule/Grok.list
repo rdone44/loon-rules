@@ -1,0 +1,12 @@
+# NAME: Grok
+# DESC: xAI / Grok 全套域名（grok.com 网页与 App、api.x.ai 接口、图片 CDN）
+# USAGE: [Remote Rule] https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/Grok.list, policy=Twitter, tag=Grok, enabled=true
+# NOTE: grok.com 虽已被上游 Twitter.list 收录，但 api.x.ai / *.x.ai 不在 —— 不显式引用就落 FINAL 漏网之鱼，
+#       出口不是美国节点时 Grok 会直接报地区不可用（xAI 只对美区开放）。
+#       一条 DOMAIN-SUFFIX,x.ai 就覆盖 api / imagine-public / grok.x.ai 等全部子域。
+# UPDATED: 2026-10-29
+#############################################
+
+DOMAIN-SUFFIX,x.ai
+DOMAIN-SUFFIX,grok.com
+DOMAIN-SUFFIX,grokusercontent.com

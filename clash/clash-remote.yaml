@@ -236,6 +236,7 @@ rules:
   - RULE-SET,microsoft,微软服务
   - RULE-SET,github,GitHub
   - RULE-SET,telegram,Telegram
+  - RULE-SET,grok,Twitter
   - RULE-SET,twitter,Twitter
   - RULE-SET,facebook,Meta
   - RULE-SET,instagram,Meta
@@ -295,6 +296,7 @@ rule-providers:
   microsoft:   { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/microsoft.list,   url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Microsoft/Microsoft.list' }
   github:      { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/github.list,      url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/GitHub/GitHub.list' }
   telegram:    { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/telegram.list,    url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Telegram/Telegram.list' }
+  grok:        { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/grok.list,        url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/Grok.list' }
   twitter:     { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/twitter.list,     url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Twitter/Twitter.list' }
   facebook:    { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/facebook.list,    url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Facebook/Facebook.list' }
   instagram:   { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/instagram.list,   url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Instagram/Instagram.list' }

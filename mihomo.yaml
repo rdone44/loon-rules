@@ -90,6 +90,7 @@ rule-providers:
   Microsoft: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Microsoft.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Microsoft/Microsoft.list' }
   GitHub: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/GitHub.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/GitHub/GitHub.list' }
   Telegram: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Telegram.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Telegram/Telegram.list' }
+  Grok: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Grok.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/Grok.list' }
   Twitter: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Twitter.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Twitter/Twitter.list' }
   Facebook: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Facebook.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Facebook/Facebook.list' }
   Instagram: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Instagram.list, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Instagram/Instagram.list' }
@@ -187,6 +188,7 @@ rules:
   - RULE-SET,Microsoft,微软服务
   - RULE-SET,GitHub,GitHub
   - RULE-SET,Telegram,Telegram
+  - RULE-SET,Grok,Twitter
   - RULE-SET,Twitter,Twitter
   - RULE-SET,Facebook,Meta
   - RULE-SET,Instagram,Meta
