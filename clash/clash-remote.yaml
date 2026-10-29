@@ -209,11 +209,10 @@ rules:
   - RULE-SET,mydomains,DIRECT
   - RULE-SET,financecn,金融应用
   - RULE-SET,alibaba,DIRECT
-  - RULE-SET,eleme,DIRECT
   - RULE-SET,alipay,DIRECT
   - RULE-SET,pinduoduo,DIRECT
   - RULE-SET,jingdong,DIRECT
-  - RULE-SET,meituan,DIRECT
+  - RULE-SET,takeout,DIRECT
   - RULE-SET,adsextra,全球拦截
   - RULE-SET,tomatonovel,DIRECT
   - RULE-SET,wechat,DIRECT
@@ -275,8 +274,7 @@ rule-providers:
   gemini:      { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/gemini.list,      url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/Gemini.list' }
   missav:      { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/missav.list,      url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/MissAV.list' }
   alibaba:     { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/alibaba.list,     url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Alibaba/Alibaba.list' }
-  eleme:       { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/eleme.list,       url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Eleme/Eleme.list' }
-  meituan:     { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/meituan.list,     url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/MeiTuan/MeiTuan.list' }
+  takeout:     { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/takeout.list,     url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/Takeout.list' }
   alipay:      { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/alipay.list,      url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/AliPay/AliPay.list' }
   pinduoduo:   { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/pinduoduo.list,   url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Pinduoduo/Pinduoduo.list' }
   jingdong:    { type: http, behavior: classical, format: text, interval: 3600, proxy: 节点选择, path: ./ruleset/jingdong.list,    url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/JingDong/JingDong.list' }
