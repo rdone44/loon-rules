@@ -210,4 +210,6 @@ rules:
   - RULE-SET,ChinaIPs,DIRECT
   - RULE-SET,GlobalExtra,节点选择
   - RULE-SET,Global,节点选择
+  - DOMAIN-SUFFIX,entire.com,AI
+  - DOMAIN-SUFFIX,entire.io,AI
   - MATCH,漏网之鱼

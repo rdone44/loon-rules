@@ -255,6 +255,8 @@ rules:
   - RULE-SET,chinaips,DIRECT
   - RULE-SET,globalextra,节点选择
   - RULE-SET,global,节点选择
+  - DOMAIN-SUFFIX,entire.com,AI
+  - DOMAIN-SUFFIX,entire.io,AI
   - MATCH,漏网之鱼
 
 rule-providers:
