@@ -57,7 +57,7 @@ proxy-providers:
 rule-providers:
   MyDomains: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/MyDomains.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/MyDomains.list' }
   PriorityDirect: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/priority-direct.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/direct.list' }
-  PriorityAI: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/priority-ai.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/ai.list' }
+  PriorityAI: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/priority-ai.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/ai.list?v=20261030' }
   PriorityYouTube: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/priority-youtube.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/youtube.list' }
   PriorityGoogle: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/priority-google.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/google.list' }
   PriorityAuto: { type: http, behavior: classical, format: text, proxy: 节点选择, interval: 86400, path: ./ruleset/priority-auto.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/priority/auto.list' }
