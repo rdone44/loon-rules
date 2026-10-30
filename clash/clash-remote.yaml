@@ -217,7 +217,12 @@ rules:
   - RULE-SET,adsextra,全球拦截
   - RULE-SET,tomatonovel,DIRECT
   - RULE-SET,wechat,DIRECT
-  - RULE-SET,carrier,DIRECT
+  - DOMAIN-SUFFIX,chinamobile.com,DIRECT
+  - DOMAIN-SUFFIX,139.com,DIRECT
+  - DOMAIN-SUFFIX,cmccb2b.com,DIRECT
+  - DOMAIN-SUFFIX,10010.com,DIRECT
+  - DOMAIN-SUFFIX,chinaunicom.com,DIRECT
+  - DOMAIN-SUFFIX,10099.com.cn,DIRECT
   - RULE-SET,advertising,全球拦截
   - RULE-SET,hijacking,全球拦截
   - RULE-SET,privacy,全球拦截
@@ -225,7 +230,55 @@ rules:
   - RULE-SET,gemini,AI
   - RULE-SET,openai,AI
   - RULE-SET,claude,AI
-  - RULE-SET,copilot,AI
+  - DOMAIN,api.msn.com,AI
+  - DOMAIN,api.statsig.com,AI
+  - DOMAIN,assets.msn.com,AI
+  - DOMAIN,browser-intake-datadoghq.com,AI
+  - DOMAIN,chat.openai.com.cdn.cloudflare.net,AI
+  - DOMAIN,copilot.microsoft.com,AI
+  - DOMAIN,gateway.bingviz.microsoft.net,AI
+  - DOMAIN,gateway.bingviz.microsoftapp.net,AI
+  - DOMAIN,in.appcenter.ms,AI
+  - DOMAIN,location.microsoft.com,AI
+  - DOMAIN,odc.officeapps.live.com,AI
+  - DOMAIN,openai-api.arkoselabs.com,AI
+  - DOMAIN,openaicomproductionae4b.blob.core.windows.net,AI
+  - DOMAIN,production-openaicom-storage.azureedge.net,AI
+  - DOMAIN,r.bing.com,AI
+  - DOMAIN,self.events.data.microsoft.com,AI
+  - DOMAIN,services.bingapis.com,AI
+  - DOMAIN,static.cloudflareinsights.com,AI
+  - DOMAIN,sydney.bing.com,AI
+  - DOMAIN,www.bing.com,AI
+  - DOMAIN-SUFFIX,algolia.net,AI
+  - DOMAIN-SUFFIX,api.microsoftapp.net,AI
+  - DOMAIN-SUFFIX,auth0.com,AI
+  - DOMAIN-SUFFIX,bing-shopping.microsoft-falcon.io,AI
+  - DOMAIN-SUFFIX,challenges.cloudflare.com,AI
+  - DOMAIN-SUFFIX,chatgpt.com,AI
+  - DOMAIN-SUFFIX,chatgpt.livekit.cloud,AI
+  - DOMAIN-SUFFIX,client-api.arkoselabs.com,AI
+  - DOMAIN-SUFFIX,edgeservices.bing.com,AI
+  - DOMAIN-SUFFIX,events.statsigapi.net,AI
+  - DOMAIN-SUFFIX,featuregates.org,AI
+  - DOMAIN-SUFFIX,host.livekit.cloud,AI
+  - DOMAIN-SUFFIX,identrust.com,AI
+  - DOMAIN-SUFFIX,intercom.io,AI
+  - DOMAIN-SUFFIX,intercomcdn.com,AI
+  - DOMAIN-SUFFIX,launchdarkly.com,AI
+  - DOMAIN-SUFFIX,oaistatic.com,AI
+  - DOMAIN-SUFFIX,oaiusercontent.com,AI
+  - DOMAIN-SUFFIX,observeit.net,AI
+  - DOMAIN-SUFFIX,openai.com,AI
+  - DOMAIN-SUFFIX,openaiapi-site.azureedge.net,AI
+  - DOMAIN-SUFFIX,openaicom.imgix.net,AI
+  - DOMAIN-SUFFIX,segment.io,AI
+  - DOMAIN-SUFFIX,sentry.io,AI
+  - DOMAIN-SUFFIX,stripe.com,AI
+  - DOMAIN-SUFFIX,turn.livekit.cloud,AI
+  - DOMAIN-KEYWORD,openaicom-api,AI
+  - IP-CIDR,24.199.123.28/32,AI,no-resolve
+  - IP-CIDR,64.23.132.171/32,AI,no-resolve
   - RULE-SET,youtube,YouTube
   - RULE-SET,spotify,Spotify
   - RULE-SET,bilibili,哔哩哔哩
@@ -241,11 +294,78 @@ rules:
   - RULE-SET,grok,Twitter
   - RULE-SET,twitter,Twitter
   - RULE-SET,facebook,Meta
-  - RULE-SET,instagram,Meta
+  - DOMAIN-SUFFIX,cdninstagram.com,Meta
+  - DOMAIN-SUFFIX,instagr.am,Meta
+  - DOMAIN-SUFFIX,instagram.com,Meta
+  - DOMAIN-KEYWORD,instagram,Meta
   - RULE-SET,threads,Meta
   - RULE-SET,whatsapp,Meta
   - RULE-SET,metaextra,Meta
-  - RULE-SET,cloudflare,节点选择
+  - DOMAIN-SUFFIX,cf-ipfs.com,节点选择
+  - DOMAIN-SUFFIX,cf-ns.com,节点选择
+  - DOMAIN-SUFFIX,cf-ns.net,节点选择
+  - DOMAIN-SUFFIX,cf-ns.site,节点选择
+  - DOMAIN-SUFFIX,cf-ns.tech,节点选择
+  - DOMAIN-SUFFIX,cftest5.cn,节点选择
+  - DOMAIN-SUFFIX,cftest6.cn,节点选择
+  - DOMAIN-SUFFIX,cftest7.com,节点选择
+  - DOMAIN-SUFFIX,cftest8.com,节点选择
+  - DOMAIN-SUFFIX,cloudflare-cn.com,节点选择
+  - DOMAIN-SUFFIX,cloudflare-dns.com,节点选择
+  - DOMAIN-SUFFIX,cloudflare-ipfs.com,节点选择
+  - DOMAIN-SUFFIX,cloudflare-quic.com,节点选择
+  - DOMAIN-SUFFIX,cloudflare.com,节点选择
+  - DOMAIN-SUFFIX,cloudflare.net,节点选择
+  - DOMAIN-SUFFIX,cloudflare.tv,节点选择
+  - DOMAIN-SUFFIX,cloudflareaccess.com,节点选择
+  - DOMAIN-SUFFIX,cloudflareapps.com,节点选择
+  - DOMAIN-SUFFIX,cloudflarebolt.com,节点选择
+  - DOMAIN-SUFFIX,cloudflareclient.com,节点选择
+  - DOMAIN-SUFFIX,cloudflarecn.net,节点选择
+  - DOMAIN-SUFFIX,cloudflareinsights-cn.com,节点选择
+  - DOMAIN-SUFFIX,cloudflareinsights.com,节点选择
+  - DOMAIN-SUFFIX,cloudflareok.com,节点选择
+  - DOMAIN-SUFFIX,cloudflarepreview.com,节点选择
+  - DOMAIN-SUFFIX,cloudflareprod.com,节点选择
+  - DOMAIN-SUFFIX,cloudflareresolve.com,节点选择
+  - DOMAIN-SUFFIX,cloudflaressl.com,节点选择
+  - DOMAIN-SUFFIX,cloudflarestaging.com,节点选择
+  - DOMAIN-SUFFIX,cloudflarestatus.com,节点选择
+  - DOMAIN-SUFFIX,cloudflarestorage.com,节点选择
+  - DOMAIN-SUFFIX,cloudflarestoragegw.com,节点选择
+  - DOMAIN-SUFFIX,cloudflarestream.com,节点选择
+  - DOMAIN-SUFFIX,cloudflaretest.com,节点选择
+  - DOMAIN-SUFFIX,cloudflarewarp.com,节点选择
+  - DOMAIN-SUFFIX,every1dns.net,节点选择
+  - DOMAIN-SUFFIX,one.one.one,节点选择
+  - DOMAIN-SUFFIX,pacloudflare.com,节点选择
+  - DOMAIN-SUFFIX,pages.dev,节点选择
+  - DOMAIN-SUFFIX,trycloudflare.com,节点选择
+  - DOMAIN-SUFFIX,videodelivery.net,节点选择
+  - DOMAIN-SUFFIX,warp.plus,节点选择
+  - DOMAIN-SUFFIX,workers.dev,节点选择
+  - IP-CIDR,103.21.244.0/22,节点选择,no-resolve
+  - IP-CIDR,103.22.200.0/22,节点选择,no-resolve
+  - IP-CIDR,103.31.4.0/22,节点选择,no-resolve
+  - IP-CIDR,104.16.0.0/13,节点选择,no-resolve
+  - IP-CIDR,104.24.0.0/14,节点选择,no-resolve
+  - IP-CIDR,108.162.192.0/18,节点选择,no-resolve
+  - IP-CIDR,131.0.72.0/22,节点选择,no-resolve
+  - IP-CIDR,141.101.64.0/18,节点选择,no-resolve
+  - IP-CIDR,162.158.0.0/15,节点选择,no-resolve
+  - IP-CIDR,172.64.0.0/13,节点选择,no-resolve
+  - IP-CIDR,173.245.48.0/20,节点选择,no-resolve
+  - IP-CIDR,188.114.96.0/20,节点选择,no-resolve
+  - IP-CIDR,190.93.240.0/20,节点选择,no-resolve
+  - IP-CIDR,197.234.240.0/22,节点选择,no-resolve
+  - IP-CIDR,198.41.128.0/17,节点选择,no-resolve
+  - IP-CIDR6,2400:cb00::/32,节点选择,no-resolve
+  - IP-CIDR6,2405:8100::/32,节点选择,no-resolve
+  - IP-CIDR6,2405:b500::/32,节点选择,no-resolve
+  - IP-CIDR6,2606:4700::/32,节点选择,no-resolve
+  - IP-CIDR6,2803:f800::/32,节点选择,no-resolve
+  - IP-CIDR6,2a06:98c0::/29,节点选择,no-resolve
+  - IP-CIDR6,2c0f:f248::/32,节点选择,no-resolve
   - RULE-SET,game,游戏平台
   - RULE-SET,okx,加密货币
   - RULE-SET,binance,加密货币
@@ -266,7 +386,6 @@ rule-providers:
   financecn:   { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/financecn.list,   url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/FinanceCN.list' }
   adsextra:    { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/adsextra.list,    url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/AdsExtra.list' }
   wechat:      { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/wechat.list,      url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/WeChat.list' }
-  carrier:     { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/carrier.list,     url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/Carrier.list' }
   globalextra: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/globalextra.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/GlobalExtra.list' }
   prioritydirect:  { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/prioritydirect.list,  url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/priority/direct.list' }
   priorityai:      { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/priorityai.list,      url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/priority/ai.list?v=20261030' }
@@ -290,7 +409,6 @@ rule-providers:
   cnmap:       { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/cnmap.list,       url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/CNMap.list' }
   openai:      { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/openai.list,      url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/OpenAI/OpenAI.list' }
   claude:      { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/claude.list,      url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Claude/Claude.list' }
-  copilot:     { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/copilot.list,     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Copilot/Copilot.list' }
   youtube:     { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/youtube.list,     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/YouTube/YouTube.list' }
   spotify:     { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/spotify.list,     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Spotify/Spotify.list' }
   bilibili:    { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/bilibili.list,    url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/BiliBili/BiliBili.list' }
@@ -305,10 +423,8 @@ rule-providers:
   grok:        { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/grok.list,        url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/Grok.list' }
   twitter:     { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/twitter.list,     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Twitter/Twitter.list' }
   facebook:    { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/facebook.list,    url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Facebook/Facebook.list' }
-  instagram:   { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/instagram.list,   url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Instagram/Instagram.list' }
   threads:     { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/threads.list,     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Threads/Threads.list' }
   whatsapp:    { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/whatsapp.list,    url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Whatsapp/Whatsapp.list' }
-  cloudflare:  { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/cloudflare.list,  url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Cloudflare/Cloudflare.list' }
   game:        { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/game.list,        url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Game/Game.list' }
   okx:         { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/okx.list,         url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/OKX/OKX.list' }
   binance:     { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/binance.list,     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Binance/Binance.list' }
