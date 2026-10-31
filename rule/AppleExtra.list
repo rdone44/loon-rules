@@ -18,3 +18,9 @@ DOMAIN-SUFFIX,icloud-content.com
 DOMAIN-SUFFIX,apple-cloudkit.com
 DOMAIN-SUFFIX,apple-mapkit.com
 DOMAIN-SUFFIX,appldnld.apple.com
+# App Store / iTunes 下载与接口域名：上游 Apple.list 只收 akadns/edgekey 关键词，规范域名（apps.apple.com、
+# iosapps.itunes.apple.com、itunes.apple.com、amp-api.apps.apple.com）一条都不命中，整族会落 FINAL 走代理 → 下载慢
+DOMAIN-SUFFIX,apple.com
+DOMAIN-SUFFIX,icloud.com
+DOMAIN-SUFFIX,me.com
+DOMAIN-SUFFIX,itunes-apple.com.akadns.net
