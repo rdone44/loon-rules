@@ -1,0 +1,10 @@
+# 四端 URL 集合比较时允许的、有意为之的不对称
+# 格式：端:归一化URL   # 原因
+clash:blackmatrix7/ios_rule_script/rule/Loon/Cloudflare/Cloudflare.list    # 已内联（65 条）到 rules
+clash:blackmatrix7/ios_rule_script/rule/Loon/Copilot/Copilot.list          # 已内联（49 条）
+clash:blackmatrix7/ios_rule_script/rule/Loon/Instagram/Instagram.list      # 已内联（4 条）
+clash:rdone44/loon-rules/rule/Carrier.list                                 # 已内联（6 条）
+mihomo:blackmatrix7/ios_rule_script/rule/Loon/Cloudflare/Cloudflare.list   # 同上
+mihomo:blackmatrix7/ios_rule_script/rule/Loon/Copilot/Copilot.list
+mihomo:blackmatrix7/ios_rule_script/rule/Loon/Instagram/Instagram.list
+mihomo:rdone44/loon-rules/rule/Carrier.list

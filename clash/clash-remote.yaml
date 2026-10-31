@@ -114,6 +114,15 @@ proxy-groups:
     expected-status: "200"
     interval: 600
     tolerance: 150
+  - name: LINE
+    type: url-test
+    include-all: true
+    filter: '(?i)🇯🇵|日本|东京|東京|大阪|京都|名古屋|札幌|横滨|橫濱|Japan|Tokyo|Osaka|NTT|\b(JP|JPN|NRT|HND|KIX)\d*\b'
+    exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
+    url: https://line.me/
+    expected-status: "200"
+    interval: 600
+    tolerance: 150
   - name: Twitter
     type: url-test
     include-all: true
@@ -291,6 +300,7 @@ rules:
   - RULE-SET,microsoft,微软服务
   - RULE-SET,github,GitHub
   - RULE-SET,telegram,Telegram
+  - RULE-SET,line,LINE
   - RULE-SET,grok,Twitter
   - RULE-SET,twitter,Twitter
   - RULE-SET,facebook,Meta
@@ -421,6 +431,7 @@ rule-providers:
   github:      { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/github.list,      url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/GitHub/GitHub.list' }
   telegram:    { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/telegram.list,    url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Telegram/Telegram.list' }
   grok:        { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/grok.list,        url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/Grok.list' }
+  line:        { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/line.list,        url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/Line.list' }
   twitter:     { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/twitter.list,     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Twitter/Twitter.list' }
   facebook:    { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/facebook.list,    url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Facebook/Facebook.list' }
   threads:     { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/threads.list,     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Threads/Threads.list' }
