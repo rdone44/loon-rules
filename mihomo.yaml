@@ -101,6 +101,7 @@ rule-providers:
   Game: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Game.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Game/Game.list' }
   OKX: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/OKX.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/OKX/OKX.list' }
   Binance: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Binance.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Binance/Binance.list' }
+  CryptoExtra: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/CryptoExtra.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/CryptoExtra.list' }
   Crypto: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Crypto.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Crypto/Crypto.list' }
   DouYin: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/DouYin.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/DouYin/DouYin.list' }
   China: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/China.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/China/China.list' }
@@ -324,6 +325,7 @@ rules:
   - RULE-SET,OKX,加密货币
   - RULE-SET,Binance,加密货币
   - RULE-SET,Crypto,加密货币
+  - RULE-SET,CryptoExtra,加密货币
   - RULE-SET,DouYin,DIRECT
   - RULE-SET,China,DIRECT
   - RULE-SET,ChinaIPs,DIRECT
