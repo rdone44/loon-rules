@@ -11,3 +11,5 @@ DOMAIN-SUFFIX,musewallet.io
 # Sumsub（KYC 平台，MuseWallet 的开户验证走 in.sumsub.com/websdk）；Cloudflare 前置，按地理分 hkg/sgp/usa/uae 节点
 # 同一家也给 Binance / OKX 等做 KYC，撞上时走加密货币组同样适用
 DOMAIN-SUFFIX,sumsub.com
+# sumsub.cloud 是 Sumsub 自己的域名（API/静态资源，不在 .com 下）
+DOMAIN-SUFFIX,sumsub.cloud
