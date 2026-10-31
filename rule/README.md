@@ -6,6 +6,7 @@ Loon / Surge 通用格式（`DOMAIN-SUFFIX,xxx` 纯规则行），规则本身�
 |---|---|---|---|
 | [MissAV.list](MissAV.list) | MissAV（全镜像）+ 姊妹站 NJAV / ThisAV + 图片 / 视频 CDN | 自定（建议 `MissAV` 组） | CDN 域名不含 missav 关键字，需单独列 |
 | [Gemini.list](Gemini.list) | Gemini / AI Studio / Vertex AI / DeepMind 全端点 | `AI` | 上游 Gemini 规则只有 13 条，本表补齐 `*-pa` 后端；必须排在 Google.list 之前 |
+| [Grok.list](Grok.list) | xAI / Grok（`grok.com`、`api.x.ai`、图片 CDN、Grok 百科）+ Grok Bot 后端（`cursor.sh` / `cursor.com` / `cursorvm.com`） | `Twitter`（美国组） | 出口必须美国：xAI 只对美区开放；Grok Bot 的「连接应用」单次拉 1.5 MB 目录，非干净线路会 12s 超时卡在「正在加载市场…」 |
 | [MetaExtra.list](MetaExtra.list) | Meta 系补充（Facebook / Instagram / Threads / WhatsApp 四张表没覆盖的域名） | `Meta` | 定期对照上游，补了就删 |
 | [TomatoNovel.list](TomatoNovel.list) | 番茄小说（字节系阅读） | `DIRECT` | 走代理必卡；广告 SDK 已抽到 AdsExtra 拦截 |
 | [GlobalExtra.list](GlobalExtra.list) | Global.list 关键词规则盖不到的 CDN（`pinimg.com` / `phncdn.com`） | `节点选择`（同主站） | 避免“页走 A 组、图片走 B 组” |

@@ -1,14 +1,24 @@
 # NAME: Grok
-# DESC: xAI / Grok 全套域名（grok.com 网页与 App、api.x.ai 接口、图片 CDN）
-# USAGE: [Remote Rule] https://raw.githubusercontent.com/rdone44/loon-rules/main/rule/Grok.list, policy=Twitter, tag=Grok, enabled=true
+# DESC: xAI / Grok 全套域名（grok.com 网页与 App、api.x.ai 接口、图片 CDN）+ Grok Bot（Cursor 内核客户端）后端
+# USAGE: [Remote Rule] https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/Grok.list?v=20261031, policy=Twitter, tag=Grok, enabled=true
 # NOTE: grok.com 虽已被上游 Twitter.list 收录，但 api.x.ai / *.x.ai 不在 —— 不显式引用就落 FINAL 漏网之鱼，
 #       出口不是美国节点时 Grok 会直接报地区不可用（xAI 只对美区开放）。
 #       一条 DOMAIN-SUFFIX,x.ai 就覆盖 api / imagine-public / grok.x.ai 等全部子域。
-# UPDATED: 2026-10-29
+# UPDATED: 2026-10-31
 #############################################
 
+# ---- xAI / Grok 本体 ----
 DOMAIN-SUFFIX,x.ai
 DOMAIN-SUFFIX,grok.com
 DOMAIN-SUFFIX,grokusercontent.com
 # grok.com 首页直引的 Grok 百科（probe_app.py 抓出来的，上游表和 Twitter.list 都没有）
 DOMAIN-SUFFIX,grokipedia.com
+
+# ---- Grok Bot（Cursor 内核的桌面客户端）后端 ----
+# 「连接应用」页 = DashboardService.ListMarketplacePlugins，单次约 1.5 MB protobuf：
+# 出口非美区 / 走的不是干净线路时会 12s 超时，页面卡在「正在加载市场…」。
+# api2 / api3 / authenticator 都是 cursor.sh 的子域，一条 SUFFIX 全覆盖；
+# cursorvm.com 是云端 box（computer-use）网关，形如 *.us13.cursorvm.com。
+DOMAIN-SUFFIX,cursor.sh
+DOMAIN-SUFFIX,cursor.com
+DOMAIN-SUFFIX,cursorvm.com
