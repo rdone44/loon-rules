@@ -5,6 +5,7 @@ Loon / Surge 通用格式（`DOMAIN-SUFFIX,xxx` 纯规则行），规则本身�
 | 文件 | 应用 / 用途 | 建议 policy | 说明 |
 |---|---|---|---|
 | [MissAV.list](MissAV.list) | MissAV（全镜像）+ 姊妹站 NJAV / ThisAV + 图片 / 视频 CDN | 自定（建议 `MissAV` 组） | CDN 域名不含 missav 关键字，需单独列 |
+| [AppleID.list](AppleID.list) | Apple 账户认证：改密 / 重置密码 / 双重认证 / 会话（`idmsa` / `appleid` / `account` / `iforgot` / `identity` / `gsa`） | `AppleID` | **必须排在 `priority/direct.list` 与 `Apple.list` 之前**。这些域名解析到 Apple 自有段 17.x，账号地区与中国大陆出口不一致时改密会被判「验证失败」 |
 | [Gemini.list](Gemini.list) | Gemini / AI Studio / Vertex AI / DeepMind 全端点 | `AI` | 上游 Gemini 规则只有 13 条，本表补齐 `*-pa` 后端；必须排在 Google.list 之前 |
 | [Grok.list](Grok.list) | xAI / Grok（`grok.com`、`api.x.ai`、图片 CDN、Grok 百科）+ Grok Bot 后端（`cursor.sh` / `cursor.com` / `cursorvm.com`） | `Twitter`（美国组） | 出口必须美国：xAI 只对美区开放；Grok Bot 的「连接应用」单次拉 1.5 MB 目录，非干净线路会 12s 超时卡在「正在加载市场…」 |
 | [MetaExtra.list](MetaExtra.list) | Meta 系补充（Facebook / Instagram / Threads / WhatsApp 四张表没覆盖的域名） | `Meta` | 定期对照上游，补了就删 |

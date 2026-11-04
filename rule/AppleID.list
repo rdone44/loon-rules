@@ -1,0 +1,25 @@
+# NAME: AppleID
+# DESC: Apple 账户认证 / 改密 / 重置密码 / 双重认证专用分流
+# USAGE: Loon [Remote Rule] 放在 [Remote Rule] 最顶部（先于 priority/direct.list），policy=AppleID
+#        必须排在 Apple.list / AppleExtra.list 之前：这两张表把 apple.com / icloud.com 整后缀给「苹果服务」，
+#        而「苹果服务」默认 DIRECT，认证流量会落到中国大陆出口
+# NOTE: 为什么必须单独一组：appleid.apple.com / iforgot.apple.com / account.apple.com / gsa.apple.com /
+#       identity.apple.com 都是 Apple 自有段 17.x，恰好命中 priority/direct.list 里的
+#       IP-CIDR,17.0.0.0/8,no-resolve → 即便写了域名规则也会被直连兜住，所以同时要从 priority 表里删掉 17/8
+# UPDATED: 2026-11-04
+#############################################
+
+# ---- Apple ID 认证核心（改密 / 重置 / 双重认证 / 会话）----
+DOMAIN-SUFFIX,idmsa.apple.com
+DOMAIN-SUFFIX,appleid.apple.com
+DOMAIN-SUFFIX,account.apple.com
+DOMAIN-SUFFIX,iforgot.apple.com
+DOMAIN-SUFFIX,identity.apple.com
+DOMAIN-SUFFIX,gsa.apple.com
+
+# ---- 认证用到的静态资源 / 校验 CDN ----
+DOMAIN-SUFFIX,appleid.cdn-apple.com
+DOMAIN-SUFFIX,appleid-validation.apple.com
+
+# ---- 中国区变体（idmsacn.v.aaplimg.com，落实测解析 17.179.252.66）----
+DOMAIN-SUFFIX,idmsa.apple.com.cn

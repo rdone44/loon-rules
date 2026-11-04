@@ -92,6 +92,12 @@ proxy-groups:
     proxies: [DIRECT, 自动选择]
     include-all: true
     exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
+  # Apple 账户认证（改密 / 重置密码 / 双重认证）：必须与账号地区同出口，默认 DIRECT，按需点成美国自动
+  - name: AppleID
+    type: select
+    proxies: [DIRECT, 自动选择]
+    include-all: true
+    exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
   - name: 微软服务
     type: select
     proxies: [DIRECT, 自动选择]
@@ -200,6 +206,9 @@ proxy-groups:
     hidden: true
 
 rules:
+  # ================= Apple 账户认证（先于一切，含 priority/direct.list） =================
+  # 改密 / 重置密码 / 双重认证必须与账号地区同出口，否则 Apple 判「验证失败」
+  - RULE-SET,appleid,AppleID
   # ================= 优先级例外（原本地规则，已迁到 rule/priority/） =================
   # 与 Loon [Remote Rule] 头 6 张表一一对应；必须排最前，否则会被后面的表抢走
   - RULE-SET,prioritydirect,DIRECT
@@ -387,6 +396,7 @@ rules:
 rule-providers:
   # ---- Loon 文本规则，mihomo 用 classical + text 直接解析 ----
   # ---- interval 统一 3600：下载失败时 1 小时内自动重试，而不是等一天 ----
+  appleid:     { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/appleid.list,     url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/AppleID.list?v=20261104' }
   mydomains:   { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/mydomains.list,   url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/MyDomains.list' }
   financecn:   { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/financecn.list,   url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/FinanceCN.list' }
   adsextra:    { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/adsextra.list,    url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/AdsExtra.list' }
