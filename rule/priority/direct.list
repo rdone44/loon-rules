@@ -13,8 +13,9 @@ IP-CIDR,192.168.0.0/16,no-resolve
 IP-CIDR,10.0.0.0/8,no-resolve
 IP-CIDR,172.16.0.0/12,no-resolve
 IP-CIDR,127.0.0.0/8,no-resolve
-# 17.0.0.0/8 是 Apple 自有段，曾在这里直连，结果把整族 Apple 流量锁死在中国大陆出口：
-# appleid / iforgot / idmsa / account / gsa / identity 全部解析到 17.x（实测 17.157.64.74 等），
-# 美区账号改密 / 重置密码走这个出口会被 Apple 判「验证失败」，且因为本表在最前面，
-# 域名规则、Apple.list、AppleExtra.list 一律轮不到。Apple 段已由 Apple.list / AppleExtra.list
-# 按域名分流，这里不再按 IP 兜底。
+# 17.0.0.0/8 是 Apple 自有段：旧配置在这里整段直连，把 Apple 账号认证（idmsa / iforgot / account /
+gsa / identity 实测均为 17.x）锁在中国大陆出口，美区账号改密会被判「验证失败」。
+# 但整段删掉会连带把 App Store 下载（iosapps.itunes.apple.com、downloaddispatch、
+# updates.cdn-apple.com、swcdn 实测 17.253.x）和 mzstatic 素材（17.253.192.x）拖进「苹果服务」
+# → 默认代理 → 下载巨慢。所以：只排除真正的认证主机，其余 17/8 继续直连。
+IP-CIDR,17.0.0.0/8,no-resolve,except=idmsa.apple.com,appleid.apple.com,account.apple.com,iforgot.apple.com,identity.apple.com,gsa.apple.com,idmsa.apple.com.cn
