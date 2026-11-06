@@ -8,12 +8,6 @@ __pycache__/
 sub.url
 *.local.yaml
 
-# Worker 本地状态与密钥（LOOKUP_TOKEN）
-.wrangler/
-worker/.wrangler/
-worker/.token.local
-.worker-secret
-
 # 联调缓存
 .tmp-rc/
 .tmp-*
