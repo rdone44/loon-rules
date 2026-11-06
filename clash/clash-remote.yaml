@@ -92,7 +92,7 @@ proxy-groups:
     proxies: [DIRECT, 自动选择]
     include-all: true
     exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
-  # Apple 账户认证（改密 / 重置密码 / 双重认证）：必须与账号地区同出口，默认 DIRECT，按需点成美国自动
+  # Apple 账户认证（改密 / 重置 / 双重认证）：需与账号地区同出口，用前手动切美国
   - name: AppleID
     type: select
     proxies: [DIRECT, 自动选择]
@@ -206,7 +206,7 @@ proxy-groups:
     hidden: true
 
 rules:
-  # ===== 顺序与 Loon.conf [Remote Rule] 一一对应（本段由 _sync_clash.py 生成）=====
+  # 顺序与 Loon.conf [Remote Rule] 一致
   - RULE-SET,qh-apple-cn,DIRECT
   - RULE-SET,qh-microsoft-cn,DIRECT
   - RULE-SET,qh-games-cn,DIRECT
