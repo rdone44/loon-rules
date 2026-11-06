@@ -32,9 +32,9 @@
 |---|---|
 `dns.servers` | `dns-remote`（DoH via 代理）· `dns-direct`（本地）· `dns-fakeip`（198.18.0.0/15） |
 `dns.rules` | 局域网 / private 表 / 大陆表走 `dns-direct`；A/AAAA 走 `dns-fakeip`；其余 `dns-remote` |
-`inbounds` | 单个 `tun`（172.19.0.1/30，mixed 栈，`auto_route`，sniff 开） |
+`inbounds` | 单个 `tun`（172.19.0.1/30，mixed 栈，`auto_route`）；sniff 已改为 `route.rules` 首条规则动作 |
 `outbounds` | `节点选择`(selector) → `自动选择`(urltest) + 16 个按业务的 selector + `direct` / `block` |
-`route.rules` | 17 条，顺序同 Loon：大陆直连 → httpdns 拦截 → Apple → AI → 流媒体 → 社交 → 游戏/加密/金融 → 开发云 → 通用代理 → 抖音 |
+`route.rules` | 18 条：首条 `sniff` 规则动作，其余 17 条顺序同 Loon：大陆直连 → httpdns 拦截 → Apple → AI → 流媒体 → 社交 → 游戏/加密/金融 → 开发云 → 通用代理 → 抖音 |
 
 ## 与 Loon 的差异
 

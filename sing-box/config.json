@@ -27,9 +27,7 @@
       "mtu": 9000,
       "auto_route": true,
       "strict_route": false,
-      "stack": "mixed",
-      "sniff": true,
-      "sniff_override_destination": true
+      "stack": "mixed"
     }
   ],
   "outbounds": [
@@ -54,6 +52,7 @@
   ],
   "route": {
     "auto_detect_interface": true,
+    "default_domain_resolver": "dns-direct",
     "final": "节点选择",
     "rule_set": [
       { "type": "remote", "tag": "apple-cn", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/apple-cn.srs" },
@@ -102,6 +101,7 @@
       { "type": "remote", "tag": "douyin", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/douyin.srs" }
     ],
     "rules": [
+      { "inbound": "tun-in", "action": "sniff" },
       { "rule_set": ["apple-cn", "microsoft-cn", "games-cn", "socialmedia-cn", "iplocation-direct", "private"], "outbound": "direct" },
       { "rule_set": "httpdns", "outbound": "block" },
       { "rule_set": ["apple-proxy", "apple", "apple-tv", "apns"], "outbound": "苹果服务" },
