@@ -19,6 +19,7 @@
 import re, sys, urllib.request, collections, datetime
 
 SRC_URL = "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/ChinaMax/ChinaMax.list"
+CNLIST_URL = "https://cdn.jsdelivr.net/gh/felixonmars/dnsmasq-china-list@master/accelerated-domains.china.conf"
 OUT = "rule/ChinaDomain.list"
 TLD = r"(com|cn|net|cc|io|org|top|xyz|me|info|vip|site|online|tech|ltd|ink|fun|icu|shop|live|tv|hk|tw|mo)"
 
@@ -130,10 +131,28 @@ def load(path=None):
     return sorted(set(out))
 
 
+def load_cnlist(path=None):
+    """dnsmasq-china-list accelerated-domains.china.conf：server=/域名/114.114.114.114 → 域名"""
+    if path:
+        raw = open(path, encoding="utf-8").read()
+    else:
+        req = urllib.request.Request(CNLIST_URL, headers={"User-Agent": "curl/8"})
+        raw = urllib.request.urlopen(req, timeout=180).read().decode("utf-8", "replace")
+    out = []
+    for l in raw.splitlines():
+        m = re.match(r"^server=/([^/]+)/", l.strip())
+        if m:
+            out.append(m.group(1).lower())
+    return sorted(set(out))
+
+
 def main():
     src = None
     if "--src" in sys.argv:
         src = sys.argv[sys.argv.index("--src") + 1]
+    cnlist_path = None
+    if "--cnlist" in sys.argv:
+        cnlist_path = sys.argv[sys.argv.index("--cnlist") + 1]
     ds = load(src)
     print(f"上游 DOMAIN-SUFFIX: {len(ds)}")
 
@@ -164,8 +183,16 @@ def main():
                     break
         if hits:
             picked[fam] = hits
+    fam_total = sum(len(v) for v in picked.values())
+    print(f"家族精选 {fam_total} 条 / {len(picked)} 家族")
+
+    # 第二轮：dnsmasq-china-list 全量并入（权威中国域名单，每日更新；SKIP 只滤专门组域）
+    cnlist = load_cnlist(cnlist_path)
+    cn = [d for d in cnlist if not SKIP.search(d) and d not in taken]
+    taken.update(cn)
+    picked["dnsmasq-china-list 全量"] = cn
+    print(f"china-list 并入 {len(cn)} 条（源 {len(cnlist)}，去重/滤专门组后）")
     total = sum(len(v) for v in picked.values())
-    print(f"挑选 {total} 条 / {len(picked)} 家族")
 
     # 自检：专门组域名绝不能进表
     for must_not in ("google.com", "apple.com", "github.com", "microsoft.com",
@@ -176,9 +203,9 @@ def main():
     today = datetime.date.today().isoformat()
     lines = [
         "# NAME: ChinaDomain",
-        "# DESC: 国内域名大表（品牌卫星/CDN 域 + CN 系顶级域），DIRECT 兜底，补 ChinaApp 主域之外的缺口",
+        "# DESC: 国内域名大表（dnsmasq-china-list 全量 + ChinaMax 品牌卫星/CDN 域 + 核心补齐 + CN 系顶级域），DIRECT 兜底",
         "# USAGE: 排在所有专门策略组之后、China/ChinaIPs/Global 之前；policy=DIRECT",
-        "# SYNC: python3 script/gen_china_domain.py  (blackmatrix7 ChinaMax 品牌锚点精选, 非整表引用)",
+        "# SYNC: python3 script/gen_china_domain.py  (源: felixonmars/dnsmasq-china-list 全量 + blackmatrix7 ChinaMax 精选)",
         f"# UPDATED: {today}",
         "#" * 45, "",
     ]
