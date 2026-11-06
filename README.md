@@ -33,9 +33,6 @@ Loon / Shadowrocket / Clash 三端分流配置 + kelee 插件镜像。
 | `clash/clash-remote.yaml` | Clash / mihomo 配置，与 Loon 同序 |
 | `sing-box/config.json` | sing-box 配置（内核 ≥ 1.9），与 Loon 同序，44 张 `.srs` 规则集，详见 `sing-box/README.md` |
 | `mihomo.yaml` | 已弃用，仅历史对照 |
-| `plugin/*.lpx` | kelee.one 插件镜像（源站被 Cloudflare 阻断） |
-| `plugin/blockAds-finance-safe.plugin` | fmz200 blockAds 的金融风控安全派生版 |
-| `script/*.js` | 插件引用的脚本（镜像插件的 `script-path` 已重定向到本仓库） |
 
 ## 使用前必做
 
@@ -54,5 +51,4 @@ Loon / Shadowrocket / Clash 三端分流配置 + kelee 插件镜像。
 
 - 规则总量 58,478 条，其中 `proxy` 30,047 / `google` 9,310 占 67%。手机端嫌重可只停用这两张
 - **美区 Apple ID 改密 / 重置密码**需要 `idmsa` / `iforgot` / `account` / `gsa` 与账号地区同出口。当前规则里 `apns` 只含 `identity.apple.com` + `push.apple.com`，不含这四个；需要时在 `[Remote Rule]` 最前面加一张认证表
-- `plugin/` 里 24 个 kelee `.lpx` 目前源站返回 403（Cloudflare 风控），与规则无关
 - missav.ai 等站点走 Cloudflare，卡在 `Just a moment...` 是 CF 判定出口 IP 可疑，换节点即可
