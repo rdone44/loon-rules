@@ -32,6 +32,7 @@ Loon / Shadowrocket / Clash 三端分流配置 + kelee 插件镜像。
 | `Shadowrocket.conf` | 小火箭配置，与 Loon 同序（插件 / MITM 不迁移） |
 | `clash/clash-remote.yaml` | Clash / mihomo 配置，与 Loon 同序 |
 | `sing-box/config.json` | sing-box 配置（内核 ≥ 1.9），与 Loon 同序，44 张 `.srs` 规则集，详见 `sing-box/README.md` |
+| `gateway/` | Cloudflare Worker 订阅网关，把机场订阅解析成 Clash 配置；读取本仓 `clash/clash-remote.yaml` 与 `clash/personal-*.list`，详见 `gateway/README.md` |
 | `mihomo.yaml` | 已弃用，仅历史对照 |
 
 ## 使用前必做

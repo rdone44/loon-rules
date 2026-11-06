@@ -4,6 +4,15 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
+    # 只有 gateway/ 自身变化才部署；改 Loon/Clash/sing-box 配置不应触发 Worker 部署
+    paths:
+      - 'gateway/**'
+      - '.github/workflows/deploy-gateway.yml'
+
+# wrangler-action 需要在 gateway/ 里跑，否则找不到 wrangler 配置
+defaults:
+  run:
+    working-directory: gateway
 
 jobs:
   deploy:
@@ -28,12 +37,17 @@ jobs:
         if: steps.check.outputs.configured == 'true'
         run: npm install
 
+      - name: Test
+        if: steps.check.outputs.configured == 'true'
+        run: npm test
+
       - name: Deploy
         if: steps.check.outputs.configured == 'true'
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: gateway
           secrets: |
             ACCESS_TOKEN
             SUBSCRIPTION_URL

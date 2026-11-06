@@ -11,3 +11,11 @@ sub.url
 # 联调缓存
 .tmp-rc/
 .tmp-*
+
+# gateway/（Cloudflare Worker）
+node_modules/
+.wrangler/
+.dev.vars
+wrangler.local.jsonc
+.token
+output/
