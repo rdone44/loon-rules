@@ -1,18 +1,29 @@
 # Loon 规则集、插件镜像与配置（rdone44/loon-rules）
 
-自用的 Loon 配置仓库：Apple 账户认证三段分流、QuixoticHeart 每日构建规则集镜像、kelee 插件镜像，以及一份带详细注释的完整 `Loon.conf`。
+自用的 Loon / Shadowrocket / Clash 三端分流配置 + kelee 插件镜像。
 
-## 规则来源原则
+## 规则来源：QuixoticHeart/rule-set（全量引用）
 
-分流规则**优先用 [QuixoticHeart/rule-set](https://github.com/QuixoticHeart/rule-set)**（每日 07:30 UTC+8 自动构建，合并 blackmatrix7 / MetaCubeX / SukkaW / dnsmasq-china-list 等上游）：
+分流规则**全部引用 [QuixoticHeart/rule-set](https://github.com/QuixoticHeart/rule-set/tree/ruleset/loon)**（每日 07:30 UTC+8 自动构建，合并 blackmatrix7 / MetaCubeX / SukkaW / dnsmasq-china-list 等上游）。
 
-| 情况 | 用谁 |
+当前引用 **45 张表**，合计 **58,478 条规则**。唯一例外是本仓库自建的 `rule/CNGeo.list`（1 条 `GEOIP,cn`）—— 它的 `cn.list` 有 10.7 万行（2.8MB），引用会压垮手机端规则引擎。
+
+### 未引用的表与原因
+
+| 表 | 条数 / 体积 | 为什么不引用 |
 |---|---|---|
-| QuixoticHeart 有对应表 | **用它的**（`@ruleset/loon/*.list`） |
-| 它没有（认证 / 自有域名 / 国内金融购物 / 广告 / 国内地图 / Gemini / MissAV / LINE / Grok / Meta 补充 / OKX 与加密补充 / 全球兜底） | 本仓库自建表 |
-| 它太大不能用（`cn` 107k 行 2.8MB、`adrules` 210k 行 7MB、`proxy` 30k 行、`google` 9.3k 行） | 上游 blackmatrix7 的精选小表（`China` / `Google` / `Advertising` / `Hijacking` / `Privacy` / `Apple` / `Global` / `Cloudflare` / `Telegram` / 阿里 / 支付宝 / 拼多多 / 京东） |
+| `cn` | 107,728 行 / 2.8MB | 中国域名全量，引用即卡死；已由 `GEOIP,cn` 一条兜住 |
+| `adrules` | 210,220 行 / 7.2MB | 广告全量，引用即卡死 |
+| `cncidr` | 17,958 条 | 中国 IP 段，已由 `GEOIP,cn` 兜住，无需重复 |
+| `cncidr-resolve` | 47 万行 | 同上，且去掉 `no-resolve` 会产生大量无效 DNS 查询 |
+| `gfw` | 7,502 条 | 与 `proxy` 表重复，由 `proxy` 覆盖 |
+| `speedtest` | 278KB | 测速站点，非必需 |
 
-为什么换：上游 blackmatrix7 的 33 张表里 **22 张停更于 2024~2025**（`Threads` 停 2024-01-08、`OKX` 停 2024-01-08、`YouTube`/`Spotify`/`BiliBili`/`Facebook`/`Hijacking`/`Cloudflare` 停 2025-06-06、`GitHub` 停 2025-06-12、`Telegram` 停 2025-09-10、`Twitter` 停 2025-09-28、`Microsoft`/`Privacy` 停 2025-12-08）。
+## 为什么换掉原来的表
+
+上游 blackmatrix7 的 33 张表里 **22 张停更于 2024~2025**（`Threads` 停 2024-01-08、`OKX` 停 2024-01-08、`YouTube`/`Spotify`/`BiliBili`/`Facebook`/`Hijacking`/`Cloudflare` 停 2025-06-06、`GitHub` 停 2025-06-12、`Telegram` 停 2025-09-10、`Twitter` 停 2025-09-28、`Microsoft`/`Privacy` 停 2025-12-08）。
+
+另外旧的 `ChinaIPs`(19,619) + `ChinaDomain`(3,708) 占规则总量 78%，手机端规则引擎被压垮，表现就是 **App Store 大文件下载变慢**。现在由 `GEOIP,cn` 一条兜底。
 
 ## 仓库结构
 
@@ -20,20 +31,10 @@
 |---|---|
 | `Loon.conf` | 完整 Loon 配置模板（DNS / 策略组 / 分流 / 插件） |
 | `Shadowrocket.conf` | 小火箭配置，与 Loon.conf 同构分流（插件 / MITM 脚本不迁移） |
-| `mihomo.yaml` | **已弃用**，仅作历史对照；Clash 侧请用 `clash/clash-remote.yaml` |
-| `clash/` | 订阅网关的配置模板与个人规则库，详见 `clash/README.md` |
-| `rule/AppleID.list` | Apple 账户认证（改密 / 重置密码 / 双重认证），**必须排在所有规则之前** |
-| `rule/MissAV.list` | MissAV 家族 + 图片 / 视频 CDN 分流规则 |
-| `rule/GlobalExtra.list` | 补 Global.list 关键词规则盖不到的 CDN（前后端同出口） |
-| `rule/FinanceCN.list` | 国内银行 / 券商 / 支付 / 保险，固定在「金融应用」组且排在广告表之前 |
-| `rule/CNGeo.list` | `GEOIP,cn` 全量中国 IP 兜底（一条顶替 19619 条 ChinaIPs） |
-| `rule/priority/` | 优先级例外（原 `[Rule]` 本地规则），按策略拆成 6 张表 |
-| `rule/AdsExtra.list` | 上游广告表没盖到的字节系广告域名（巨量引擎等），拦截 |
-| `rule/WeChat.list` | 微信 / 视频号 / 小程序直连，挡在广告表前面 |
-| `rule/Carrier.list` | 三大运营商 / 广电的 `.com` 域名直连 |
-| `rule/CNMap.list` | 高德 / 百度地图 / 腾讯地图直连（排广告表之后，保留 `apiinit.amap.com` 拦截） |
-| `rule/Gemini.list` | Gemini / AI Studio / Vertex 全端点分流规则 |
-| `rule/category-ads-all.list` | v2fly `category-ads-all` 的 Loon 格式转换（静态，约 900 条，**当前未引用**） |
+| `clash/clash-remote.yaml` | Clash / mihomo 侧配置（**当前有效的那份**），与 Loon 同序 |
+| `mihomo.yaml` | **已弃用**，仅作历史对照 |
+| `rule/CNGeo.list` | 唯一被引用的自建表：`GEOIP,cn` 国内 IP 兜底 |
+| `rule/*.list` | 其余自建表（AppleID / MissAV / FinanceCN / WeChat / Gemini …），**当前未被引用**，仅作为自定义时的参考 |
 | `plugin/*.lpx` | kelee.one 插件镜像（源站被 Cloudflare 阻断） |
 | `plugin/blockAds-finance-safe.plugin` | fmz200 blockAds 的金融风控安全派生版 |
 | `script/*.js` | 插件引用的脚本（镜像插件的 `script-path` 已重定向到本仓库） |
@@ -145,9 +146,9 @@ https://raw.githubusercontent.com/rdone44/loon-rules/main/plugin/blockAds-financ
 - 不要仅因为规则在两张表中重复就调整顺序。先看策略是否不同：`Copilot` / `OpenAI` 都走 AI，重复只增加维护；Xbox / Bethesda 与微软规则重叠则实际走微软组，只有预期是游戏组时才需要写更靠前的例外
 - 可选地停用重复的 `Privacy` 表，能少一次小表下载；保留它也有独立标签和上游来源，偏好清晰分类时可以不动。若修改，Loon、Shadowrocket、mihomo 三份配置保持一致
 - 国内金融（银行 / 券商 / 支付 / 保险）单独放在 `rule/FinanceCN.list`，引用 `policy=金融应用`，位置在**去广告表之前**：这些域名大多是 `.com`，原先只能靠 `ChinaIPs` 的 IP 匹配兜底，DNS 一旦解析到境外边缘就会被当成代理流量，银行 App 容易报「网络环境异常」。`金融应用` 组默认就是 `DIRECT`，所以行为不变，只是不再依赖 IP 结果
-- **国内兜底用 `GEOIP,cn`（`rule/CNGeo.list`），不要再引用 `ChinaIPs.list`（19619 条）或 `ChinaDomain.list`（3708 条）**：两者合计曾占全配置 78%，手机端规则引擎会被压垮，表现就是 App Store 大文件下载变慢。同理不要引用 QuixoticHeart 的 `cn.list`（107k 行）
-- **Apple 分三段**：`AppleID.list`（认证，走 `AppleID` 组）→ `apple-cn.list`（大陆 CDN，DIRECT）→ `apple-proxy.list`（需代理域，苹果服务）。`priority/direct.list` 里的 `IP-CIDR,17.0.0.0/8,no-resolve` 保 App Store 下载直连，别删
-- **不要写 `IP-CIDR,xxx,except=...`**：Loon 官方 IP 规则文档只支持 `no-resolve`，没有 `except` 参数（详见 `rule/priority/direct.list` 注释）
+- 国内兜底用 `GEOIP,cn`（`rule/CNGeo.list`），**不要再引用 `ChinaIPs.list`（19619 条）或 `ChinaDomain.list`（3708 条）**：两者合计曾占全配置 78%，手机端规则引擎会被压垮，表现就是 App Store 大文件下载变慢。同理不要引用 QuixoticHeart 的 `cn.list`（107k 行）
+- **Apple 三段顺序不能变**：`apple-cn`（大陆 CDN，DIRECT）必须排在最前面，否则会被后面的 `apple`（1585 条，走「苹果服务」）抢走；接着 `apple-proxy`，最后 `apple`
+- **不要写 `IP-CIDR,xxx,except=...`**：Loon 官方 IP 规则文档只支持 `no-resolve`，没有 `except` 参数
 
 使用前必做两件事：
 
@@ -163,6 +164,7 @@ https://raw.githubusercontent.com/rdone44/loon-rules/main/plugin/blockAds-financ
 
 ## 注意
 
-- 规则表总量已从 29,816 条降到 **7,908 条**（-73%），主要是删掉 `ChinaIPs`（19619）与 `ChinaDomain`（3708）、改用 `GEOIP,cn`。
-- `plugin/` 里 24 个 kelee `.lpx` 目前源站返回 403（Cloudflare 风控），与规则无关；用到请自行换镜像地址。
+- 规则总量 **58,478 条**（其中 `proxy` 表 30k、`google` 表 9.3k）。如果手机端觉得重，可以只停用 `proxy` / `google` 两张。
+- **未引用 `rule/AppleID.list` 了**：这次是「全部换成 QuixoticHeart」，需要的话在 `[Remote Rule]` 最前面加回 `AppleID.list` + `apple-cn` 之前的那行（美区账号改密/重置时必须与账号地区同出口）。
+- `plugin/` 里 24 个 kelee `.lpx` 目前源站返回 403（Cloudflare 风控），与规则无关。
 - missav.ai 等站点走 Cloudflare，如果浏览器卡在 `Just a moment...`，那是 CF 风控判定出口 IP 可疑，**换节点**（住宅型节点过率更高），不是规则问题。
