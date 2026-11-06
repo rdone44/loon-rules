@@ -10,4 +10,4 @@ mihomo:blackmatrix7/ios_rule_script/rule/Loon/Copilot/Copilot.list
 mihomo:blackmatrix7/ios_rule_script/rule/Loon/Instagram/Instagram.list
 mihomo:rdone44/loon-rules/rule/Carrier.list
 mihomo:rdone44/loon-rules/rule/CNGeo.list                                  # GEOIP,CN 已内联进 rules
-shadowrocket:rdone44/loon-rules/rule/CNGeo.list                            # GEOIP,CN 已内联进 [Rule]（Shadowrocket 按文件顺序匹配，无本地优先级问题）
+Shadowrocket:rdone44/loon-rules/rule/CNGeo.list                            # GEOIP,CN 已内联进 [Rule]（Shadowrocket 按文件顺序匹配，无本地优先级问题）
