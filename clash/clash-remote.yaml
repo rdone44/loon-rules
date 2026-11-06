@@ -391,7 +391,7 @@ rules:
   - RULE-SET,chinadomain,DIRECT
   - RULE-SET,china,DIRECT
   - RULE-SET,chinaips,DIRECT
-  - GEOIP,CN,DIRECT
+  - RULE-SET,cngeo,DIRECT
   - RULE-SET,globalextra,节点选择
   - RULE-SET,global,节点选择
   - DOMAIN-SUFFIX,entire.com,AI
@@ -456,6 +456,7 @@ rule-providers:
   chinadomain: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/chinadomain.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/ChinaDomain.list' }
   china:       { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/china.list,       url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/China/China.list' }
   chinaips:    { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/chinaips.list,    url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/ChinaIPs/ChinaIPs.list' }
+  cngeo:       { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/cngeo.list,       url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/CNGeo.list' }
   global:      { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/global.list,      url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Global/Global.list' }
 proxy-providers:
   remote:

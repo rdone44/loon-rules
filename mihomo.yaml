@@ -108,6 +108,7 @@ rule-providers:
   ChinaDomain: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/ChinaDomain.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/ChinaDomain.list' }
   China: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/China.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/China/China.list' }
   ChinaIPs: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/ChinaIPs.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/ChinaIPs/ChinaIPs.list' }
+  CNGeo: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/CNGeo.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/CNGeo.list' }
   GlobalExtra: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/GlobalExtra.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/GlobalExtra.list' }
   Global: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Global.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Global/Global.list' }
 
@@ -335,7 +336,7 @@ rules:
   - RULE-SET,ChinaDomain,DIRECT
   - RULE-SET,China,DIRECT
   - RULE-SET,ChinaIPs,DIRECT
-  - GEOIP,CN,DIRECT
+  - RULE-SET,CNGeo,DIRECT
   - RULE-SET,GlobalExtra,节点选择
   - RULE-SET,Global,节点选择
   - DOMAIN-SUFFIX,entire.com,AI
