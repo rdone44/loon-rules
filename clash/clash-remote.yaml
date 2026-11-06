@@ -1,6 +1,6 @@
 # Clash / Mihomo 远程配置 —— 与 Loon.conf 同构（策略组 / 规则顺序一一对应）
 # 节点由网关注入到 proxies，分组用 include-all 自动收录，无需 use: [remote]
-# 规则集全部为 blackmatrix7 / 本仓库的 Loon 文本表，mihomo 用 classical + text 直接读，不需要转 mrs
+# 规则集为 QuixoticHeart/rule-set 的 Loon 文本表，mihomo 用 classical + text 直接读
 # 个人规则（personal-ai / personal-direct）由网关插到 rules 顶部，指向两个 hidden 兼容组
 
 mixed-port: 7890
@@ -44,7 +44,7 @@ dns:
 proxies: []
 proxy-groups:
   # ================= Loon [Proxy Group] 同序 =================
-  # type: url-test = 自动测速选最快节点；include-all = 节点平铺到组内（不嵌策略组）
+  # type: url-test = 自动测速选最快节点；include-all = 节点平铺到组内
   # ---- 应用策略组（全自动，节点平铺）----
   - name: Meta
     type: url-test
@@ -164,7 +164,7 @@ proxy-groups:
     proxies: [DIRECT, 自动选择]
     include-all: true
     exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
-  # ---- 地区自动组（Loon 侧对应 香港自动/台湾自动/…，这里只保留被规则集引用的）----
+  # ---- 地区自动组（只保留被规则集引用的）----
   - name: 台湾自动
     type: url-test
     include-all: true
