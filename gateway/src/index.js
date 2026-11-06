@@ -1,16 +1,19 @@
 import { parse as parseYaml, stringify as stringifyYaml } from "yaml";
 import { parseSubscription } from "./parser.js";
+import { buildConfig as buildSingboxConfig } from "./singbox.js";
 import qrcode from "qrcode-generator";
 
 const VERSION = "1.1.0";
 const DEFAULT_CONFIG_URL =
   "https://raw.githubusercontent.com/rdone44/loon-rules/main/clash/clash-remote.yaml";
+const DEFAULT_SINGBOX_CONFIG_URL =
+  "https://raw.githubusercontent.com/rdone44/loon-rules/main/sing-box/config.json";
 const DEFAULT_TTL = 300;
 const MAX_TTL = 3600;
-const ID_PATTERN = /^[a-f0-9]{32}$/;
 const SETTINGS_KEY = "settings:global";
 const NODES_KEY = "nodes:global";
 const CONFIG_CACHE_KEY = "config:last";
+const SINGBOX_CACHE_KEY = "config:singbox";
 const DEFAULT_PERSONAL_RULES_URL =
   "https://raw.githubusercontent.com/rdone44/loon-rules/main/clash/personal-direct.list";
 
@@ -287,6 +290,11 @@ async function route(request, env, ctx, url) {
           if (wait) throw new HttpError(429, "请求过于频繁，请稍后再试", { retryAfter: wait });
           return await handleSub(request, env);
         }
+        case "/singbox": {
+          const wait = rateLimitRetryAfter(request);
+          if (wait) throw new HttpError(429, "请求过于频繁，请稍后再试", { retryAfter: wait });
+          return await handleSingbox(request, env);
+        }
         case "/stash": {
           const wait = rateLimitRetryAfter(request);
           if (wait) throw new HttpError(429, "请求过于频繁，请稍后再试", { retryAfter: wait });
@@ -326,6 +334,7 @@ async function handleGetSettings(request, env) {
   const urls = resolveSubscriptionUrls(settings, env);
   return json({
     config: settings?.config || env.CONFIG_URL || DEFAULT_CONFIG_URL,
+    singbox: settings?.singbox || env.CONFIG_SINGBOX_URL || DEFAULT_SINGBOX_CONFIG_URL,
     urls: reveal ? urls : urls.map(maskSecretUrl),
     url: reveal ? settings?.url || "" : maskSecretUrl(settings?.url),
     name: await resolveProfileName(env, settings),
@@ -350,16 +359,19 @@ async function handleSaveSettings(request, env) {
   if (urls.length === 0) throw new HttpError(400, "至少填写一个订阅地址");
 
   const configUrl = normalizeConfigUrl(body.config, env);
+  const singboxUrl = body.singbox === undefined
+    ? undefined
+    : normalizeConfigUrl(body.singbox, env);
   const name = typeof body.name === "string" ? body.name.trim().slice(0, 60) : "";
   const updatedAt = new Date().toISOString();
 
   await kvPutEncrypted(
     env,
     SETTINGS_KEY,
-    JSON.stringify({ url: urls[0], urls, config: configUrl, name, updatedAt }),
+    JSON.stringify({ url: urls[0], urls, config: configUrl, singbox: singboxUrl, name, updatedAt }),
   );
 
-  return json({ ok: true, config: configUrl, urls: urls.map(maskSecretUrl), name: name || undefined, updatedAt });
+  return json({ ok: true, config: configUrl, singbox: singboxUrl, urls: urls.map(maskSecretUrl), name: name || undefined, updatedAt });
 }
 
 async function handleDeleteSettings(request, env) {
@@ -367,6 +379,7 @@ async function handleDeleteSettings(request, env) {
   if (!env.PROFILES) throw new HttpError(500, "未配置 KV 命名空间 PROFILES");
   await env.PROFILES.delete(SETTINGS_KEY);
   await env.PROFILES.delete(NODES_KEY);
+  await env.PROFILES.delete(SINGBOX_CACHE_KEY);
   return json({ ok: true });
 }
 
@@ -539,8 +552,8 @@ async function handleQr(request, env) {
 
   const url = new URL(request.url);
   const token = providedToken(request);
-  const client = url.searchParams.get("client") === "stash" ? "stash" : "clash";
-  const target = client === "stash" ? "/stash" : "/sub";
+  const client = url.searchParams.get("client") === "stash" ? "stash" : url.searchParams.get("client") === "singbox" ? "singbox" : "clash";
+  const target = client === "stash" ? "/stash" : client === "singbox" ? "/singbox" : "/sub";
   const text = `${url.origin}${target}?token=${encodeURIComponent(token)}`;
 
   const qr = qrcode(0, "M");
@@ -622,6 +635,44 @@ async function handleSub(request, env, targetOverride) {
 async function handleProvider(request, env, ctx) {
   requireToken(request, env);
   return serveGlobalNodes(env, ctx);
+}
+
+/**
+ * sing-box 订阅：拿同一份节点与同一份 sing-box 模板装配。
+ * 只提供出站侧（去掉 inbounds），入站交给客户端。
+ */
+async function handleSingbox(request, env) {
+  const startedAt = Date.now();
+  requireToken(request, env);
+
+  const settings = await loadSettings(env);
+
+  const nodeTtl = resolveNodeTtl(env);
+  let nodes = await readNodes(env);
+  const nodesFresh = nodes && Date.now() - Date.parse(nodes.updatedAt) < nodeTtl * 1000;
+  if (!nodesFresh) {
+    try {
+      nodes = await refreshNodes(env);
+    } catch (error) {
+      console.error(JSON.stringify({ level: "warn", message: "节点刷新失败，沿用缓存", error: maskError(error) }));
+    }
+  }
+
+  if (!nodes?.proxies?.length) {
+    throw new HttpError(503, "还没有可用节点：请先在首页保存订阅地址");
+  }
+
+  const templateUrl = settings?.singbox || env.CONFIG_SINGBOX_URL || DEFAULT_SINGBOX_CONFIG_URL;
+  const template = await fetchSingboxTemplate(templateUrl, env);
+
+  const { config, nodeCount } = buildSingboxConfig(template, nodes.proxies);
+
+  return configResponse(await resolveProfileName(env, settings), env, JSON.stringify(config, null, 2), "application/json; charset=utf-8", {
+    "x-config-source": templateUrl,
+    "x-node-count": String(nodeCount),
+    "x-nodes-cache": nodesFresh ? "hit" : "miss",
+    "x-ms": String(Date.now() - startedAt),
+  });
 }
 
 async function readNodes(env) {
@@ -712,7 +763,10 @@ async function refreshNodes(env) {
       for (const key of Object.keys(opts)) {
         if (opts[key] === "") delete opts[key];
       }
-      if (Object.keys(opts).length === 0) delete node["plugin-opts"], delete node.plugin;
+      if (Object.keys(opts).length === 0) {
+        delete node["plugin-opts"];
+        delete node.plugin;
+      }
     }
   }
 
@@ -725,7 +779,7 @@ async function refreshNodes(env) {
   return record;
 }
 
-async function serveGlobalNodes(env, ctx) {
+async function serveGlobalNodes(env, _ctx) {
   const ttl = resolveNodeTtl(env);
   let record = await readNodes(env);
   const fresh = record && Date.now() - Date.parse(record.updatedAt) < ttl * 1000;
@@ -845,6 +899,90 @@ async function readLastConfig(env) {
   try {
     const raw = await kvGetDecrypted(env, CONFIG_CACHE_KEY);
     return raw ? parseConfigText(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * sing-box 模板：与 Clash 模板一样走缓存 + 降级（用上次成功的副本）。
+ */
+async function fetchSingboxTemplate(templateUrl, env) {
+  const ttl = resolveTtl(env);
+  const cache = getCache();
+  const cacheKey = cache ? new Request(`https://cache.internal/singbox/${await sha256(templateUrl)}`) : null;
+
+  if (cache && cacheKey) {
+    const hit = await cache.match(cacheKey);
+    if (hit) {
+      const parsed = parseJsonConfig(await hit.text());
+      if (parsed) return parsed;
+    }
+  }
+
+  const target = new URL(templateUrl);
+  target.searchParams.set("_", String(Math.floor(Date.now() / 60000)));
+
+  let response = null;
+  let error = null;
+  try {
+    response = await fetch(target.toString(), {
+      headers: { "user-agent": `clash-gateway/${VERSION}`, accept: "application/json,*/*" },
+      redirect: "follow",
+      cache: "no-store",
+      signal: AbortSignal.timeout(15000),
+    });
+    if (!response.ok) {
+      error = new Error(`HTTP ${response.status}`);
+      response = null;
+    }
+  } catch (fetchError) {
+    error = fetchError;
+  }
+
+  if (response) {
+    const text = await response.text();
+    const parsed = parseJsonConfig(text);
+    if (parsed) {
+      if (cache && cacheKey && ttl > 0) {
+        try {
+          await cache.put(cacheKey, new Response(text, {
+            headers: { "content-type": "application/json", "cache-control": `max-age=${ttl}` },
+          }));
+        } catch { /* 缓存写失败不影响主流程 */ }
+      }
+      if (env.PROFILES) {
+        try {
+          await kvPutEncrypted(env, SINGBOX_CACHE_KEY, text);
+        } catch { /* 同上 */ }
+      }
+      return parsed;
+    }
+    error = new Error("sing-box 模板不是合法 JSON");
+  }
+
+  const stale = await readLastSingboxConfig(env);
+  if (stale) {
+    console.error(JSON.stringify({ level: "warn", message: "sing-box 模板拉取失败，使用上次缓存", error: maskError(error) }));
+    return stale;
+  }
+  throw new HttpError(502, `拉取 sing-box 模板失败：${maskError(error)}`);
+}
+
+function parseJsonConfig(text) {
+  try {
+    const parsed = JSON.parse(text);
+    return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : null;
+  } catch {
+    return null;
+  }
+}
+
+async function readLastSingboxConfig(env) {
+  if (!env.PROFILES) return null;
+  try {
+    const raw = await kvGetDecrypted(env, SINGBOX_CACHE_KEY);
+    return raw ? parseJsonConfig(raw) : null;
   } catch {
     return null;
   }
@@ -1273,16 +1411,17 @@ async function resolveProfileName(env, settings) {
   return (s?.name || env?.PROFILE_NAME || "Clash 网关订阅").trim() || "Clash 网关订阅";
 }
 
-function contentDisposition(name) {
+function contentDisposition(name, filename = "clash-gateway") {
   const label = (name || "Clash 网关订阅").trim() || "Clash 网关订阅";
-  return `attachment; filename="clash-gateway"; filename*=UTF-8''${encodeURIComponent(label)}`;
+  return `attachment; filename="${filename}"; filename*=UTF-8''${encodeURIComponent(label)}`;
 }
 
 function configResponse(name, env, body, contentType, extraHeaders = {}) {
+  const filename = contentType.includes("json") ? "sing-box" : "clash-gateway";
   return new Response(body, {
     headers: {
       "content-type": contentType,
-      "content-disposition": contentDisposition(name),
+      "content-disposition": contentDisposition(name, filename),
       "profile-update-interval": "1",
       "cache-control": "no-store",
       ...CORS,
@@ -1314,6 +1453,7 @@ function html(body) {
 
 function infoPage(env, request) {
   const configUrl = env.CONFIG_URL || DEFAULT_CONFIG_URL;
+  const singboxUrl = env.CONFIG_SINGBOX_URL || DEFAULT_SINGBOX_CONFIG_URL;
   const expected = String(env.ACCESS_TOKEN || "").trim();
   const revealed =
     providedToken(request) && providedToken(request) === expected
@@ -1354,15 +1494,18 @@ function infoPage(env, request) {
 </style></head>
 <body><main>
   <h1>Clash Gateway</h1>
-  <p>把 GitHub 配置链接和机场订阅链接保存到 Worker，然后 Clash 直接用 <code>/sub</code>。</p>
+  <p>把 GitHub 配置链接和机场订阅链接保存到 Worker，然后 Clash 用 <code>/sub</code>，sing-box 用 <code>/singbox</code>。</p>
 
   <div class="card">
     <h2>设置</h2>
     <label for="token">ACCESS_TOKEN</label>
     <input id="token" type="text" autocomplete="off" value="${escapeHtml(revealed)}" placeholder="调用令牌">
     <p class="hint">明文显示：带 <code>?token=你的令牌</code> 打开本页即可看到；直接打开则留空。</p>
-    <label for="config">GitHub 配置链接（YAML）</label>
+    <label for="config">GitHub 配置链接（Clash 模板 YAML）</label>
     <input id="config" type="url" value="${escapeHtml(configUrl)}" placeholder="https://.../clash-remote.yaml">
+    <label for="config-singbox">sing-box 模板链接（JSON）</label>
+    <input id="config-singbox" type="url" value="${escapeHtml(singboxUrl)}" placeholder="https://.../sing-box/config.json">
+    <p class="hint">留空则用默认模板；模板里只需写导出侧，inbounds 会自动去掉。</p>
     <label for="url">机场订阅链接（每行一个，可多个，自动合并）</label>
     <textarea id="url" rows="3" placeholder="https://example.com/subscribe-1&#10;https://example.com/subscribe-2"></textarea>
     <label for="pname">订阅名字（导入 Clash 时显示）</label>
@@ -1380,6 +1523,7 @@ function infoPage(env, request) {
       <select id="client">
         <option value="clash">Clash / Mihomo / Verge</option>
         <option value="stash">Stash</option>
+        <option value="singbox">sing-box（SFI / Karing / Hiddify）</option>
       </select>
       <a id="sub-link" target="_blank" rel="noreferrer"></a>
       <div class="row">
@@ -1394,6 +1538,7 @@ function infoPage(env, request) {
     <h2>说明</h2>
     <ul>
       <li>配置里的节点走 <code>/provider</code>，规则走 GitHub 配置里的远程 <code>rule-providers</code></li>
+      <li>sing-box 订阅只含出站侧（节点 + 分组 + 路由），入站由客户端自己管；模板里写 <code>inbounds</code> 会被忽略</li>
       <li>改了 GitHub 上的分组或规则，Clash 下次刷新订阅就会用新版本</li>
       <li>设置存在 Cloudflare KV，不写入 GitHub</li>
     </ul>
@@ -1404,6 +1549,7 @@ function infoPage(env, request) {
   "use strict";
   var tokenInput = document.getElementById("token");
   var configInput = document.getElementById("config");
+  var singboxInput = document.getElementById("config-singbox");
   var urlInput = document.getElementById("url");
   var nameInput = document.getElementById("pname");
   var statusBox = document.getElementById("status");
@@ -1423,7 +1569,7 @@ function infoPage(env, request) {
   }
 
   function updateSub(token) {
-    var path = clientSelect.value === "stash" ? "/stash" : "/sub";
+    var path = clientSelect.value === "stash" ? "/stash" : clientSelect.value === "singbox" ? "/singbox" : "/sub";
     var sub = location.origin + path + "?token=" + encodeURIComponent(token);
     subLink.textContent = sub;
     subLink.href = sub;
@@ -1477,6 +1623,7 @@ function infoPage(env, request) {
       var data = await response.json().catch(function () { return {}; });
       if (!response.ok) throw new Error(data.error || "HTTP " + response.status);
       configInput.value = data.config || "";
+      singboxInput.value = data.singbox || "";
       var urls = data.urls && data.urls.length ? data.urls : (data.url ? [data.url] : []);
       urlInput.value = urls.join("\\n");
       nameInput.value = data.name || "";
@@ -1499,6 +1646,7 @@ function infoPage(env, request) {
         headers: { "content-type": "application/json", authorization: "Bearer " + token() },
         body: JSON.stringify({
           config: configInput.value.trim(),
+          singbox: singboxInput.value.trim(),
           urls: urlInput.value.split(/\\r?\\n/).map(function (s) { return s.trim(); }).filter(Boolean),
           name: nameInput.value.trim(),
         }),

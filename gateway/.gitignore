@@ -1,5 +1,6 @@
 node_modules/
 .wrangler/
+_dry/
 .dev.vars
 *.log
 output/
@@ -10,5 +11,5 @@ sub.url
 *.local.yaml
 wrangler.local.jsonc
 
-# ±¾µØ·ÃÎÊÁîÅÆ
+# ï¿½ï¿½ï¿½Ø·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 .token

@@ -13,6 +13,7 @@
   "vars": {
     "ACCESS_TOKEN": "YOUR_ACCESS_TOKEN",
     "CONFIG_URL": "https://rdone4425.github.io/clash-configs/configs/clash-remote.yaml",
+    "CONFIG_SINGBOX_URL": "https://raw.githubusercontent.com/rdone44/loon-rules/main/sing-box/config.json",
     "PUBLIC_BASE": "https://clash-gateway.rdone.eu.cc",
     "CACHE_TTL": "300",
     "NODE_TTL": "1800",

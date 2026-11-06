@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Cloudflare Worker 订阅网关：把机场订阅转成 Clash/mihomo/Stash 配置，订阅只存服务端",
+  "description": "Cloudflare Worker 订阅网关：把机场订阅转成 Clash/mihomo/Stash/sing-box 配置，订阅只存服务端",
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
-    "test": "node test.mjs"
+    "test": "node test.mjs && node test-singbox.mjs",
+    "test:e2e": "node fixtures/e2e-singbox.mjs"
   },
   "dependencies": {
     "qrcode-generator": "^2.0.4",

@@ -14,8 +14,9 @@
   "vars": {
     "PROFILE_NAME": "Clash 网关订阅",
     "CONFIG_URL": "https://raw.githubusercontent.com/rdone44/loon-rules/main/clash/clash-remote.yaml",
+    "CONFIG_SINGBOX_URL": "https://raw.githubusercontent.com/rdone44/loon-rules/main/sing-box/config.json",
     "PERSONAL_RULES_URL": "https://raw.githubusercontent.com/rdone44/loon-rules/main/clash/personal-direct.list",
-    "PUBLIC_BASE": "https://clash-gateway.rdone.eu.cc",
+    "PUBLIC_BASE": "https://sub.opcf.us.ci",
     "CACHE_TTL": "300",
     "NODE_TTL": "1800",
     "PROVIDER_INTERVAL": "1800"
@@ -23,7 +24,7 @@
   "kv_namespaces": [
     {
       "binding": "PROFILES",
-      "id": "edc58efdf1bc4fdd9d96ea3d292d7310"
+      "id": "0c3851a9658c4a07b55562c7abd06f28"
     }
   ]
 }
