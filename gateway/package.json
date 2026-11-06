@@ -1,0 +1,19 @@
+{
+  "name": "clash-gateway",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Cloudflare Worker 订阅网关：把机场订阅转成 Clash/mihomo/Stash 配置，订阅只存服务端",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "node test.mjs"
+  },
+  "dependencies": {
+    "qrcode-generator": "^2.0.4",
+    "yaml": "^2.9.1"
+  },
+  "devDependencies": {
+    "wrangler": "^4.151.1"
+  }
+}
