@@ -4,7 +4,9 @@ clash:blackmatrix7/ios_rule_script/rule/Loon/Cloudflare/Cloudflare.list    # 已
 clash:blackmatrix7/ios_rule_script/rule/Loon/Copilot/Copilot.list          # 已内联（49 条）
 clash:blackmatrix7/ios_rule_script/rule/Loon/Instagram/Instagram.list      # 已内联（4 条）
 clash:rdone44/loon-rules/rule/Carrier.list                                 # 已内联（6 条）
+clash:rdone44/loon-rules/rule/CNGeo.list                                   # GEOIP,CN 已内联进 rules（Loon 端必须走远程表防本地优先级抢广告表）
 mihomo:blackmatrix7/ios_rule_script/rule/Loon/Cloudflare/Cloudflare.list   # 同上
 mihomo:blackmatrix7/ios_rule_script/rule/Loon/Copilot/Copilot.list
 mihomo:blackmatrix7/ios_rule_script/rule/Loon/Instagram/Instagram.list
 mihomo:rdone44/loon-rules/rule/Carrier.list
+mihomo:rdone44/loon-rules/rule/CNGeo.list                                  # GEOIP,CN 已内联进 rules

@@ -1,0 +1,7 @@
+# NAME: CNGeo
+# DESC: GEOIP,CN —— 中国 IP 全量兜底，一条规则替代十几万条域名大表（mmdb 查询，geoip-url 已配 Hackl0us/GeoIP2-CN）
+# USAGE: 排在 China/ChinaIPs 之后、Global 之前；policy=DIRECT。
+#       必须走远程表而不能写进本地 [Rule]：Loon 本地规则优先级高于远程（3.0.3+），
+#       本地 GEOIP 会抢在远程广告表之前直连国内广告 SDK，去广告全部失效。
+# UPDATED: 2026-11-06
+GEOIP,cn
