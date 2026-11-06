@@ -1,0 +1,23 @@
+# NAME: OKXExtra
+# DESC: OKX 域名族补充表（品牌备用域 + Cloudflare CNAME 目标 + 阿里云 CDN 静态域），policy=加密货币
+# USAGE: Loon/Shadowrocket 远程规则；clash 走 okx-extra；mihomo 走 OKXExtra
+# UPDATED: 2026-11-06
+#############################################
+
+# 上游 OKX.list 只有 okex/oklink/okx.com 三条，缺品牌备用域
+DOMAIN-SUFFIX,okx.com
+DOMAIN-SUFFIX,okex.com
+DOMAIN-SUFFIX,oklink.com
+DOMAIN-SUFFIX,okx.ac
+DOMAIN-SUFFIX,okx.cab
+DOMAIN-SUFFIX,okx.reise
+
+# OKX 主站/API/WS 挂在 Cloudflare：CNAME 目标是 <x>.okx.com.cdn.cloudflare.net。
+# 上游 Cloudflare.list 的 DOMAIN-SUFFIX,cloudflare.net 会把这一族抢走 → 落「节点选择」而不是「加密货币」。
+# 本表必须排在 Cloudflare 表**之前**才生效。
+DOMAIN-SUFFIX,okx.com.cdn.cloudflare.net
+
+# OKX 首页静态资源（阿里云 CDN，43.109.x）：域名不含 "okx"，
+# 上游 Crypto.list 的 DOMAIN-KEYWORD,okx 抓不到，原先落 FINAL 漏网之鱼
+DOMAIN-SUFFIX,coinall.ltd
+DOMAIN-SUFFIX,jingyunyilian.com

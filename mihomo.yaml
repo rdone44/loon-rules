@@ -98,6 +98,7 @@ rule-providers:
   Threads: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Threads.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Threads/Threads.list' }
   Whatsapp: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Whatsapp.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Whatsapp/Whatsapp.list' }
   MetaExtra: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/MetaExtra.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/MetaExtra.list' }
+  OKXExtra: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/OKXExtra.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/OKXExtra.list' }
   Game: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Game.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Game/Game.list' }
   OKX: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/OKX.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/OKX/OKX.list' }
   Binance: { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/Binance.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Binance/Binance.list' }
@@ -123,7 +124,7 @@ proxy-groups:
   - { name: LINE, type: select, proxies: [日本自动, 日本节点, 台湾自动, 新加坡自动, 自动选择] }
   - { name: Twitter, type: select, proxies: [美国自动, 美国节点, 自动选择] }
   - { name: 游戏平台, type: select, proxies: [DIRECT, 香港自动, 日本自动, 美国自动] }
-  - { name: 加密货币, type: select, proxies: [日本自动] }
+  - { name: 加密货币, type: select, proxies: [日本自动, 香港自动, 新加坡自动, 美国自动, 自动选择] }
   - { name: 金融应用, type: select, proxies: [DIRECT] }
   - { name: 国外媒体, type: select, proxies: [香港自动, 台湾自动, 日本自动, 新加坡自动, 美国自动] }
   - { name: MissAV, type: select, proxies: [日本自动, 香港自动, 台湾自动, 美国自动, 其他节点] }
@@ -256,6 +257,9 @@ rules:
   - RULE-SET,Threads,Meta
   - RULE-SET,Whatsapp,Meta
   - RULE-SET,MetaExtra,Meta
+  # OKX 补充表必须排在 Cloudflare 内联块**之前**：OKX 主站/API/WS 的 CNAME 目标是 *.okx.com.cdn.cloudflare.net，
+  # 而 cloudflare.net 内联在下面会把 OKX 全家抢到「节点选择」
+  - RULE-SET,OKXExtra,加密货币
   - DOMAIN-SUFFIX,cf-ipfs.com,节点选择
   - DOMAIN-SUFFIX,cf-ns.com,节点选择
   - DOMAIN-SUFFIX,cf-ns.net,节点选择

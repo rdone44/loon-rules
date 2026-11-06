@@ -314,6 +314,9 @@ rules:
   - RULE-SET,threads,Meta
   - RULE-SET,whatsapp,Meta
   - RULE-SET,metaextra,Meta
+  # OKX 补充表必须排在 Cloudflare 内联块**之前**：OKX 主站/API/WS 的 CNAME 目标是 *.okx.com.cdn.cloudflare.net，
+  # 而 cloudflare.net 内联在下面会把 OKX 全家抢到「节点选择」
+  - RULE-SET,okx-extra,加密货币
   - DOMAIN-SUFFIX,cf-ipfs.com,节点选择
   - DOMAIN-SUFFIX,cf-ns.com,节点选择
   - DOMAIN-SUFFIX,cf-ns.net,节点选择
@@ -410,6 +413,7 @@ rule-providers:
   prioritytw:      { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/prioritytw.list,      url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/priority/tw.list' }
   tomatonovel: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/tomatonovel.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/TomatoNovel.list' }
   metaextra:   { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/metaextra.list,   url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/MetaExtra.list' }
+  okx-extra:   { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/okx-extra.list,   url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/OKXExtra.list' }
   gemini:      { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/gemini.list,      url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/Gemini.list' }
   missav:      { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/missav.list,      url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/MissAV.list' }
   chinaapp:    { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/chinaapp.list,    url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/ChinaApp.list' }
