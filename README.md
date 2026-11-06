@@ -6,7 +6,8 @@ Loon / Shadowrocket / Clash 三端分流配置 + kelee 插件镜像。
 
 **全部引用 [QuixoticHeart/rule-set](https://github.com/QuixoticHeart/rule-set/tree/ruleset/loon)**（每日 07:30 UTC+8 自动构建，合并 blackmatrix7 / MetaCubeX / SukkaW / dnsmasq-china-list 等上游）。
 
-- 远程表 **44 张**，合计 **58,478 条**规则
+- Loon / Shadowrocket / Clash 三端：远程表 **44 张**，合计 **58,478 条**规则
+- sing-box 端：同一批 44 张表，用 `singbox/version5/*.srs` 二进制格式
 - 国内 IP 兜底用本地单行 `GEOIP,cn,DIRECT`，不引用任何自建表（仓库里已无 `rule/` 目录）
 - `GEOIP,cn` 放本地是安全的：Loon 3.0.3+ 先匹配全部域名类规则，域名没命中才用 DNS 结果匹配 IP 类规则，所以不会抢在远程域名规则之前
 
@@ -30,6 +31,7 @@ Loon / Shadowrocket / Clash 三端分流配置 + kelee 插件镜像。
 | `Loon.conf` | Loon 配置（DNS / 策略组 / 分流 / 插件） |
 | `Shadowrocket.conf` | 小火箭配置，与 Loon 同序（插件 / MITM 不迁移） |
 | `clash/clash-remote.yaml` | Clash / mihomo 配置，与 Loon 同序 |
+| `sing-box/config.json` | sing-box 配置（内核 ≥ 1.9），与 Loon 同序，44 张 `.srs` 规则集，详见 `sing-box/README.md` |
 | `mihomo.yaml` | 已弃用，仅历史对照 |
 | `plugin/*.lpx` | kelee.one 插件镜像（源站被 Cloudflare 阻断） |
 | `plugin/blockAds-finance-safe.plugin` | fmz200 blockAds 的金融风控安全派生版 |

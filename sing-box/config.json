@@ -1,0 +1,129 @@
+{
+  "log": {
+    "level": "info",
+    "timestamp": true
+  },
+  "dns": {
+    "servers": [
+      { "tag": "dns-remote", "type": "https", "server": "doh.pub", "detour": "节点选择" },
+      { "tag": "dns-direct", "type": "local" },
+      { "tag": "dns-fakeip", "type": "fakeip", "inet4_range": "198.18.0.0/15" }
+    ],
+    "rules": [
+      { "domain_suffix": [".lan", ".local"], "server": "dns-direct" },
+      { "rule_set": "private", "server": "dns-direct" },
+      { "rule_set": ["apple-cn", "microsoft-cn", "games-cn", "socialmedia-cn", "iplocation-direct"], "server": "dns-direct" },
+      { "query_type": ["A", "AAAA"], "server": "dns-fakeip" }
+    ],
+    "final": "dns-remote",
+    "strategy": "prefer_ipv4"
+  },
+  "inbounds": [
+    {
+      "type": "tun",
+      "tag": "tun-in",
+      "interface_name": "sing-box",
+      "address": ["172.19.0.1/30", "fdfe:dcba:9876::1/126"],
+      "mtu": 9000,
+      "auto_route": true,
+      "strict_route": false,
+      "stack": "mixed",
+      "sniff": true,
+      "sniff_override_destination": true
+    }
+  ],
+  "outbounds": [
+    { "type": "selector", "tag": "节点选择", "outbounds": ["自动选择", "direct"] },
+    { "type": "urltest", "tag": "自动选择", "outbounds": [], "url": "https://www.gstatic.com/generate_204", "interval": "10m", "tolerance": 150 },
+    { "type": "selector", "tag": "AI", "outbounds": ["自动选择", "direct"] },
+    { "type": "selector", "tag": "YouTube", "outbounds": ["自动选择", "direct"] },
+    { "type": "selector", "tag": "Spotify", "outbounds": ["自动选择", "direct"] },
+    { "type": "selector", "tag": "哔哩哔哩", "outbounds": ["direct", "自动选择"] },
+    { "type": "selector", "tag": "国外媒体", "outbounds": ["自动选择", "direct"] },
+    { "type": "selector", "tag": "Meta", "outbounds": ["自动选择", "direct"] },
+    { "type": "selector", "tag": "游戏平台", "outbounds": ["direct", "自动选择"] },
+    { "type": "selector", "tag": "加密货币", "outbounds": ["自动选择", "direct"] },
+    { "type": "selector", "tag": "金融应用", "outbounds": ["direct", "自动选择"] },
+    { "type": "selector", "tag": "GitHub", "outbounds": ["自动选择", "direct"] },
+    { "type": "selector", "tag": "微软服务", "outbounds": ["direct", "自动选择"] },
+    { "type": "selector", "tag": "Google", "outbounds": ["自动选择", "direct"] },
+    { "type": "selector", "tag": "苹果服务", "outbounds": ["direct", "自动选择"] },
+    { "type": "selector", "tag": "全球拦截", "outbounds": ["block", "direct"] },
+    { "type": "direct", "tag": "direct" },
+    { "type": "block", "tag": "block" }
+  ],
+  "route": {
+    "auto_detect_interface": true,
+    "final": "节点选择",
+    "rule_set": [
+      { "type": "remote", "tag": "apple-cn", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/apple-cn.srs" },
+      { "type": "remote", "tag": "microsoft-cn", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/microsoft-cn.srs" },
+      { "type": "remote", "tag": "games-cn", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/games-cn.srs" },
+      { "type": "remote", "tag": "socialmedia-cn", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/socialmedia-cn.srs" },
+      { "type": "remote", "tag": "iplocation-direct", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/iplocation-direct.srs" },
+      { "type": "remote", "tag": "private", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/private.srs" },
+      { "type": "remote", "tag": "httpdns", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/httpdns.srs" },
+      { "type": "remote", "tag": "apple-proxy", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/apple-proxy.srs" },
+      { "type": "remote", "tag": "apple", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/apple.srs" },
+      { "type": "remote", "tag": "apple-tv", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/apple-tv.srs" },
+      { "type": "remote", "tag": "apns", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/apns.srs" },
+      { "type": "remote", "tag": "ai", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/ai.srs" },
+      { "type": "remote", "tag": "youtube", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/youtube.srs" },
+      { "type": "remote", "tag": "spotify", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/spotify.srs" },
+      { "type": "remote", "tag": "bilibili", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/bilibili.srs" },
+      { "type": "remote", "tag": "netflix", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/netflix.srs" },
+      { "type": "remote", "tag": "disney", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/disney.srs" },
+      { "type": "remote", "tag": "hbo", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/hbo.srs" },
+      { "type": "remote", "tag": "hulu", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/hulu.srs" },
+      { "type": "remote", "tag": "primevideo", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/primevideo.srs" },
+      { "type": "remote", "tag": "abema", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/abema.srs" },
+      { "type": "remote", "tag": "dazn", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/dazn.srs" },
+      { "type": "remote", "tag": "dmm", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/dmm.srs" },
+      { "type": "remote", "tag": "mytvsuper", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/mytvsuper.srs" },
+      { "type": "remote", "tag": "niconico", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/niconico.srs" },
+      { "type": "remote", "tag": "bahamut", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/bahamut.srs" },
+      { "type": "remote", "tag": "twitch", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/twitch.srs" },
+      { "type": "remote", "tag": "tiktok", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/tiktok.srs" },
+      { "type": "remote", "tag": "socialmedia", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/socialmedia.srs" },
+      { "type": "remote", "tag": "games", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/games.srs" },
+      { "type": "remote", "tag": "crypto", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/crypto.srs" },
+      { "type": "remote", "tag": "paypal", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/paypal.srs" },
+      { "type": "remote", "tag": "gits", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/gits.srs" },
+      { "type": "remote", "tag": "microsoft", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/microsoft.srs" },
+      { "type": "remote", "tag": "onedrive", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/onedrive.srs" },
+      { "type": "remote", "tag": "google", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/google.srs" },
+      { "type": "remote", "tag": "googlefcm", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/googlefcm.srs" },
+      { "type": "remote", "tag": "cdn", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/cdn.srs" },
+      { "type": "remote", "tag": "ecommerce", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/ecommerce.srs" },
+      { "type": "remote", "tag": "forum", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/forum.srs" },
+      { "type": "remote", "tag": "dmca", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/dmca.srs" },
+      { "type": "remote", "tag": "tld-proxy", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/tld-proxy.srs" },
+      { "type": "remote", "tag": "proxy", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/proxy.srs" },
+      { "type": "remote", "tag": "douyin", "format": "binary", "url": "https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/singbox/version5/douyin.srs" }
+    ],
+    "rules": [
+      { "rule_set": ["apple-cn", "microsoft-cn", "games-cn", "socialmedia-cn", "iplocation-direct", "private"], "outbound": "direct" },
+      { "rule_set": "httpdns", "outbound": "block" },
+      { "rule_set": ["apple-proxy", "apple", "apple-tv", "apns"], "outbound": "苹果服务" },
+      { "rule_set": "ai", "outbound": "AI" },
+      { "rule_set": "youtube", "outbound": "YouTube" },
+      { "rule_set": "spotify", "outbound": "Spotify" },
+      { "rule_set": "bilibili", "outbound": "哔哩哔哩" },
+      { "rule_set": ["netflix", "disney", "hbo", "hulu", "primevideo", "abema", "dazn", "dmm", "mytvsuper", "niconico", "bahamut", "twitch", "tiktok"], "outbound": "国外媒体" },
+      { "rule_set": "socialmedia", "outbound": "Meta" },
+      { "rule_set": "games", "outbound": "游戏平台" },
+      { "rule_set": "crypto", "outbound": "加密货币" },
+      { "rule_set": "paypal", "outbound": "金融应用" },
+      { "rule_set": "gits", "outbound": "GitHub" },
+      { "rule_set": ["microsoft", "onedrive"], "outbound": "微软服务" },
+      { "rule_set": ["google", "googlefcm"], "outbound": "Google" },
+      { "rule_set": ["cdn", "ecommerce", "forum", "dmca", "tld-proxy", "proxy"], "outbound": "节点选择" },
+      { "rule_set": "douyin", "outbound": "direct" }
+    ]
+  },
+  "experimental": {
+    "cache_file": {
+      "enabled": true
+    }
+  }
+}
