@@ -206,46 +206,35 @@ proxy-groups:
     hidden: true
 
 rules:
-  # ================= Apple 账户认证（先于一切，含 priority/direct.list） =================
-  # 改密 / 重置密码 / 双重认证必须与账号地区同出口，否则 Apple 判「验证失败」
-  - RULE-SET,appleid,AppleID
-  # ================= 优先级例外（原本地规则，已迁到 rule/priority/） =================
-  # 与 Loon [Remote Rule] 头 6 张表一一对应；必须排最前，否则会被后面的表抢走
+  # ===== 顺序与 Loon.conf [Remote Rule] 一一对应（本段由 _sync_clash.py 生成）=====
+  - RULE-SET,AppleID,AppleID
   - RULE-SET,prioritydirect,DIRECT
   - RULE-SET,priorityai,AI
   - RULE-SET,priorityyoutube,YouTube
   - RULE-SET,prioritygoogle,Google
   - RULE-SET,priorityauto,自动选择
   - RULE-SET,prioritytw,台湾自动
-  # ================= Loon [Remote Rule] 同序 =================
-  - RULE-SET,mydomains,DIRECT
-  - RULE-SET,financecn,金融应用
-  - RULE-SET,chinaapp,DIRECT
-  - RULE-SET,alibaba,DIRECT
-  - RULE-SET,alipay,DIRECT
-  - RULE-SET,pinduoduo,DIRECT
-  - RULE-SET,jingdong,DIRECT
-  - RULE-SET,takeout,DIRECT
-  - RULE-SET,adsextra,全球拦截
-  - RULE-SET,tomatonovel,DIRECT
-  - RULE-SET,wechat,DIRECT
-  - DOMAIN-SUFFIX,chinamobile.com,DIRECT
-  - DOMAIN-SUFFIX,139.com,DIRECT
-  - DOMAIN-SUFFIX,cmccb2b.com,DIRECT
-  - DOMAIN-SUFFIX,10010.com,DIRECT
-  - DOMAIN-SUFFIX,chinaunicom.com,DIRECT
-  - DOMAIN-SUFFIX,10099.com.cn,DIRECT
-  - RULE-SET,advertising,全球拦截
-  - RULE-SET,hijacking,全球拦截
-  - RULE-SET,privacy,全球拦截
-  - RULE-SET,cnmap,DIRECT
-  - RULE-SET,gemini,AI
-  - RULE-SET,openai,AI
-  - RULE-SET,claude,AI
+  - RULE-SET,MyDomains,DIRECT
+  - RULE-SET,FinanceCN,金融应用
+  - RULE-SET,ChinaApp,DIRECT
+  - RULE-SET,Alibaba,DIRECT
+  - RULE-SET,AliPay,DIRECT
+  - RULE-SET,Pinduoduo,DIRECT
+  - RULE-SET,JingDong,DIRECT
+  - RULE-SET,Takeout,DIRECT
+  - RULE-SET,AdsExtra,全球拦截
+  - RULE-SET,TomatoNovel,DIRECT
+  - RULE-SET,WeChat,DIRECT
+  - RULE-SET,Carrier,DIRECT
+  - RULE-SET,Advertising,全球拦截
+  - RULE-SET,Hijacking,全球拦截
+  - RULE-SET,Privacy,全球拦截
+  - RULE-SET,CNMap,DIRECT
+  - RULE-SET,Gemini,AI
+  - RULE-SET,qh-ai,AI
   - DOMAIN,api.msn.com,AI
   - DOMAIN,api.statsig.com,AI
   - DOMAIN,assets.msn.com,AI
-  - DOMAIN,browser-intake-datadoghq.com,AI
   - DOMAIN,chat.openai.com.cdn.cloudflare.net,AI
   - DOMAIN,copilot.microsoft.com,AI
   - DOMAIN,gateway.bingviz.microsoft.net,AI
@@ -265,7 +254,6 @@ rules:
   - DOMAIN-SUFFIX,algolia.net,AI
   - DOMAIN-SUFFIX,api.microsoftapp.net,AI
   - DOMAIN-SUFFIX,auth0.com,AI
-  - DOMAIN-SUFFIX,bing-shopping.microsoft-falcon.io,AI
   - DOMAIN-SUFFIX,challenges.cloudflare.com,AI
   - DOMAIN-SUFFIX,chatgpt.com,AI
   - DOMAIN-SUFFIX,chatgpt.livekit.cloud,AI
@@ -291,173 +279,91 @@ rules:
   - DOMAIN-KEYWORD,openaicom-api,AI
   - IP-CIDR,24.199.123.28/32,AI,no-resolve
   - IP-CIDR,64.23.132.171/32,AI,no-resolve
-  - RULE-SET,youtube,YouTube
-  - RULE-SET,spotify,Spotify
-  - RULE-SET,bilibili,哔哩哔哩
-  - RULE-SET,mediaextra,国外媒体
-  - RULE-SET,globalmedia,国外媒体
-  - RULE-SET,missav,MissAV
-  - RULE-SET,google,Google
-  - RULE-SET,apple,苹果服务
-  - RULE-SET,apple-extra,苹果服务
-  - RULE-SET,microsoft,微软服务
-  - RULE-SET,github,GitHub
-  - RULE-SET,telegram,Telegram
-  - RULE-SET,line,LINE
-  - RULE-SET,grok,Twitter
-  - RULE-SET,twitter,Twitter
-  - RULE-SET,facebook,Meta
-  - DOMAIN-SUFFIX,cdninstagram.com,Meta
-  - DOMAIN-SUFFIX,instagr.am,Meta
-  - DOMAIN-SUFFIX,instagram.com,Meta
-  - DOMAIN-KEYWORD,instagram,Meta
-  - RULE-SET,threads,Meta
-  - RULE-SET,whatsapp,Meta
-  - RULE-SET,metaextra,Meta
-  # OKX 补充表必须排在 Cloudflare 内联块**之前**：OKX 主站/API/WS 的 CNAME 目标是 *.okx.com.cdn.cloudflare.net，
-  # 而 cloudflare.net 内联在下面会把 OKX 全家抢到「节点选择」
-  - RULE-SET,okx-extra,加密货币
-  - DOMAIN-SUFFIX,cf-ipfs.com,节点选择
-  - DOMAIN-SUFFIX,cf-ns.com,节点选择
-  - DOMAIN-SUFFIX,cf-ns.net,节点选择
-  - DOMAIN-SUFFIX,cf-ns.site,节点选择
-  - DOMAIN-SUFFIX,cf-ns.tech,节点选择
-  - DOMAIN-SUFFIX,cftest5.cn,节点选择
-  - DOMAIN-SUFFIX,cftest6.cn,节点选择
-  - DOMAIN-SUFFIX,cftest7.com,节点选择
-  - DOMAIN-SUFFIX,cftest8.com,节点选择
-  - DOMAIN-SUFFIX,cloudflare-cn.com,节点选择
-  - DOMAIN-SUFFIX,cloudflare-dns.com,节点选择
-  - DOMAIN-SUFFIX,cloudflare-ipfs.com,节点选择
-  - DOMAIN-SUFFIX,cloudflare-quic.com,节点选择
-  - DOMAIN-SUFFIX,cloudflare.com,节点选择
-  - DOMAIN-SUFFIX,cloudflare.net,节点选择
-  - DOMAIN-SUFFIX,cloudflare.tv,节点选择
-  - DOMAIN-SUFFIX,cloudflareaccess.com,节点选择
-  - DOMAIN-SUFFIX,cloudflareapps.com,节点选择
-  - DOMAIN-SUFFIX,cloudflarebolt.com,节点选择
-  - DOMAIN-SUFFIX,cloudflareclient.com,节点选择
-  - DOMAIN-SUFFIX,cloudflarecn.net,节点选择
-  - DOMAIN-SUFFIX,cloudflareinsights-cn.com,节点选择
-  - DOMAIN-SUFFIX,cloudflareinsights.com,节点选择
-  - DOMAIN-SUFFIX,cloudflareok.com,节点选择
-  - DOMAIN-SUFFIX,cloudflarepreview.com,节点选择
-  - DOMAIN-SUFFIX,cloudflareprod.com,节点选择
-  - DOMAIN-SUFFIX,cloudflareresolve.com,节点选择
-  - DOMAIN-SUFFIX,cloudflaressl.com,节点选择
-  - DOMAIN-SUFFIX,cloudflarestaging.com,节点选择
-  - DOMAIN-SUFFIX,cloudflarestatus.com,节点选择
-  - DOMAIN-SUFFIX,cloudflarestorage.com,节点选择
-  - DOMAIN-SUFFIX,cloudflarestoragegw.com,节点选择
-  - DOMAIN-SUFFIX,cloudflarestream.com,节点选择
-  - DOMAIN-SUFFIX,cloudflaretest.com,节点选择
-  - DOMAIN-SUFFIX,cloudflarewarp.com,节点选择
-  - DOMAIN-SUFFIX,every1dns.net,节点选择
-  - DOMAIN-SUFFIX,one.one.one,节点选择
-  - DOMAIN-SUFFIX,pacloudflare.com,节点选择
-  - DOMAIN-SUFFIX,pages.dev,节点选择
-  - DOMAIN-SUFFIX,trycloudflare.com,节点选择
-  - DOMAIN-SUFFIX,videodelivery.net,节点选择
-  - DOMAIN-SUFFIX,warp.plus,节点选择
-  - DOMAIN-SUFFIX,workers.dev,节点选择
-  - IP-CIDR,103.21.244.0/22,节点选择,no-resolve
-  - IP-CIDR,103.22.200.0/22,节点选择,no-resolve
-  - IP-CIDR,103.31.4.0/22,节点选择,no-resolve
-  - IP-CIDR,104.16.0.0/13,节点选择,no-resolve
-  - IP-CIDR,104.24.0.0/14,节点选择,no-resolve
-  - IP-CIDR,108.162.192.0/18,节点选择,no-resolve
-  - IP-CIDR,131.0.72.0/22,节点选择,no-resolve
-  - IP-CIDR,141.101.64.0/18,节点选择,no-resolve
-  - IP-CIDR,162.158.0.0/15,节点选择,no-resolve
-  - IP-CIDR,172.64.0.0/13,节点选择,no-resolve
-  - IP-CIDR,173.245.48.0/20,节点选择,no-resolve
-  - IP-CIDR,188.114.96.0/20,节点选择,no-resolve
-  - IP-CIDR,190.93.240.0/20,节点选择,no-resolve
-  - IP-CIDR,197.234.240.0/22,节点选择,no-resolve
-  - IP-CIDR,198.41.128.0/17,节点选择,no-resolve
-  - IP-CIDR6,2400:cb00::/32,节点选择,no-resolve
-  - IP-CIDR6,2405:8100::/32,节点选择,no-resolve
-  - IP-CIDR6,2405:b500::/32,节点选择,no-resolve
-  - IP-CIDR6,2606:4700::/32,节点选择,no-resolve
-  - IP-CIDR6,2803:f800::/32,节点选择,no-resolve
-  - IP-CIDR6,2a06:98c0::/29,节点选择,no-resolve
-  - IP-CIDR6,2c0f:f248::/32,节点选择,no-resolve
-  - RULE-SET,game,游戏平台
-  - RULE-SET,okx,加密货币
-  - RULE-SET,binance,加密货币
-  - RULE-SET,crypto,加密货币
-  - RULE-SET,crypto-extra,加密货币
-  - RULE-SET,douyin,DIRECT
-  - RULE-SET,chinadomain,DIRECT
-  - RULE-SET,china,DIRECT
-  - RULE-SET,chinaips,DIRECT
-  - RULE-SET,cngeo,DIRECT
-  - RULE-SET,globalextra,节点选择
-  - RULE-SET,global,节点选择
-  - DOMAIN-SUFFIX,entire.com,AI
-  - DOMAIN-SUFFIX,entire.io,AI
+  - RULE-SET,qh-youtube,YouTube
+  - RULE-SET,qh-spotify,Spotify
+  - RULE-SET,qh-bilibili,哔哩哔哩
+  - RULE-SET,MediaExtra,国外媒体
+  - RULE-SET,GlobalMedia,国外媒体
+  - RULE-SET,MissAV,MissAV
+  - RULE-SET,Google,Google
+  - RULE-SET,qh-apple-cn,DIRECT
+  - RULE-SET,qh-apple-proxy,苹果服务
+  - RULE-SET,Apple,苹果服务
+  - RULE-SET,AppleExtra,苹果服务
+  - RULE-SET,qh-microsoft,微软服务
+  - RULE-SET,qh-gits,GitHub
+  - RULE-SET,qh-socialmedia,Meta
+  - RULE-SET,Telegram,Telegram
+  - RULE-SET,Line,LINE
+  - RULE-SET,Grok,Twitter
+  - RULE-SET,MetaExtra,Meta
+  - RULE-SET,OKXExtra,加密货币
+  - RULE-SET,Cloudflare,节点选择
+  - RULE-SET,qh-games,游戏平台
+  - RULE-SET,qh-crypto,加密货币
+  - RULE-SET,CryptoExtra,加密货币
+  - RULE-SET,qh-douyin,DIRECT
+  - RULE-SET,China,DIRECT
+  - RULE-SET,CNGeo,DIRECT
+  - RULE-SET,GlobalExtra,节点选择
+  - RULE-SET,Global,节点选择
   - MATCH,漏网之鱼
 
 rule-providers:
-  # ---- Loon 文本规则，mihomo 用 classical + text 直接解析 ----
-  # ---- interval 统一 3600：下载失败时 1 小时内自动重试，而不是等一天 ----
-  appleid:     { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/appleid.list,     url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/AppleID.list?v=20261104' }
-  mydomains:   { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/mydomains.list,   url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/MyDomains.list' }
-  financecn:   { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/financecn.list,   url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/FinanceCN.list' }
-  adsextra:    { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/adsextra.list,    url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/AdsExtra.list' }
-  wechat:      { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/wechat.list,      url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/WeChat.list' }
-  globalextra: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/globalextra.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/GlobalExtra.list' }
-  prioritydirect:  { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/prioritydirect.list,  url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/priority/direct.list' }
-  priorityai:      { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/priorityai.list,      url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/priority/ai.list?v=20261030' }
+  AppleID: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/AppleID.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/AppleID.list?v=20261104' }
+  prioritydirect: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/prioritydirect.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/priority/direct.list' }
+  priorityai: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/priorityai.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/priority/ai.list' }
   priorityyoutube: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/priorityyoutube.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/priority/youtube.list' }
-  prioritygoogle:  { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/prioritygoogle.list,  url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/priority/google.list' }
-  priorityauto:    { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/priorityauto.list,    url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/priority/auto.list' }
-  prioritytw:      { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/prioritytw.list,      url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/priority/tw.list' }
-  tomatonovel: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/tomatonovel.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/TomatoNovel.list' }
-  metaextra:   { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/metaextra.list,   url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/MetaExtra.list' }
-  okx-extra:   { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/okx-extra.list,   url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/OKXExtra.list' }
-  gemini:      { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/gemini.list,      url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/Gemini.list' }
-  missav:      { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/missav.list,      url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/MissAV.list' }
-  chinaapp:    { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/chinaapp.list,    url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/ChinaApp.list' }
-  alibaba:     { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/alibaba.list,     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Alibaba/Alibaba.list' }
-  takeout:     { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/takeout.list,     url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/Takeout.list' }
-  alipay:      { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/alipay.list,      url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/AliPay/AliPay.list' }
-  pinduoduo:   { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/pinduoduo.list,   url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Pinduoduo/Pinduoduo.list' }
-  jingdong:    { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/jingdong.list,    url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/JingDong/JingDong.list' }
-  advertising: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/advertising.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Advertising/Advertising.list' }
-  hijacking:   { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/hijacking.list,   url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Hijacking/Hijacking.list' }
-  privacy:     { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/privacy.list,     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Privacy/Privacy.list' }
-  cnmap:       { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/cnmap.list,       url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/CNMap.list' }
-  openai:      { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/openai.list,      url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/OpenAI/OpenAI.list' }
-  claude:      { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/claude.list,      url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Claude/Claude.list' }
-  youtube:     { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/youtube.list,     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/YouTube/YouTube.list' }
-  spotify:     { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/spotify.list,     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Spotify/Spotify.list' }
-  bilibili:    { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/bilibili.list,    url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/BiliBili/BiliBili.list' }
-  mediaextra:  { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/mediaextra.list,  url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/MediaExtra.list' }
-  globalmedia: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/globalmedia.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/GlobalMedia/GlobalMedia.list' }
-  google:      { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/google.list,      url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Google/Google.list' }
-  apple:       { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/apple.list,       url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Apple/Apple.list' }
-  apple-extra: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/apple-extra.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/AppleExtra.list' }
-  microsoft:   { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/microsoft.list,   url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Microsoft/Microsoft.list' }
-  github:      { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/github.list,      url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/GitHub/GitHub.list' }
-  telegram:    { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/telegram.list,    url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Telegram/Telegram.list' }
-  grok:        { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/grok.list,        url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/Grok.list' }
-  line:        { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/line.list,        url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/Line.list' }
-  twitter:     { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/twitter.list,     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Twitter/Twitter.list' }
-  facebook:    { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/facebook.list,    url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Facebook/Facebook.list' }
-  threads:     { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/threads.list,     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Threads/Threads.list' }
-  whatsapp:    { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/whatsapp.list,    url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Whatsapp/Whatsapp.list' }
-  game:        { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/game.list,        url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Game/Game.list' }
-  okx:         { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/okx.list,         url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/OKX/OKX.list' }
-  binance:     { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/binance.list,     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Binance/Binance.list' }
-  crypto-extra: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/crypto-extra.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/CryptoExtra.list' }
-  crypto:      { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/crypto.list,      url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Crypto/Crypto.list' }
-  douyin:      { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/douyin.list,      url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/DouYin/DouYin.list' }
-  chinadomain: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/chinadomain.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/ChinaDomain.list' }
-  china:       { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/china.list,       url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/China/China.list' }
-  chinaips:    { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/chinaips.list,    url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/ChinaIPs/ChinaIPs.list' }
-  cngeo:       { type: http, behavior: classical, format: text, interval: 86400, path: ./ruleset/cngeo.list,       url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/CNGeo.list' }
-  global:      { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/global.list,      url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Global/Global.list' }
+  prioritygoogle: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/prioritygoogle.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/priority/google.list' }
+  priorityauto: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/priorityauto.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/priority/auto.list' }
+  prioritytw: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/prioritytw.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/priority/tw.list' }
+  MyDomains: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/MyDomains.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/MyDomains.list?v=20261031' }
+  FinanceCN: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/FinanceCN.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/FinanceCN.list?v=20261031' }
+  ChinaApp: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/ChinaApp.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/ChinaApp.list?v=20261031' }
+  Alibaba: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/Alibaba.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Alibaba/Alibaba.list' }
+  AliPay: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/AliPay.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/AliPay/AliPay.list' }
+  Pinduoduo: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/Pinduoduo.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Pinduoduo/Pinduoduo.list' }
+  JingDong: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/JingDong.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/JingDong/JingDong.list' }
+  Takeout: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/Takeout.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/Takeout.list?v=20261031' }
+  AdsExtra: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/AdsExtra.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/AdsExtra.list?v=20261031' }
+  TomatoNovel: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/TomatoNovel.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/TomatoNovel.list?v=20261031' }
+  WeChat: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/WeChat.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/WeChat.list?v=20261031' }
+  Carrier: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/Carrier.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/Carrier.list?v=20261031' }
+  Advertising: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/Advertising.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Advertising/Advertising.list' }
+  Hijacking: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/Hijacking.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Hijacking/Hijacking.list' }
+  Privacy: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/Privacy.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Privacy/Privacy.list' }
+  CNMap: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/CNMap.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/CNMap.list?v=20261031' }
+  Gemini: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/Gemini.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/Gemini.list?v=20261031' }
+  qh-ai: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/qh-ai.list, url: 'https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/loon/ai.list' }
+  qh-youtube: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/qh-youtube.list, url: 'https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/loon/youtube.list' }
+  qh-spotify: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/qh-spotify.list, url: 'https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/loon/spotify.list' }
+  qh-bilibili: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/qh-bilibili.list, url: 'https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/loon/bilibili.list' }
+  MediaExtra: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/MediaExtra.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/MediaExtra.list?v=20261031' }
+  GlobalMedia: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/GlobalMedia.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/GlobalMedia/GlobalMedia.list' }
+  MissAV: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/MissAV.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/MissAV.list?v=20261031' }
+  Google: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/Google.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Google/Google.list' }
+  qh-apple-cn: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/qh-apple-cn.list, url: 'https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/loon/apple-cn.list' }
+  qh-apple-proxy: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/qh-apple-proxy.list, url: 'https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/loon/apple-proxy.list' }
+  Apple: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/Apple.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Apple/Apple.list' }
+  AppleExtra: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/AppleExtra.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/AppleExtra.list?v=20261031' }
+  qh-microsoft: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/qh-microsoft.list, url: 'https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/loon/microsoft.list' }
+  qh-gits: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/qh-gits.list, url: 'https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/loon/gits.list' }
+  qh-socialmedia: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/qh-socialmedia.list, url: 'https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/loon/socialmedia.list' }
+  Telegram: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/Telegram.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Telegram/Telegram.list' }
+  Line: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/Line.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/Line.list?v=20261031' }
+  Grok: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/Grok.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/Grok.list?v=20261031' }
+  MetaExtra: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/MetaExtra.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/MetaExtra.list?v=20261031' }
+  OKXExtra: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/OKXExtra.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/OKXExtra.list?v=20261106' }
+  Cloudflare: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/Cloudflare.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Cloudflare/Cloudflare.list' }
+  qh-games: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/qh-games.list, url: 'https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/loon/games.list' }
+  qh-crypto: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/qh-crypto.list, url: 'https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/loon/crypto.list' }
+  CryptoExtra: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/CryptoExtra.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/CryptoExtra.list?v=20261031' }
+  qh-douyin: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/qh-douyin.list, url: 'https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/loon/douyin.list' }
+  China: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/China.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/China/China.list' }
+  CNGeo: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/CNGeo.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/CNGeo.list' }
+  GlobalExtra: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/GlobalExtra.list, url: 'https://cdn.jsdelivr.net/gh/rdone44/loon-rules@main/rule/GlobalExtra.list?v=20261031' }
+  Global: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/Global.list, url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Loon/Global/Global.list' }
+
 proxy-providers:
   remote:
     type: http

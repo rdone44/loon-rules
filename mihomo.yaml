@@ -333,9 +333,8 @@ rules:
   - RULE-SET,Crypto,加密货币
   - RULE-SET,CryptoExtra,加密货币
   - RULE-SET,DouYin,DIRECT
-  - RULE-SET,ChinaDomain,DIRECT
+  # 国内：只留 China.list + GEOIP,cn 兜底（ChinaDomain/ChinaIPs 合计 23327 条占全配置 78%，已删）
   - RULE-SET,China,DIRECT
-  - RULE-SET,ChinaIPs,DIRECT
   - RULE-SET,CNGeo,DIRECT
   - RULE-SET,GlobalExtra,节点选择
   - RULE-SET,Global,节点选择

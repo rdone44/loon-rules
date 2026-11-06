@@ -2,6 +2,8 @@
 
 Loon / Surge 通用格式（`DOMAIN-SUFFIX,xxx` 纯规则行），规则本身不带策略，引用时用 `policy=` 指定。Clash 也能用（需包成 payload）。
 
+> 规则来源：**能用 [QuixoticHeart/rule-set](https://github.com/QuixoticHeart/rule-set)（每日 07:30 自动构建）就换它**；它没有的才留本仓库自建表。下表「来源」列标明归属。
+
 | 文件 | 应用 / 用途 | 建议 policy | 说明 |
 |---|---|---|---|
 | [MissAV.list](MissAV.list) | MissAV（全镜像）+ 姊妹站 NJAV / ThisAV + 图片 / 视频 CDN | 自定（建议 `MissAV` 组） | CDN 域名不含 missav 关键字，需单独列 |
