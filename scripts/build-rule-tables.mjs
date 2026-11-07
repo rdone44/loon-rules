@@ -9,7 +9,7 @@ const outDir = join(root, "rules", "generated");
 
 const ALLOWED = new Set(["DOMAIN", "DOMAIN-SUFFIX", "DOMAIN-KEYWORD"]);
 // 策略组名用于文件名，只保留 ASCII 安全字符
-const SLUGS = { AppleID: "appleid", MissAV: "missav", AI: "ai", 全球拦截: "adblock" };
+const SLUGS = { AppleID: "appleid", MissAV: "missav", AI: "ai", 全球拦截: "adblock", 节点选择: "node-select", 加密货币: "crypto" };
 
 // policyColumn=false 的源表不带策略列，输出固定 slug
 const SOURCES = [

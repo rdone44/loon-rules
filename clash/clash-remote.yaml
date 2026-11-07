@@ -118,6 +118,15 @@ proxy-groups:
     expected-status: "200"
     interval: 600
     tolerance: 150
+  - name: Discord
+    type: url-test
+    include-all: true
+    filter: '(?i)🇭🇰|香港|🇹🇼|台湾|台北|🇯🇵|日本|东京|大阪|🇸🇬|新加坡|🇺🇸|美国|🇰🇷|韩国|首尔|🇩🇪|德国|法兰克福|Hong ?Kong|Taiwan|Taipei|Japan|Tokyo|Osaka|Singapore|Korea|Seoul|Germany|Frankfurt|\b(HK|HKG|TW|TWN|TPE|JP|JPN|NRT|HND|KIX|TYO|SG|SGP|SIN|US|USA|LAX|SJC|SFO|SEA|IAD|ORD|DFW|JFK|NYC|EWR|KR|KOR|ICN|DE|DEU|FRA)\d*\b'
+    exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
+    url: https://discord.com
+    expected-status: "200"
+    interval: 600
+    tolerance: 150
   - name: Twitter
     type: url-test
     include-all: true
@@ -129,6 +138,13 @@ proxy-groups:
     type: select
     proxies: [自动选择]
     include-all: true
+    exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
+  # 支付默认美国出口；要与账号地区一致时手动切
+  - name: PayPal
+    type: select
+    proxies: [自动选择, DIRECT]
+    include-all: true
+    filter: '(?i)🇺🇸|美国|美國|United ?States|America|\b(US|USA|LAX|SJC|SFO|SEA|IAD|ORD|DFW|JFK|NYC|EWR)\d*\b'
     exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
   - name: MissAV
     type: url-test
@@ -175,30 +191,57 @@ proxy-groups:
 
 rules:
   # 本地例外已迁到远程表：源表 rules/exceptions.csv，由 Actions 生成 rules/generated/*.list。
+  # 本段顺序与 Loon.conf [Remote Rule] 一致。
   - RULE-SET,gen-appleid,AppleID
   - RULE-SET,gen-adblock,全球拦截
   - RULE-SET,gen-missav,MissAV
   - RULE-SET,gen-ai,AI
+  - RULE-SET,gen-crypto,加密货币
+  - RULE-SET,gen-node-select,节点选择
   - RULE-SET,gen-personal,个人
-  - RULE-SET,yf-ADLite,全球拦截
+  # 直连补充
   - RULE-SET,yf-AppleID,AppleID
-  - RULE-SET,yf-ai-cn,DIRECT
+  - RULE-SET,yf-AmazonCN,DIRECT
+  # AI（必须早于 Google）
+  - RULE-SET,yf-MetaAI,AI
+  - RULE-SET,yf-OpenAI,AI
+  - RULE-SET,yf-Gemini,AI
+  - RULE-SET,yf-Claude,AI
+  # 社交
   - RULE-SET,yf-Grok,Twitter
-  - RULE-SET,yf-YouTube,YouTube
-  - RULE-SET,yf-Spotify,Spotify
-  - RULE-SET,yf-Telegram,Telegram
   - RULE-SET,yf-Twitter,Twitter
-  - RULE-SET,yf-Facebook,Meta
   - RULE-SET,yf-Instagram,Meta
+  - RULE-SET,yf-Facebook,Meta
+  - RULE-SET,yf-Threads,Meta
+  - RULE-SET,yf-Whatsapp,Meta
+  - RULE-SET,yf-Telegram,Telegram
+  - RULE-SET,yf-Discord,Discord
+  # 流媒体
+  - RULE-SET,yf-YouTube,YouTube
+  - RULE-SET,yf-YouTubeMusic,YouTube
+  - RULE-SET,yf-Spotify,Spotify
+  - RULE-SET,yf-BiliBiliIntl,节点选择
+  # 金融
   - RULE-SET,yf-OKX,加密货币
   - RULE-SET,yf-Binance,加密货币
+  - RULE-SET,yf-Bybit,加密货币
   - RULE-SET,yf-Cryptocurrency,加密货币
-  - RULE-SET,yf-ai-global,AI
+  - RULE-SET,yf-PayPal,PayPal
+  - RULE-SET,yf-Cursor,Twitter
+  # Google / Apple / 微软
   - RULE-SET,yf-GitHub,GitHub
-  - RULE-SET,yf-Microsoft,微软服务
   - RULE-SET,yf-Google,Google
-  - RULE-SET,yf-AppleProxy,苹果服务
   - RULE-SET,yf-Apple,苹果服务
+  - RULE-SET,yf-Siri,苹果服务
+  - RULE-SET,yf-TestFlight,苹果服务
+  - RULE-SET,yf-Microsoft,微软服务
+  # 通用
+  - RULE-SET,yf-AndroidDownload,节点选择
+  - RULE-SET,yf-Amazon,节点选择
+  - RULE-SET,yf-Oracle,节点选择
+  # 广告拦截放在服务表之后：先让 Spotify / YouTube 等精确表拿走正常 CDN 域名
+  - RULE-SET,yf-AntiAD,全球拦截
+  # 国内直连最后
   - RULE-SET,yf-China-domain,DIRECT
   - RULE-SET,yf-ChinaIPs,DIRECT
   - MATCH,漏网之鱼
@@ -208,27 +251,45 @@ rule-providers:
   gen-adblock: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/gen-adblock.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rules/generated/adblock.list' }
   gen-missav: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/gen-missav.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rules/generated/missav.list' }
   gen-ai: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/gen-ai.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rules/generated/ai.list' }
+  gen-crypto: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/gen-crypto.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rules/generated/crypto.list' }
+  gen-node-select: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/gen-node-select.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rules/generated/node-select.list' }
   gen-personal: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/gen-personal.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rules/generated/personal.list' }
-  # 五个包含 USER-AGENT 的表改用兼容 mihomo 的 QuixoticHeart 文本表。
-  yf-ADLite: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-ADLite.list, url: 'https://yfamilys.com/rule/ADLite.list' }
+  # mihomo 规则类型不支持 USER-AGENT（官方文档无此类型），含 UA 行的表改用 QuixoticHeart 无 UA 文本表。
+  # yf-Amazon 用 yfamilys 原表：QuixoticHeart 无 amazon 表，其 ecommerce 覆盖范围不同，不替换。
   yf-AppleID: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-AppleID.list, url: 'https://yfamilys.com/rule/AppleID.list' }
-  yf-ai-cn: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-ai-cn.list, url: 'https://yfamilys.com/rule/ai-cn.list' }
+  yf-AmazonCN: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-AmazonCN.list, url: 'https://yfamilys.com/rule/AmazonCN.list' }
+  yf-MetaAI: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-MetaAI.list, url: 'https://yfamilys.com/rule/MetaAI.list' }
+  yf-OpenAI: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-OpenAI.list, url: 'https://yfamilys.com/rule/OpenAI.list' }
+  yf-Gemini: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-Gemini.list, url: 'https://yfamilys.com/rule/Gemini.list' }
+  yf-Claude: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-Claude.list, url: 'https://yfamilys.com/rule/Claude.list' }
   yf-Grok: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-Grok.list, url: 'https://yfamilys.com/rule/Grok.list' }
-  yf-YouTube: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-YouTube.list, url: 'https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/loon/youtube.list' }
-  yf-Spotify: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-Spotify.list, url: 'https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/loon/spotify.list' }
-  yf-Telegram: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-Telegram.list, url: 'https://yfamilys.com/rule/Telegram.list' }
   yf-Twitter: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-Twitter.list, url: 'https://yfamilys.com/rule/Twitter.list' }
-  yf-Facebook: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-Facebook.list, url: 'https://yfamilys.com/rule/Facebook.list' }
   yf-Instagram: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-Instagram.list, url: 'https://yfamilys.com/rule/Instagram.list' }
+  yf-Facebook: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-Facebook.list, url: 'https://yfamilys.com/rule/Facebook.list' }
+  yf-Threads: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-Threads.list, url: 'https://yfamilys.com/rule/Threads.list' }
+  yf-Whatsapp: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-Whatsapp.list, url: 'https://yfamilys.com/rule/Whatsapp.list' }
+  yf-Telegram: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-Telegram.list, url: 'https://yfamilys.com/rule/Telegram.list' }
+  yf-Discord: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-Discord.list, url: 'https://yfamilys.com/rule/Discord.list' }
+  yf-YouTube: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-YouTube.list, url: 'https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/loon/youtube.list' }
+  yf-YouTubeMusic: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-YouTubeMusic.list, url: 'https://yfamilys.com/rule/YouTubeMusic.list' }
+  yf-Spotify: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-Spotify.list, url: 'https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/loon/spotify.list' }
+  yf-BiliBiliIntl: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-BiliBiliIntl.list, url: 'https://yfamilys.com/rule/BiliBiliIntl.list' }
   yf-OKX: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-OKX.list, url: 'https://yfamilys.com/rule/OKX.list' }
   yf-Binance: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-Binance.list, url: 'https://yfamilys.com/rule/Binance.list' }
+  yf-Bybit: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-Bybit.list, url: 'https://yfamilys.com/rule/Bybit.list' }
   yf-Cryptocurrency: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-Cryptocurrency.list, url: 'https://yfamilys.com/rule/Cryptocurrency.list' }
-  yf-ai-global: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-ai-global.list, url: 'https://yfamilys.com/rule/ai-global.list' }
+  yf-PayPal: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-PayPal.list, url: 'https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/loon/paypal.list' }
+  yf-Cursor: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-Cursor.list, url: 'https://yfamilys.com/rule/Cursor.list' }
   yf-GitHub: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-GitHub.list, url: 'https://yfamilys.com/rule/GitHub.list' }
-  yf-Microsoft: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-Microsoft.list, url: 'https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/loon/microsoft.list' }
   yf-Google: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-Google.list, url: 'https://yfamilys.com/rule/Google.list' }
-  yf-AppleProxy: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-AppleProxy.list, url: 'https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/loon/apple-proxy.list' }
   yf-Apple: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-Apple.list, url: 'https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/loon/apple.list' }
+  yf-Siri: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-Siri.list, url: 'https://yfamilys.com/rule/Siri.list' }
+  yf-TestFlight: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-TestFlight.list, url: 'https://yfamilys.com/rule/TestFlight.list' }
+  yf-Microsoft: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-Microsoft.list, url: 'https://cdn.jsdelivr.net/gh/QuixoticHeart/rule-set@ruleset/loon/microsoft.list' }
+  yf-AndroidDownload: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-AndroidDownload.list, url: 'https://yfamilys.com/rule/AndroidDownload.list' }
+  yf-Amazon: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-Amazon.list, url: 'https://yfamilys.com/rule/Amazon.list' }
+  yf-Oracle: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-Oracle.list, url: 'https://yfamilys.com/rule/Oracle.list' }
+  yf-AntiAD: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-AntiAD.list, url: 'https://yfamilys.com/rule/AntiAD.list' }
   yf-China-domain: { type: http, behavior: domain, format: mrs, interval: 3600, path: ./ruleset/yf-China-domain.mrs, url: 'https://sub.opcf.us.ci/rules/cn.mrs' }
   yf-ChinaIPs: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-ChinaIPs.list, url: 'https://yfamilys.com/rule/ChinaIPs.list' }
 proxy-providers:

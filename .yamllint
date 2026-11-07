@@ -1,0 +1,31 @@
+# yamllint 配置 —— 声明本仓库的实际约定，而不是让工具默认值改坏配置。
+#
+# 背景：clash/clash-remote.yaml 的三条告警全部来自 yamllint 默认值，与本仓库硬约束冲突：
+#
+# 1. new-lines 要 LF —— 仓库规程（.agents/skills/loon-rules-maintain/references/syntax.md §8）
+#    强制四端 UTF-8 无 BOM + CRLF，由 scripts/check-rules.ps1 校验。改回 LF 会直接违约。
+# 2. line-length 要 ≤80 —— 规则表与 filter/exclude-filter 都是正则，折行会插入空格，
+#    改变正则语义。这些长行是本文件的主要内容和可读性来源。
+# 3. braces 要 0 空格 —— rule-providers 沿用 flow-style 单行写法，与既有 30 个 provider 一致。
+#
+# 这三条不是历史遗留的疏漏，是有意为之。其余规则仍按 yamllint 默认执行。
+
+extends: default
+
+rules:
+  # CRLF 是本仓库硬约束，由 check-rules.ps1 负责校验，不交给 yamllint 管
+  new-lines: disable
+
+  # 正则与 URL 必然超长；折行会破坏正则语义
+  line-length: disable
+
+  # rule-providers 沿用既有的 flow-style 单行写法
+  braces: disable
+
+  # 现有文件由 Actions / 脚本生成或手工维护，缩进风格已统一，保留默认检查
+  indentation:
+    spaces: 2
+    indent-sequences: consistent
+
+  comments:
+    min-spaces-from-content: 1

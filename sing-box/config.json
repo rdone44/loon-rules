@@ -18,7 +18,7 @@
         "server": "dns-direct"
       },
       {
-        "rule_set": "ai-cn",
+        "rule_set": "China",
         "server": "dns-direct"
       },
       {
@@ -135,6 +135,22 @@
     },
     {
       "type": "selector",
+      "tag": "Discord",
+      "outbounds": [
+        "自动选择",
+        "节点选择"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "PayPal",
+      "outbounds": [
+        "自动选择",
+        "direct"
+      ]
+    },
+    {
+      "type": "selector",
       "tag": "Twitter",
       "outbounds": [
         "自动选择",
@@ -227,9 +243,15 @@
       },
       {
         "type": "remote",
-        "tag": "ADLite",
-        "format": "binary",
-        "url": "https://yfamilys.com/rule/ADLite.srs"
+        "tag": "gen-crypto",
+        "format": "source",
+        "url": "https://raw.githubusercontent.com/rdone44/loon-rules/main/rules/generated/crypto.json"
+      },
+      {
+        "type": "remote",
+        "tag": "gen-node-select",
+        "format": "source",
+        "url": "https://raw.githubusercontent.com/rdone44/loon-rules/main/rules/generated/node-select.json"
       },
       {
         "type": "remote",
@@ -239,9 +261,33 @@
       },
       {
         "type": "remote",
-        "tag": "ai-cn",
+        "tag": "AmazonCN",
         "format": "binary",
-        "url": "https://yfamilys.com/rule/ai-cn.srs"
+        "url": "https://yfamilys.com/rule/AmazonCN.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "MetaAI",
+        "format": "binary",
+        "url": "https://yfamilys.com/rule/MetaAI.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "OpenAI",
+        "format": "binary",
+        "url": "https://yfamilys.com/rule/OpenAI.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "Gemini",
+        "format": "binary",
+        "url": "https://yfamilys.com/rule/Gemini.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "Claude",
+        "format": "binary",
+        "url": "https://yfamilys.com/rule/Claude.srs"
       },
       {
         "type": "remote",
@@ -251,27 +297,15 @@
       },
       {
         "type": "remote",
-        "tag": "YouTube",
-        "format": "binary",
-        "url": "https://yfamilys.com/rule/YouTube.srs"
-      },
-      {
-        "type": "remote",
-        "tag": "Spotify",
-        "format": "binary",
-        "url": "https://yfamilys.com/rule/Spotify.srs"
-      },
-      {
-        "type": "remote",
-        "tag": "Telegram",
-        "format": "binary",
-        "url": "https://yfamilys.com/rule/Telegram.srs"
-      },
-      {
-        "type": "remote",
         "tag": "Twitter",
         "format": "binary",
         "url": "https://yfamilys.com/rule/Twitter.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "Instagram",
+        "format": "binary",
+        "url": "https://yfamilys.com/rule/Instagram.srs"
       },
       {
         "type": "remote",
@@ -281,9 +315,51 @@
       },
       {
         "type": "remote",
-        "tag": "Instagram",
+        "tag": "Threads",
         "format": "binary",
-        "url": "https://yfamilys.com/rule/Instagram.srs"
+        "url": "https://yfamilys.com/rule/Threads.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "Whatsapp",
+        "format": "binary",
+        "url": "https://yfamilys.com/rule/Whatsapp.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "Telegram",
+        "format": "binary",
+        "url": "https://yfamilys.com/rule/Telegram.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "Discord",
+        "format": "binary",
+        "url": "https://yfamilys.com/rule/Discord.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "YouTube",
+        "format": "binary",
+        "url": "https://yfamilys.com/rule/YouTube.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "YouTubeMusic",
+        "format": "binary",
+        "url": "https://yfamilys.com/rule/YouTubeMusic.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "Spotify",
+        "format": "binary",
+        "url": "https://yfamilys.com/rule/Spotify.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "BiliBiliIntl",
+        "format": "binary",
+        "url": "https://yfamilys.com/rule/BiliBiliIntl.srs"
       },
       {
         "type": "remote",
@@ -299,15 +375,27 @@
       },
       {
         "type": "remote",
+        "tag": "Bybit",
+        "format": "binary",
+        "url": "https://yfamilys.com/rule/Bybit.srs"
+      },
+      {
+        "type": "remote",
         "tag": "Cryptocurrency",
         "format": "binary",
         "url": "https://yfamilys.com/rule/Cryptocurrency.srs"
       },
       {
         "type": "remote",
-        "tag": "ai-global",
+        "tag": "PayPal",
         "format": "binary",
-        "url": "https://yfamilys.com/rule/ai-global.srs"
+        "url": "https://yfamilys.com/rule/PayPal.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "Cursor",
+        "format": "binary",
+        "url": "https://yfamilys.com/rule/Cursor.srs"
       },
       {
         "type": "remote",
@@ -317,27 +405,57 @@
       },
       {
         "type": "remote",
-        "tag": "Microsoft",
-        "format": "binary",
-        "url": "https://yfamilys.com/rule/Microsoft.srs"
-      },
-      {
-        "type": "remote",
         "tag": "Google",
         "format": "binary",
         "url": "https://yfamilys.com/rule/Google.srs"
       },
       {
         "type": "remote",
-        "tag": "AppleProxy",
-        "format": "binary",
-        "url": "https://yfamilys.com/rule/AppleProxy.srs"
-      },
-      {
-        "type": "remote",
         "tag": "Apple",
         "format": "binary",
         "url": "https://yfamilys.com/rule/Apple.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "Siri",
+        "format": "binary",
+        "url": "https://yfamilys.com/rule/Siri.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "TestFlight",
+        "format": "binary",
+        "url": "https://yfamilys.com/rule/TestFlight.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "Microsoft",
+        "format": "binary",
+        "url": "https://yfamilys.com/rule/Microsoft.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "AndroidDownload",
+        "format": "binary",
+        "url": "https://yfamilys.com/rule/AndroidDownload.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "Amazon",
+        "format": "binary",
+        "url": "https://yfamilys.com/rule/Amazon.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "Oracle",
+        "format": "binary",
+        "url": "https://yfamilys.com/rule/Oracle.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "AntiAD",
+        "format": "binary",
+        "url": "https://yfamilys.com/rule/AntiAD.srs"
       },
       {
         "type": "remote",
@@ -382,23 +500,75 @@
         "outbound": "个人"
       },
       {
-        "rule_set": "ADLite",
-        "outbound": "全球拦截"
+        "rule_set": "gen-crypto",
+        "outbound": "加密货币"
+      },
+      {
+        "rule_set": "gen-node-select",
+        "outbound": "节点选择"
       },
       {
         "rule_set": "AppleID",
         "outbound": "AppleID"
       },
       {
-        "rule_set": "ai-cn",
+        "rule_set": "AmazonCN",
         "outbound": "direct"
+      },
+      {
+        "rule_set": "MetaAI",
+        "outbound": "AI"
+      },
+      {
+        "rule_set": "OpenAI",
+        "outbound": "AI"
+      },
+      {
+        "rule_set": "Gemini",
+        "outbound": "AI"
+      },
+      {
+        "rule_set": "Claude",
+        "outbound": "AI"
       },
       {
         "rule_set": "Grok",
         "outbound": "Twitter"
       },
       {
+        "rule_set": "Twitter",
+        "outbound": "Twitter"
+      },
+      {
+        "rule_set": "Instagram",
+        "outbound": "Meta"
+      },
+      {
+        "rule_set": "Facebook",
+        "outbound": "Meta"
+      },
+      {
+        "rule_set": "Threads",
+        "outbound": "Meta"
+      },
+      {
+        "rule_set": "Whatsapp",
+        "outbound": "Meta"
+      },
+      {
+        "rule_set": "Telegram",
+        "outbound": "Telegram"
+      },
+      {
+        "rule_set": "Discord",
+        "outbound": "Discord"
+      },
+      {
         "rule_set": "YouTube",
+        "outbound": "YouTube"
+      },
+      {
+        "rule_set": "YouTubeMusic",
         "outbound": "YouTube"
       },
       {
@@ -406,20 +576,8 @@
         "outbound": "Spotify"
       },
       {
-        "rule_set": "Telegram",
-        "outbound": "Telegram"
-      },
-      {
-        "rule_set": "Twitter",
-        "outbound": "Twitter"
-      },
-      {
-        "rule_set": "Facebook",
-        "outbound": "Meta"
-      },
-      {
-        "rule_set": "Instagram",
-        "outbound": "Meta"
+        "rule_set": "BiliBiliIntl",
+        "outbound": "节点选择"
       },
       {
         "rule_set": "OKX",
@@ -430,32 +588,60 @@
         "outbound": "加密货币"
       },
       {
+        "rule_set": "Bybit",
+        "outbound": "加密货币"
+      },
+      {
         "rule_set": "Cryptocurrency",
         "outbound": "加密货币"
       },
       {
-        "rule_set": "ai-global",
-        "outbound": "AI"
+        "rule_set": "PayPal",
+        "outbound": "PayPal"
+      },
+      {
+        "rule_set": "Cursor",
+        "outbound": "Twitter"
       },
       {
         "rule_set": "GitHub",
         "outbound": "GitHub"
       },
       {
-        "rule_set": "Microsoft",
-        "outbound": "微软服务"
-      },
-      {
         "rule_set": "Google",
         "outbound": "Google"
       },
       {
-        "rule_set": "AppleProxy",
+        "rule_set": "Apple",
         "outbound": "苹果服务"
       },
       {
-        "rule_set": "Apple",
+        "rule_set": "Siri",
         "outbound": "苹果服务"
+      },
+      {
+        "rule_set": "TestFlight",
+        "outbound": "苹果服务"
+      },
+      {
+        "rule_set": "Microsoft",
+        "outbound": "微软服务"
+      },
+      {
+        "rule_set": "AndroidDownload",
+        "outbound": "节点选择"
+      },
+      {
+        "rule_set": "Amazon",
+        "outbound": "节点选择"
+      },
+      {
+        "rule_set": "Oracle",
+        "outbound": "节点选择"
+      },
+      {
+        "rule_set": "AntiAD",
+        "outbound": "全球拦截"
       },
       {
         "rule_set": "China",

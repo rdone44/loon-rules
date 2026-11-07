@@ -26,6 +26,27 @@ DOMAIN-SUFFIX,entire.com,AI
 DOMAIN-SUFFIX,entire.io,AI
 # muse.ai 由 yfamilys ai-global 已覆盖（DOMAIN-SUFFIX,muse.ai）；这里显式写入，不依赖上游。
 DOMAIN-SUFFIX,muse.ai,AI
-# 以下两个 AI 站点上游表未收录，由本表提供。
+# 以下 AI 站点上游表未收录，由本表提供。
 DOMAIN-SUFFIX,anyrouter.top,AI
 DOMAIN-SUFFIX,agentrouter.org,AI
+
+# --- 2026-11-07：两个上游库（yfamilys / QuixoticHeart）均未收录的服务 ---
+# 以下规则均经过实际解析 / 抓取验证，不是猜测。未验证的域名不写进来。
+
+# Google One：上游只有 DOMAIN-SUFFIX,google.com 会把它整段收走，命中不到更精确的表。
+# 订阅/容量/付款页固定出口比 url-test 轮换更稳，单列一条走 AI 组（默认美国出口）。
+DOMAIN-SUFFIX,one.google.com,AI
+
+# MuseWallet（MusePay）：加密卡钱包。musewallet.io 与 musepay.io 同站同标题（CloudFront）。
+DOMAIN-SUFFIX,musewallet.io,加密货币
+DOMAIN-SUFFIX,musepay.io,加密货币
+
+# MpChat：mpchat.io = "MPChat - Your Life, Connected."（同名域 mpchat.com 是俄罗斯建站服务，不收录）。
+DOMAIN-SUFFIX,mpchat.io,节点选择
+
+# Jetpac：jetpac.app = "Jetpac - Shoot for the Stars" 社交 App。
+# jetpac.com 是 easyDNS 停放页、jetpacapp.com 返回 526，不是产品域，不收录。
+DOMAIN-SUFFIX,jetpac.app,节点选择
+
+# Wabi：wabi.ai = "Wabi — The AI assistant you use together"。wabi.app 无标题、wabi.io 返回 402，不收录。
+DOMAIN-SUFFIX,wabi.ai,AI
