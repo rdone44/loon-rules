@@ -1,0 +1,14 @@
+{
+  "version": 3,
+  "rules": [
+    {
+      "domain_suffix": [
+        "entire.com",
+        "entire.io",
+        "muse.ai",
+        "anyrouter.top",
+        "agentrouter.org"
+      ]
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 import { parse as parseYaml, stringify as stringifyYaml } from "yaml";
 import { parseSubscription } from "./parser.js";
-import { buildConfig as buildSingboxConfig } from "./singbox.js";
+import { buildConfig as buildSingboxConfig, convertNodes as convertSingboxNodes } from "./singbox.js";
 import qrcode from "qrcode-generator";
 
 const VERSION = "1.1.0";
@@ -660,6 +660,16 @@ async function handleSingbox(request, env) {
 
   if (!nodes?.proxies?.length) {
     throw new HttpError(503, "还没有可用节点：请先在首页保存订阅地址");
+  }
+
+  if (new URL(request.url).searchParams.get("format") === "nodes") {
+    const { outbounds } = convertSingboxNodes(nodes.proxies);
+    if (outbounds.length === 0) throw new HttpError(422, "没有可用的 sing-box 节点");
+    return configResponse(await resolveProfileName(env, settings), env, JSON.stringify({ outbounds }, null, 2), "application/json; charset=utf-8", {
+      "x-node-count": String(outbounds.length),
+      "x-nodes-cache": nodesFresh ? "hit" : "miss",
+      "x-ms": String(Date.now() - startedAt),
+    });
   }
 
   const templateUrl = settings?.singbox || env.CONFIG_SINGBOX_URL || DEFAULT_SINGBOX_CONFIG_URL;

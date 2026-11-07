@@ -189,6 +189,30 @@
     "rule_set": [
       {
         "type": "remote",
+        "tag": "gen-appleid",
+        "format": "source",
+        "url": "https://raw.githubusercontent.com/rdone44/loon-rules/main/rules/generated/appleid.json"
+      },
+      {
+        "type": "remote",
+        "tag": "gen-adblock",
+        "format": "source",
+        "url": "https://raw.githubusercontent.com/rdone44/loon-rules/main/rules/generated/adblock.json"
+      },
+      {
+        "type": "remote",
+        "tag": "gen-missav",
+        "format": "source",
+        "url": "https://raw.githubusercontent.com/rdone44/loon-rules/main/rules/generated/missav.json"
+      },
+      {
+        "type": "remote",
+        "tag": "gen-ai",
+        "format": "source",
+        "url": "https://raw.githubusercontent.com/rdone44/loon-rules/main/rules/generated/ai.json"
+      },
+      {
+        "type": "remote",
         "tag": "ADLite",
         "format": "binary",
         "url": "https://yfamilys.com/rule/ADLite.srs"
@@ -324,43 +348,19 @@
         "outbound": "direct"
       },
       {
-        "domain_suffix": [
-          "idmsa.apple.com",
-          "appleid.apple.com",
-          "account.apple.com",
-          "iforgot.apple.com",
-          "identity.apple.com",
-          "gsa.apple.com",
-          "appleid.cdn-apple.com",
-          "appleid-validation.apple.com",
-          "idmsa.apple.com.cn"
-        ],
+        "rule_set": "gen-appleid",
         "outbound": "AppleID"
       },
       {
-        "domain_suffix": [
-          "creative.live.missav.com"
-        ],
+        "rule_set": "gen-adblock",
         "outbound": "全球拦截"
       },
       {
-        "domain_keyword": [
-          "missav"
-        ],
-        "domain_suffix": [
-          "njav.tv",
-          "thisav.com",
-          "avdaisukicp.com",
-          "fourhoi.com",
-          "surrit.com"
-        ],
+        "rule_set": "gen-missav",
         "outbound": "MissAV"
       },
       {
-        "domain_suffix": [
-          "entire.com",
-          "entire.io"
-        ],
+        "rule_set": "gen-ai",
         "outbound": "AI"
       },
       {

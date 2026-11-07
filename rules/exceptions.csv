@@ -1,0 +1,31 @@
+# 本地例外唯一真源
+#
+# 每行：类型,值,策略组
+# 类型支持 DOMAIN / DOMAIN-SUFFIX / DOMAIN-KEYWORD
+#
+# 修改本文件后，GitHub Actions 会重新生成 rules/generated/ 下的各客户端表格。
+# 生成规则见 scripts/build-rule-tables.mjs，不要手工编辑生成产物。
+
+DOMAIN-SUFFIX,idmsa.apple.com,AppleID
+DOMAIN-SUFFIX,appleid.apple.com,AppleID
+DOMAIN-SUFFIX,account.apple.com,AppleID
+DOMAIN-SUFFIX,iforgot.apple.com,AppleID
+DOMAIN-SUFFIX,identity.apple.com,AppleID
+DOMAIN-SUFFIX,gsa.apple.com,AppleID
+DOMAIN-SUFFIX,appleid.cdn-apple.com,AppleID
+DOMAIN-SUFFIX,appleid-validation.apple.com,AppleID
+DOMAIN-SUFFIX,idmsa.apple.com.cn,AppleID
+DOMAIN-SUFFIX,creative.live.missav.com,全球拦截
+DOMAIN-KEYWORD,missav,MissAV
+DOMAIN-SUFFIX,njav.tv,MissAV
+DOMAIN-SUFFIX,thisav.com,MissAV
+DOMAIN-SUFFIX,avdaisukicp.com,MissAV
+DOMAIN-SUFFIX,fourhoi.com,MissAV
+DOMAIN-SUFFIX,surrit.com,MissAV
+DOMAIN-SUFFIX,entire.com,AI
+DOMAIN-SUFFIX,entire.io,AI
+# muse.ai 由 yfamilys ai-global 已覆盖（DOMAIN-SUFFIX,muse.ai）；这里显式写入，不依赖上游。
+DOMAIN-SUFFIX,muse.ai,AI
+# 以下两个 AI 站点上游表未收录，由本表提供。
+DOMAIN-SUFFIX,anyrouter.top,AI
+DOMAIN-SUFFIX,agentrouter.org,AI

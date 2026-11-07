@@ -1,0 +1,17 @@
+{
+  "version": 3,
+  "rules": [
+    {
+      "domain_suffix": [
+        "njav.tv",
+        "thisav.com",
+        "avdaisukicp.com",
+        "fourhoi.com",
+        "surrit.com"
+      ],
+      "domain_keyword": [
+        "missav"
+      ]
+    }
+  ]
+}

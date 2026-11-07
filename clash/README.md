@@ -1,50 +1,14 @@
-# clash/
+# Clash / mihomo 配置
 
-订阅网关（[`rdone4425/clash-gateway`](https://github.com/rdone4425/clash-gateway)）的配置模板与个人规则库。
+`clash-remote.yaml` 是订阅网关使用的配置模板。节点由网关注入；独立使用时需要配置 `proxy-providers.remote.url`。保留用户选择的服务策略，以及网关要求的 `🤖 AI 服务` 和 `🎯 全球直连` 隐藏组。
 
-| 文件 | 用途 |
-| --- | --- |
-| `clash-remote.yaml` | **Clash / mihomo 侧的主配置**，与 `Loon.conf` 逐表同序；节点用 `proxy-providers.remote` 提供，网关部署时会把它改写成自己的 `/provider?token=...` |
-| `personal-ai.list` | 个人 AI 域名表，命中走 `🤖 AI 服务` |
-| `personal-direct.list` | 个人直连域名表，命中走 `🎯 全球直连` |
+远程规则与 Loon 尽量对齐：
 
-## 网关入口（实测 2026-10）
+- 大多数表来自 `yfamilys.com/rule/*.list`，使用 `classical` / `text`。
+- yfamilys 的 YouTube、Spotify、Microsoft、AppleProxy、Apple 表含 `USER-AGENT`；mihomo 不支持该规则类型，因此五张表使用 QuixoticHeart 的兼容文本表，覆盖范围不保证完全相同。
+- 国内域名使用网关 `/rules/cn.mrs` 提供的 MetaCubeX 规则，国内 IP 使用 yfamilys `ChinaIPs.list`。
+- AppleID、MissAV、Entire、muse.ai、anyrouter 和 agentrouter 的例外由 `rules/exceptions.csv` 生成，与 Loon 共用同一份源表。
 
-`https://clash-gateway.rdone.eu.cc`
+网关会将 `personal-ai.list` 与 `personal-direct.list` 置于模板规则之前。它们属于个人例外，修改后需要发布到网关读取的仓库位置。
 
-| 路径 | 是否需要 token | 用途 | 实测 |
-| --- | --- | --- | --- |
-| `/` | 否 | 设置页（填 GitHub 配置链接 / 机场订阅 / 订阅名） | 200 |
-| `/health` | 否 | 健康检查，返回 `{"status":"ok","version":"1.1.0"}` | 200 |
-| `/sub?token=<ACCESS_TOKEN>` | 是 | **Clash 订阅地址**，导入客户端用这个 | 无 token 返回 401 |
-| `/provider?token=<ACCESS_TOKEN>` | 是 | 节点源，`proxy-providers` 用 | 无 token 返回 401 |
-
-- 直接打开 `/sub` 或 `/provider` 不带 token 会回 **401**，不是网关坏了
-- 设置页支持 `/?token=<ACCESS_TOKEN>`，会把当前设置明文显示出来
-- 旧地址 `https://clash-sub.rdone.workers.dev/provider/YOUR-PROFILE-ID` **已失效（404）**，模板里的占位符已改到新网关
-
-## 网关怎么取这些文件
-
-```
-CONFIG_URL         → clash/clash-remote.yaml
-PERSONAL_RULES_URL → clash/personal-direct.list
-                     （网关会砍掉最后一段当目录，再拼 personal-ai.list）
-```
-
-两个 `personal-*.list` 必须放在同一目录下，换位置要一起搬。
-
-## 改模板要注意
-
-网关会做三件事，模板得配合：
-
-1. **注入节点**：分组里写 `use: [remote]`，网关会把它换成节点名或自己的 provider 地址
-2. **个人规则置顶**：模板里要有名为 `🤖 AI 服务` 和 `🎯 全球直连` 的分组，网关才能把 `RULE-SET` 插到 `rules` 顶部
-3. **规则集代理**：`rule-providers` 里指向 `cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/*.mrs` 的会被改写成 `/rules/*.mrs`，避开内核直连 jsdelivr 失败
-
-改完 push 即生效（网关有 1 分钟缓存，Clash 侧按 `profile-update-interval` 刷新）。
-
-## 本地用法
-
-不用网关，把 `clash-remote.yaml` 里的 `proxy-providers.remote.url` 换成自己的机场订阅直链（或者网关的 `/provider?token=...`）即可。
-
-> 根目录的 `mihomo.yaml` 已弃用（仅作历史对照）。Clash 侧只维护本目录这份，两者的规则集顺序与策略完全一致。
+`/stash` 与本模板中的 `classical` 规则集兼容性尚未完成验证；请在 Stash 客户端实测，不要把 mihomo 的解析结果当作 Stash 解析结果。网关设置及当前入口见 `../gateway/README.md`。

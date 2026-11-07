@@ -15,11 +15,14 @@ Clash    → /sub?token=...       → 拉 Clash 模板 → 重写 provider URL �
 Clash    → /provider?token=...  → 拉机场订阅 → 解析节点 → 返回 proxies
 Stash    → /stash?token=...     → 同上，但规则集换成 yaml 文本并展开个人规则
 sing-box → /singbox?token=...   → 拉 sing-box 模板 → 节点转成 outbounds → 返回 JSON
+Satelite → /singbox?token=...&format=nodes → 只返回 sing-box 节点 JSON
 ```
 
 ## sing-box 支持
 
 `/singbox` 把订阅里的节点转成 sing-box 的 outbounds，套在 `sing-box/config.json` 模板上。
+
+Satelite 的普通订阅只导入节点，使用 `/singbox?token=...&format=nodes` 可仅返回 sing-box 节点，避免把策略组和内置出口列为跳过项。节点、认证和更新方式与原接口一致；Satelite 的分流规则需在其规则界面配置。
 
 - **只提供出站侧**：模板里的 `inbounds` 会被去掉，TUN / mixed 等入站由客户端（SFI / Karing / Hiddify）自己管；`route.rules` 里对 inbound 的限定也一并去掉，否则 `sniff` 规则会变成死规则
 - **节点填满 `自动选择`**：模板里 `urltest.outbounds` 是空数组，网关用节点列表填满
@@ -121,6 +124,7 @@ npx wrangler secret put SUBSCRIPTION_URL
 | `/sub?token=` | 固定订阅模式的完整配置（Clash） |
 | `/stash?token=` | Stash 兼容版（规则集转 yaml、展开个人规则） |
 | `/singbox?token=` | sing-box 配置（JSON，只含出站侧） |
+| `/singbox?token=&format=nodes` | sing-box 节点订阅（JSON，仅 `outbounds`；适合 Satelite） |
 | `/provider?token=` | 固定订阅模式的节点列表 |
 
 也支持 `Authorization: Bearer <token>`。

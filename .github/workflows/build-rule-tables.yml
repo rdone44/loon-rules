@@ -1,0 +1,49 @@
+name: Build Rule Tables
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'rules/exceptions.csv'
+      - 'scripts/build-rule-tables.mjs'
+      - '.github/workflows/build-rule-tables.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Build tables
+        run: node scripts/build-rule-tables.mjs
+
+      - name: Validate sing-box rule sets
+        run: |
+          curl -fsSL -o sing-box.tar.gz \
+            https://github.com/SagerNet/sing-box/releases/download/v1.14.4/sing-box-1.14.4-linux-amd64.tar.gz
+          tar -xzf sing-box.tar.gz
+          CLI="$(find . -maxdepth 3 -name sing-box -type f | head -n1)"
+          for file in rules/generated/*.json; do
+            echo "check $file"
+            "$CLI" rule-set compile --output /dev/null "$file"
+          done
+
+      - name: Commit generated tables
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add rules/generated
+          if git diff --cached --quiet; then
+            echo "生成结果无变化"
+          else
+            git commit -m "chore(rules): rebuild generated tables"
+            git push
+          fi

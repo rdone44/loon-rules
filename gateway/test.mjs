@@ -91,12 +91,14 @@ const env = {
 
 const ctx = { waitUntil() {}, passThroughOnException() {} };
 
+let singboxTemplateFetches = 0;
 globalThis.fetch = async (input) => {
   const url = String(input);
   if (url.includes("config-a.yaml")) {
     return new Response(currentConfig, { status: 200, headers: { "content-type": "text/yaml" } });
   }
   if (url.includes("singbox-a.json")) {
+    singboxTemplateFetches += 1;
     return new Response(JSON.stringify(SINGBOX_TEMPLATE), { status: 200, headers: { "content-type": "application/json" } });
   }
   if (url.includes("provider.example.com")) {
@@ -188,9 +190,25 @@ for (const group of sbRegion) {
   check(group.outbounds.every((tag) => sbConfig.outbounds.some((o) => o.tag === tag)), `地区组 ${group.tag} 引用了不存在的 tag`);
 }
 
-// 无 token 必须 401
+// Satelite 的订阅解析只需要真实出站节点，不能包含策略组或内置出口。
+const templateFetchesBeforeNodes = singboxTemplateFetches;
+response = await worker.fetch(new Request(`${base}/singbox?token=test-token&format=nodes`), env, ctx);
+const sateliteConfig = await response.json();
+const expectedNodes = sbConfig.outbounds.filter((outbound) => typeof outbound.server === "string");
+check(response.status === 200, `sing-box 节点订阅返回 ${response.status}`);
+check(response.headers.get("content-type")?.includes("application/json"), "节点订阅不是 JSON");
+check(response.headers.get("cache-control") === "no-store", "节点订阅应禁止缓存");
+check(Object.keys(sateliteConfig).length === 1 && Array.isArray(sateliteConfig.outbounds), "节点订阅应只包含 outbounds 数组");
+check(JSON.stringify(sateliteConfig.outbounds) === JSON.stringify(expectedNodes), "节点订阅与完整配置中的实际节点不一致");
+check(sateliteConfig.outbounds.every((outbound) => typeof outbound.server === "string"), "节点订阅包含策略组或内置出口");
+check(Number(response.headers.get("x-node-count")) === expectedNodes.length, "节点订阅数量头不正确");
+check(singboxTemplateFetches === templateFetchesBeforeNodes, "节点订阅不应依赖完整配置模板");
+
+// 无 token 必须 401，节点订阅同样需要认证。
 response = await worker.fetch(new Request(`${base}/singbox`), env, ctx);
 check(response.status === 401, `singbox 无 token 返回 ${response.status}，应为 401`);
+response = await worker.fetch(new Request(`${base}/singbox?format=nodes`), env, ctx);
+check(response.status === 401, `singbox 节点订阅无 token 返回 ${response.status}，应为 401`);
 
 currentConfig = makeConfig("🆕 新分组");
 response = await worker.fetch(new Request(`${base}/sub?token=test-token`), env, ctx);
