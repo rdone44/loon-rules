@@ -54,6 +54,14 @@
       ]
     },
     {
+      "type": "selector",
+      "tag": "个人",
+      "outbounds": [
+        "自动选择",
+        "direct"
+      ]
+    },
+    {
       "type": "urltest",
       "tag": "自动选择",
       "outbounds": [],
@@ -213,6 +221,12 @@
       },
       {
         "type": "remote",
+        "tag": "gen-personal",
+        "format": "source",
+        "url": "https://raw.githubusercontent.com/rdone44/loon-rules/main/rules/generated/personal.json"
+      },
+      {
+        "type": "remote",
         "tag": "ADLite",
         "format": "binary",
         "url": "https://yfamilys.com/rule/ADLite.srs"
@@ -362,6 +376,10 @@
       {
         "rule_set": "gen-ai",
         "outbound": "AI"
+      },
+      {
+        "rule_set": "gen-personal",
+        "outbound": "个人"
       },
       {
         "rule_set": "ADLite",

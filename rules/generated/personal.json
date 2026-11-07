@@ -1,0 +1,21 @@
+{
+  "version": 3,
+  "rules": [
+    {
+      "domain": [
+        "new.sharedchat.cc",
+        "gw2.oops.asia"
+      ],
+      "domain_suffix": [
+        "linuxdo.org",
+        "chybenzun.top",
+        "xiaomimimo.com",
+        "muyuan.do",
+        "bestcf.fxxk.dedyn.io",
+        "apivs.si",
+        "aws.amazon.com",
+        "de.rdone.hidns.co"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+# 个人规则表：命中即走「个人」策略组
+#
+# 每行：类型,值
+# 类型支持 DOMAIN / DOMAIN-SUFFIX / DOMAIN-KEYWORD
+#
+# 与 exceptions.csv 共用 scripts/build-rule-tables.mjs 生成流程，
+# 但本表不带策略列：目标策略组由四个配置的引用处指定（统一为「个人」）。
+#
+# 修改后 GitHub Actions 会生成 rules/generated/personal.list 与 personal.json。
+
+DOMAIN,new.sharedchat.cc
+DOMAIN,gw2.oops.asia
+DOMAIN-SUFFIX,linuxdo.org
+DOMAIN-SUFFIX,chybenzun.top
+DOMAIN-SUFFIX,xiaomimimo.com
+DOMAIN-SUFFIX,muyuan.do
+DOMAIN-SUFFIX,bestcf.fxxk.dedyn.io
+DOMAIN-SUFFIX,apivs.si
+DOMAIN-SUFFIX,aws.amazon.com
+DOMAIN-SUFFIX,de.rdone.hidns.co

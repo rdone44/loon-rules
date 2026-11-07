@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'rules/exceptions.csv'
+      - 'rules/personal.csv'
       - 'scripts/build-rule-tables.mjs'
       - '.github/workflows/build-rule-tables.yml'
   workflow_dispatch:

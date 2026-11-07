@@ -160,6 +160,9 @@ proxy-groups:
     exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
     url: http://www.gstatic.com/generate_204
     interval: 300
+  - name: 个人
+    type: select
+    proxies: [自动选择, DIRECT]
   # ---- 网关锚点（hidden）：仅接收网关插到 rules 顶部的 personal-ai / personal-direct ----
   - name: 🤖 AI 服务
     type: select
@@ -176,6 +179,7 @@ rules:
   - RULE-SET,gen-adblock,全球拦截
   - RULE-SET,gen-missav,MissAV
   - RULE-SET,gen-ai,AI
+  - RULE-SET,gen-personal,个人
   - RULE-SET,yf-ADLite,全球拦截
   - RULE-SET,yf-AppleID,AppleID
   - RULE-SET,yf-ai-cn,DIRECT
@@ -204,6 +208,7 @@ rule-providers:
   gen-adblock: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/gen-adblock.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rules/generated/adblock.list' }
   gen-missav: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/gen-missav.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rules/generated/missav.list' }
   gen-ai: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/gen-ai.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rules/generated/ai.list' }
+  gen-personal: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/gen-personal.list, url: 'https://raw.githubusercontent.com/rdone44/loon-rules/main/rules/generated/personal.list' }
   # 五个包含 USER-AGENT 的表改用兼容 mihomo 的 QuixoticHeart 文本表。
   yf-ADLite: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-ADLite.list, url: 'https://yfamilys.com/rule/ADLite.list' }
   yf-AppleID: { type: http, behavior: classical, format: text, interval: 3600, path: ./ruleset/yf-AppleID.list, url: 'https://yfamilys.com/rule/AppleID.list' }
