@@ -78,6 +78,14 @@
       ]
     },
     {
+      "type": "urltest",
+      "tag": "Gemini",
+      "outbounds": [],
+      "url": "https://gemini.google.com",
+      "interval": "10m",
+      "tolerance": 150
+    },
+    {
       "type": "selector",
       "tag": "YouTube",
       "outbounds": [
@@ -525,7 +533,7 @@
       },
       {
         "rule_set": "Gemini",
-        "outbound": "AI"
+        "outbound": "Gemini"
       },
       {
         "rule_set": "Claude",

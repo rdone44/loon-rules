@@ -404,6 +404,16 @@ export function buildConfig(template, nodes) {
     }
   }
 
+  // Gemini 只走美国节点：模板里 outbounds 留空，这里按节点名筛出美国节点填入。
+  // 不能直接引用 "\u{1F1FA}\u{1F1F8} 美国" 地区组——订阅里没有美国节点时
+  // buildRegionGroups 不生成该组，引用会变成 outbound not found，sing-box 直接拒绝启动。
+  const gemini = templateOutbounds.find((item) => item.tag === "Gemini");
+  if (gemini) {
+    const usRegion = REGION_TABLE.find((region) => region.name === "🇺🇸 美国");
+    const usNodes = usRegion ? nodeOutbounds.filter((node) => matchRegion(node.tag, usRegion)) : [];
+    gemini.outbounds = usNodes.map((node) => node.tag);
+  }
+
   const regionGroups = buildRegionGroups(nodeOutbounds);
   const mainSelector = templateOutbounds.find((item) => item.type === "selector" && Array.isArray(item.outbounds));
   if (mainSelector && regionGroups.length > 0) {

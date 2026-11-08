@@ -85,6 +85,16 @@ proxy-groups:
     expected-status: "200"
     interval: 600
     tolerance: 150
+  # Gemini 只走美国节点：不使用 AI 组（AI 的 filter 含日本节点）
+  - name: Gemini
+    type: url-test
+    include-all: true
+    filter: '(?i)🇺🇸|美国|美國|洛杉矶|洛杉磯|纽约|紐約|圣何塞|聖何塞|圣克拉拉|西雅图|西雅圖|芝加哥|达拉斯|達拉斯|凤凰城|鳳凰城|硅谷|矽谷|费利蒙|拉斯维加斯|波特兰|俄勒冈|亚特兰大|迈阿密|华盛顿|波士顿|丹佛|檀香山|盐湖城|圣地亚哥|United ?States|America|Los Angeles|San Jose|Santa Clara|Silicon Valley|Seattle|Chicago|Dallas|Phoenix|Portland|Oregon|Atlanta|Miami|Washington|Boston|Denver|Honolulu|Salt Lake|Ashburn|Buffalo|Fremont|Las Vegas|New York|美西|美东|美中|\b(US|USA|LAX|SJC|SFO|SEA|IAD|ORD|DFW|JFK|NYC|EWR|ATL|MIA|BOS|DEN|IAH|PHX|SAN|PDX|SLC|LAS|MSP|DTW|CLT|PHL)\d*\b'
+    exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
+    url: https://gemini.google.com
+    expected-status: "200"
+    interval: 600
+    tolerance: 150
   - name: 苹果服务
     type: select
     proxies: [DIRECT, 自动选择]
@@ -205,7 +215,7 @@ rules:
   # AI（必须早于 Google）
   - RULE-SET,yf-MetaAI,AI
   - RULE-SET,yf-OpenAI,AI
-  - RULE-SET,yf-Gemini,AI
+  - RULE-SET,yf-Gemini,Gemini
   - RULE-SET,yf-Claude,AI
   # 社交
   - RULE-SET,yf-Grok,Twitter
