@@ -5,9 +5,21 @@
   },
   "dns": {
     "servers": [
-      { "tag": "dns-remote", "type": "https", "server": "doh.pub", "detour": "节点选择" },
-      { "tag": "dns-direct", "type": "local" },
-      { "tag": "dns-fakeip", "type": "fakeip", "inet4_range": "198.18.0.0/15" }
+      {
+        "tag": "dns-remote",
+        "type": "https",
+        "server": "doh.pub",
+        "detour": "节点选择"
+      },
+      {
+        "tag": "dns-direct",
+        "type": "local"
+      },
+      {
+        "tag": "dns-fakeip",
+        "type": "fakeip",
+        "inet4_range": "198.18.0.0/15"
+      }
     ],
     "rules": [
       {
@@ -37,14 +49,31 @@
       "type": "tun",
       "tag": "tun-in",
       "interface_name": "sing-box",
-      "address": ["172.19.0.1/30", "fdfe:dcba:9876::1/126"],
+      "address": [
+        "172.19.0.1/30",
+        "fdfe:dcba:9876::1/126"
+      ],
       "mtu": 9000,
       "auto_route": true,
       "strict_route": false,
       "stack": "mixed"
     }
   ],
+  "http_clients": {
+    "rule-download": {
+      "detour": "规则下载"
+    }
+  },
   "outbounds": [
+    {
+      "type": "selector",
+      "tag": "规则下载",
+      "outbounds": [
+        "节点选择",
+        "自动选择",
+        "direct"
+      ]
+    },
     {
       "type": "selector",
       "tag": "节点选择",
@@ -221,258 +250,301 @@
     "rule_set": [
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "gen-appleid",
         "format": "source",
         "url": "https://raw.githubusercontent.com/rdone44/loon-rules/main/rules/generated/appleid.json"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "gen-adblock",
         "format": "source",
         "url": "https://raw.githubusercontent.com/rdone44/loon-rules/main/rules/generated/adblock.json"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "gen-missav",
         "format": "source",
         "url": "https://raw.githubusercontent.com/rdone44/loon-rules/main/rules/generated/missav.json"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "gen-ai",
         "format": "source",
         "url": "https://raw.githubusercontent.com/rdone44/loon-rules/main/rules/generated/ai.json"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "gen-personal",
         "format": "source",
         "url": "https://raw.githubusercontent.com/rdone44/loon-rules/main/rules/generated/personal.json"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "gen-crypto",
         "format": "source",
         "url": "https://raw.githubusercontent.com/rdone44/loon-rules/main/rules/generated/crypto.json"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "gen-node-select",
         "format": "source",
         "url": "https://raw.githubusercontent.com/rdone44/loon-rules/main/rules/generated/node-select.json"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "AppleID",
         "format": "binary",
         "url": "https://yfamilys.com/rule/AppleID.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "AmazonCN",
         "format": "binary",
         "url": "https://yfamilys.com/rule/AmazonCN.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "MetaAI",
         "format": "binary",
         "url": "https://yfamilys.com/rule/MetaAI.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "OpenAI",
         "format": "binary",
         "url": "https://yfamilys.com/rule/OpenAI.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "Gemini",
         "format": "binary",
         "url": "https://yfamilys.com/rule/Gemini.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "Claude",
         "format": "binary",
         "url": "https://yfamilys.com/rule/Claude.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "Grok",
         "format": "binary",
         "url": "https://yfamilys.com/rule/Grok.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "Twitter",
         "format": "binary",
         "url": "https://yfamilys.com/rule/Twitter.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "Instagram",
         "format": "binary",
         "url": "https://yfamilys.com/rule/Instagram.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "Facebook",
         "format": "binary",
         "url": "https://yfamilys.com/rule/Facebook.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "Threads",
         "format": "binary",
         "url": "https://yfamilys.com/rule/Threads.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "Whatsapp",
         "format": "binary",
         "url": "https://yfamilys.com/rule/Whatsapp.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "Telegram",
         "format": "binary",
         "url": "https://yfamilys.com/rule/Telegram.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "Discord",
         "format": "binary",
         "url": "https://yfamilys.com/rule/Discord.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "YouTube",
         "format": "binary",
         "url": "https://yfamilys.com/rule/YouTube.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "YouTubeMusic",
         "format": "binary",
         "url": "https://yfamilys.com/rule/YouTubeMusic.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "Spotify",
         "format": "binary",
         "url": "https://yfamilys.com/rule/Spotify.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "BiliBiliIntl",
         "format": "binary",
         "url": "https://yfamilys.com/rule/BiliBiliIntl.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "OKX",
         "format": "binary",
         "url": "https://yfamilys.com/rule/OKX.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "Binance",
         "format": "binary",
         "url": "https://yfamilys.com/rule/Binance.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "Bybit",
         "format": "binary",
         "url": "https://yfamilys.com/rule/Bybit.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "Cryptocurrency",
         "format": "binary",
         "url": "https://yfamilys.com/rule/Cryptocurrency.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "PayPal",
         "format": "binary",
         "url": "https://yfamilys.com/rule/PayPal.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "Cursor",
         "format": "binary",
         "url": "https://yfamilys.com/rule/Cursor.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "GitHub",
         "format": "binary",
         "url": "https://yfamilys.com/rule/GitHub.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "Google",
         "format": "binary",
         "url": "https://yfamilys.com/rule/Google.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "Apple",
         "format": "binary",
         "url": "https://yfamilys.com/rule/Apple.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "Siri",
         "format": "binary",
         "url": "https://yfamilys.com/rule/Siri.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "TestFlight",
         "format": "binary",
         "url": "https://yfamilys.com/rule/TestFlight.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "Microsoft",
         "format": "binary",
         "url": "https://yfamilys.com/rule/Microsoft.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "AndroidDownload",
         "format": "binary",
         "url": "https://yfamilys.com/rule/AndroidDownload.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "Amazon",
         "format": "binary",
         "url": "https://yfamilys.com/rule/Amazon.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "Oracle",
         "format": "binary",
         "url": "https://yfamilys.com/rule/Oracle.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "AntiAD",
         "format": "binary",
         "url": "https://yfamilys.com/rule/AntiAD.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "China",
         "format": "binary",
         "url": "https://yfamilys.com/rule/China.srs"
       },
       {
         "type": "remote",
+        "http_client": "rule-download",
         "tag": "ChinaIPs",
         "format": "binary",
         "url": "https://yfamilys.com/rule/ChinaIPs.srs"
@@ -660,16 +732,16 @@
         "server": "dns-direct",
         "strategy": "prefer_ipv4"
       },
-        {
-          "rule_set": "ChinaIPs",
-          "outbound": "direct"
-        },
-        {
-          "domain_suffix": [
-            "cdn.jsdelivr.net"
-          ],
-          "outbound": "节点选择"
-        }
+      {
+        "rule_set": "ChinaIPs",
+        "outbound": "direct"
+      },
+      {
+        "domain_suffix": [
+          "cdn.jsdelivr.net"
+        ],
+        "outbound": "节点选择"
+      }
     ]
   },
   "experimental": {
