@@ -46,6 +46,7 @@ proxy-groups:
   # ---- 应用策略组（全自动，节点平铺）----
   - name: Meta
     type: url-test
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Facebook.png
     include-all: true
     filter: '(?i)🇺🇸|美国|美國|洛杉矶|洛杉磯|纽约|紐約|圣何塞|聖何塞|圣克拉拉|西雅图|西雅圖|芝加哥|达拉斯|達拉斯|凤凰城|鳳凰城|硅谷|矽谷|United ?States|America|Los Angeles|San Jose|Santa Clara|Silicon Valley|Seattle|Chicago|Dallas|Phoenix|New York|Ashburn|Buffalo|Fremont|Las Vegas|美西|美东|美中|\b(US|USA|LAX|SJC|SFO|SEA|IAD|ORD|DFW|JFK|NYC|EWR|ATL|MIA|BOS|DEN|IAH|PHX|SAN|PDX|SLC|LAS|MSP|DTW|CLT|PHL)\d*\b'
     exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
@@ -54,6 +55,7 @@ proxy-groups:
     tolerance: 300
   - name: YouTube
     type: url-test
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/YouTube.png
     include-all: true
     exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
     url: https://www.youtube.com/generate_204
@@ -62,6 +64,7 @@ proxy-groups:
     tolerance: 150
   - name: Google
     type: url-test
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Google_Search.png
     include-all: true
     filter: '(?i)🇭🇰|香港|🇹🇼|台湾|台北|🇯🇵|日本|东京|大阪|🇸🇬|新加坡|🇺🇸|美国|🇰🇷|韩国|首尔|🇩🇪|德国|法兰克福|Hong ?Kong|Taiwan|Taipei|Japan|Tokyo|Osaka|Singapore|Korea|Seoul|Germany|Frankfurt|\b(HK|HKG|TW|TWN|TPE|JP|JPN|NRT|HND|KIX|TYO|SG|SGP|SIN|US|USA|LAX|SJC|SFO|SEA|IAD|ORD|DFW|JFK|NYC|EWR|KR|KOR|ICN|DE|DEU|FRA)\d*\b'
     exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
@@ -70,6 +73,7 @@ proxy-groups:
     tolerance: 150
   - name: Spotify
     type: url-test
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Spotify.png
     include-all: true
     exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
     url: https://open.spotify.com/
@@ -78,6 +82,7 @@ proxy-groups:
     tolerance: 150
   - name: AI
     type: url-test
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/ChatGPT.png
     include-all: true
     filter: '(?i)🇯🇵|日本|东京|東京|大阪|京都|名古屋|札幌|横滨|橫濱|埼玉|Japan|Tokyo|Osaka|NTT|\b(JP|JPN|NRT|HND|KIX|TYO)\d*\b|🇺🇸|美国|美國|洛杉矶|洛杉磯|纽约|紐約|圣何塞|聖何塞|西雅图|芝加哥|达拉斯|凤凰城|鳳凰城|硅谷|矽谷|United ?States|America|\b(US|USA|LAX|SJC|SFO|SEA|IAD|ORD|DFW|JFK|NYC|EWR)\d*\b'
     exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
@@ -88,6 +93,7 @@ proxy-groups:
   # Gemini 只走美国节点：不使用 AI 组（AI 的 filter 含日本节点）
   - name: Gemini
     type: url-test
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/AI.png
     include-all: true
     filter: '(?i)🇺🇸|美国|美國|洛杉矶|洛杉磯|纽约|紐約|圣何塞|聖何塞|圣克拉拉|西雅图|西雅圖|芝加哥|达拉斯|達拉斯|凤凰城|鳳凰城|硅谷|矽谷|费利蒙|拉斯维加斯|波特兰|俄勒冈|亚特兰大|迈阿密|华盛顿|波士顿|丹佛|檀香山|盐湖城|圣地亚哥|United ?States|America|Los Angeles|San Jose|Santa Clara|Silicon Valley|Seattle|Chicago|Dallas|Phoenix|Portland|Oregon|Atlanta|Miami|Washington|Boston|Denver|Honolulu|Salt Lake|Ashburn|Buffalo|Fremont|Las Vegas|New York|美西|美东|美中|\b(US|USA|LAX|SJC|SFO|SEA|IAD|ORD|DFW|JFK|NYC|EWR|ATL|MIA|BOS|DEN|IAH|PHX|SAN|PDX|SLC|LAS|MSP|DTW|CLT|PHL)\d*\b'
     exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
@@ -97,22 +103,26 @@ proxy-groups:
     tolerance: 150
   - name: 苹果服务
     type: select
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Apple.png
     proxies: [DIRECT, 自动选择]
     include-all: true
     exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
   # Apple 账户认证（改密 / 重置 / 双重认证）：需与账号地区同出口，用前手动切美国
   - name: AppleID
     type: select
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Apple.png
     proxies: [DIRECT, 自动选择]
     include-all: true
     exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
   - name: 微软服务
     type: select
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Microsoft.png
     proxies: [DIRECT, 自动选择]
     include-all: true
     exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
   - name: GitHub
     type: url-test
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/GitHub.png
     include-all: true
     filter: '(?i)🇭🇰|香港|🇹🇼|台湾|台北|🇯🇵|日本|东京|大阪|🇸🇬|新加坡|🇺🇸|美国|🇰🇷|韩国|首尔|🇩🇪|德国|法兰克福|Hong ?Kong|Taiwan|Taipei|Japan|Tokyo|Osaka|Singapore|Korea|Seoul|Germany|Frankfurt|\b(HK|HKG|TW|TWN|TPE|JP|JPN|NRT|HND|KIX|TYO|SG|SGP|SIN|US|USA|LAX|SJC|SFO|SEA|IAD|ORD|DFW|JFK|NYC|EWR|KR|KOR|ICN|DE|DEU|FRA)\d*\b'
     exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
@@ -122,6 +132,7 @@ proxy-groups:
     tolerance: 150
   - name: Telegram
     type: url-test
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Telegram.png
     include-all: true
     exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
     url: https://web.telegram.org/a/
@@ -130,6 +141,7 @@ proxy-groups:
     tolerance: 150
   - name: Discord
     type: url-test
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Discord.png
     include-all: true
     filter: '(?i)🇭🇰|香港|🇹🇼|台湾|台北|🇯🇵|日本|东京|大阪|🇸🇬|新加坡|🇺🇸|美国|🇰🇷|韩国|首尔|🇩🇪|德国|法兰克福|Hong ?Kong|Taiwan|Taipei|Japan|Tokyo|Osaka|Singapore|Korea|Seoul|Germany|Frankfurt|\b(HK|HKG|TW|TWN|TPE|JP|JPN|NRT|HND|KIX|TYO|SG|SGP|SIN|US|USA|LAX|SJC|SFO|SEA|IAD|ORD|DFW|JFK|NYC|EWR|KR|KOR|ICN|DE|DEU|FRA)\d*\b'
     exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
@@ -139,6 +151,7 @@ proxy-groups:
     tolerance: 150
   - name: Twitter
     type: url-test
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Twitter.png
     include-all: true
     exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
     url: http://www.gstatic.com/generate_204
@@ -146,18 +159,21 @@ proxy-groups:
     tolerance: 150
   - name: 加密货币
     type: select
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Cryptocurrency.png
     proxies: [自动选择]
     include-all: true
     exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
   # 支付默认美国出口；要与账号地区一致时手动切
   - name: PayPal
     type: select
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/PayPal.png
     proxies: [自动选择, DIRECT]
     include-all: true
     filter: '(?i)🇺🇸|美国|美國|United ?States|America|\b(US|USA|LAX|SJC|SFO|SEA|IAD|ORD|DFW|JFK|NYC|EWR)\d*\b'
     exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
   - name: MissAV
     type: url-test
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Streaming.png
     include-all: true
     exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
     url: http://www.gstatic.com/generate_204
@@ -167,9 +183,11 @@ proxy-groups:
   # ---- 主策略组 ----
   - name: 节点选择
     type: select
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Proxy.png
     proxies: [自动选择, DIRECT]
   - name: 自动选择
     type: url-test
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Global.png
     include-all: true
     filter: '(?i)🇭🇰|香港|🇯🇵|日本|🇸🇬|新加坡|🇺🇸|美国|Hong ?Kong|Tokyo|Osaka|Singapore|\b(HK|HKG|JP|JPN|SG|SGP|US|USA)\b'
     exclude-filter: '(?i)回国|校园|游戏|到期|流量|剩余|官网|客服|订阅|邀请|频道'
@@ -179,23 +197,28 @@ proxy-groups:
   # ---- 功能策略组 ----
   - name: 全球拦截
     type: select
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Reject.png
     proxies: [REJECT, DIRECT]
   - name: 漏网之鱼
     type: fallback
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Final.png
     include-all: true
     exclude-filter: '(?i)回国|校园|到期|流量|剩余|官网|客服|订阅|邀请|频道|群|公告|广告|已用|重置|通知|试用|测试|备用|失联|超时|无法|说明|教程|关注|更新|作者|加入|收藏|福利|好友|最新|获取|联系|邮箱|工单|防止|地址|下次|版本|机场|循环'
     url: http://www.gstatic.com/generate_204
     interval: 300
   - name: 个人
     type: select
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Proxy.png
     proxies: [自动选择, DIRECT]
   # ---- 网关锚点（hidden）：仅接收网关插到 rules 顶部的 personal-ai / personal-direct ----
   - name: 🤖 AI 服务
     type: select
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/AI.png
     proxies: [AI, 自动选择, DIRECT]
     hidden: true
   - name: 🎯 全球直连
     type: select
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Global.png
     proxies: [DIRECT, 节点选择]
     hidden: true
 
@@ -254,6 +277,8 @@ rules:
   # 国内直连最后
   - RULE-SET,yf-China-domain,DIRECT
   - RULE-SET,yf-ChinaIPs,DIRECT
+  # 策略组图标的图床：直连会被 TLS reset，固定走代理
+  - DOMAIN-SUFFIX,cdn.jsdelivr.net,节点选择
   - MATCH,漏网之鱼
 
 rule-providers:

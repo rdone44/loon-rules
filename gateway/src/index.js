@@ -1092,30 +1092,33 @@ function parsePersonalList(text) {
 
 /**
  * 地区识别表：按节点名匹配（国旗 emoji / ISO 代码 / 中文名 / 常见英文词）。
+ * icon 用于 mihomo 策略组图标（Qure 图标集文件名）。
  */
+const ICON_BASE = "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color";
+
 const REGION_TABLE = [
-  { name: "🇭🇰 香港", match: ["HK", "HKG", "HONGKONG", "HONG KONG", "香港", "🇭🇰"] },
-  { name: "🇹🇼 台湾", match: ["TW", "TWN", "台湾", "臺灣", "台北", "🇹🇼"] },
-  { name: "🇯🇵 日本", match: ["JP", "JPN", "JAPAN", "日本", "东京", "大阪", "🇯🇵"] },
-  { name: "🇰🇷 韩国", match: ["KR", "KOR", "KOREA", "韩国", "首尔", "🇰🇷"] },
-  { name: "🇸🇬 新加坡", match: ["SG", "SGP", "SINGAPORE", "新加坡", "狮城", "🇸🇬"] },
-  { name: "🇺🇸 美国", match: ["US", "USA", "AMERICA", "美国", "洛杉矶", "圣何塞", "🇺🇸"] },
-  { name: "🇬🇧 英国", match: ["UK", "GB", "GBR", "英国", "伦敦", "🇬🇧"] },
-  { name: "🇩🇪 德国", match: ["DE", "GER", "德国", "法兰克福", "🇩🇪"] },
-  { name: "🇫🇷 法国", match: ["FR", "FRA", "法国", "巴黎", "🇫🇷"] },
-  { name: "🇳🇱 荷兰", match: ["NL", "NLD", "荷兰", "阿姆斯特丹", "🇳🇱"] },
-  { name: "🇷🇺 俄罗斯", match: ["RU", "RUS", "俄罗斯", "莫斯科", "🇷🇺"] },
-  { name: "🇲🇾 马来西亚", match: ["MY", "MYS", "马来西亚", "吉隆坡", "🇲🇾"] },
-  { name: "🇹🇭 泰国", match: ["TH", "THA", "泰国", "曼谷", "🇹🇭"] },
-  { name: "🇻🇳 越南", match: ["VN", "VNM", "越南", "🇻🇳"] },
-  { name: "🇵🇭 菲律宾", match: ["PH", "PHL", "菲律宾", "🇵🇭"] },
-  { name: "🇮🇳 印度", match: ["IN", "IND", "印度", "孟买", "🇮🇳"] },
-  { name: "🇮🇩 印尼", match: ["ID", "IDN", "印尼", "雅加达", "🇮🇩"] },
-  { name: "🇨🇦 加拿大", match: ["CA", "CAN", "加拿大", "🇨🇦"] },
-  { name: "🇦🇺 澳大利亚", match: ["AU", "AUS", "澳大利亚", "澳洲", "悉尼", "🇦🇺"] },
-  { name: "🇧🇷 巴西", match: ["BR", "BRA", "巴西", "🇧🇷"] },
-  { name: "🇹🇷 土耳其", match: ["TR", "TUR", "土耳其", "🇹🇷"] },
-  { name: "🇦🇷 阿根廷", match: ["AR", "ARG", "阿根廷", "🇦🇷"] },
+  { name: "🇭🇰 香港", icon: "Hong_Kong", match: ["HK", "HKG", "HONGKONG", "HONG KONG", "香港", "🇭🇰"] },
+  { name: "🇹🇼 台湾", icon: "Taiwan", match: ["TW", "TWN", "台湾", "臺灣", "台北", "🇹🇼"] },
+  { name: "🇯🇵 日本", icon: "Japan", match: ["JP", "JPN", "JAPAN", "日本", "东京", "大阪", "🇯🇵"] },
+  { name: "🇰🇷 韩国", icon: "Korea", match: ["KR", "KOR", "KOREA", "韩国", "首尔", "🇰🇷"] },
+  { name: "🇸🇬 新加坡", icon: "Singapore", match: ["SG", "SGP", "SINGAPORE", "新加坡", "狮城", "🇸🇬"] },
+  { name: "🇺🇸 美国", icon: "United_States", match: ["US", "USA", "AMERICA", "美国", "洛杉矶", "圣何塞", "🇺🇸"] },
+  { name: "🇬🇧 英国", icon: "United_Kingdom", match: ["UK", "GB", "GBR", "英国", "伦敦", "🇬🇧"] },
+  { name: "🇩🇪 德国", icon: "Germany", match: ["DE", "GER", "德国", "法兰克福", "🇩🇪"] },
+  { name: "🇫🇷 法国", icon: "France", match: ["FR", "FRA", "法国", "巴黎", "🇫🇷"] },
+  { name: "🇳🇱 荷兰", icon: "Area", match: ["NL", "NLD", "荷兰", "阿姆斯特丹", "🇳🇱"] },
+  { name: "🇷🇺 俄罗斯", icon: "Russia", match: ["RU", "RUS", "俄罗斯", "莫斯科", "🇷🇺"] },
+  { name: "🇲🇾 马来西亚", icon: "Malaysia", match: ["MY", "MYS", "马来西亚", "吉隆坡", "🇲🇾"] },
+  { name: "🇹🇭 泰国", icon: "Thailand", match: ["TH", "THA", "泰国", "曼谷", "🇹🇭"] },
+  { name: "🇻🇳 越南", icon: "Area", match: ["VN", "VNM", "越南", "🇻🇳"] },
+  { name: "🇵🇭 菲律宾", icon: "Philippines", match: ["PH", "PHL", "菲律宾", "🇵🇭"] },
+  { name: "🇮🇳 印度", icon: "India", match: ["IN", "IND", "印度", "孟买", "🇮🇳"] },
+  { name: "🇮🇩 印尼", icon: "Area", match: ["ID", "IDN", "印尼", "雅加达", "🇮🇩"] },
+  { name: "🇨🇦 加拿大", icon: "Canada", match: ["CA", "CAN", "加拿大", "🇨🇦"] },
+  { name: "🇦🇺 澳大利亚", icon: "Australia", match: ["AU", "AUS", "澳大利亚", "澳洲", "悉尼", "🇦🇺"] },
+  { name: "🇧🇷 巴西", icon: "Brazil", match: ["BR", "BRA", "巴西", "🇧🇷"] },
+  { name: "🇹🇷 土耳其", icon: "Turkey", match: ["TR", "TUR", "土耳其", "🇹🇷"] },
+  { name: "🇦🇷 阿根廷", icon: "Argentina", match: ["AR", "ARG", "阿根廷", "🇦🇷"] },
 ];
 
 function matchRegion(name, region) {
@@ -1136,6 +1139,7 @@ function buildRegionGroups(nodes) {
     groups.push({
       name: region.name,
       type: "url-test",
+      icon: `${ICON_BASE}/${region.icon}.png`,
       url: "http://www.gstatic.com/generate_204",
       interval: 300,
       tolerance: 150,

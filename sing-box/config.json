@@ -660,10 +660,16 @@
         "server": "dns-direct",
         "strategy": "prefer_ipv4"
       },
-      {
-        "rule_set": "ChinaIPs",
-        "outbound": "direct"
-      }
+        {
+          "rule_set": "ChinaIPs",
+          "outbound": "direct"
+        },
+        {
+          "domain_suffix": [
+            "cdn.jsdelivr.net"
+          ],
+          "outbound": "节点选择"
+        }
     ]
   },
   "experimental": {
