@@ -59,11 +59,12 @@
       "stack": "mixed"
     }
   ],
-  "http_clients": {
-    "rule-download": {
+  "http_clients": [
+    {
+      "tag": "rule-download",
       "detour": "规则下载"
     }
-  },
+  ],
   "outbounds": [
     {
       "type": "selector",
